@@ -3,12 +3,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const TasksScreen = () => {
+const GuidesScreen = () => {
   return (
     <View>
-      <Text>Tasks Screen</Text>
+      <Text>Guides Screen</Text>
     </View>
   );
 };
 
-export default TasksScreen;
+export default GuidesScreen;
