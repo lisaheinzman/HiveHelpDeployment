@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>This is where the screens will be imported to and loaded in a HomeStack to navigate between the pages.</Text>
       <StatusBar style="auto" />
     </View>
   );
