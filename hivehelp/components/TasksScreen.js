@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f5f5f5',
-    padding: 16,
+    padding: 24, // Increased padding for more space
   },
   title: {
     fontSize: 24,
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
-    padding: 8,
-    marginVertical: 8,
+    padding: 12, // Increased padding for input fields
+    marginVertical: 12, // Increased vertical margin
     width: '80%',
   },
   taskContainer: {
@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#fff',
-    padding: 12,
-    marginVertical: 8,
+    padding: 16, // Increased padding for task items
+    marginVertical: 12, // Increased vertical margin
     borderRadius: 8,
     width: '80%',
   },
