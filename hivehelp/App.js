@@ -8,6 +8,7 @@ import TasksScreen from './components/TasksScreen';
 import HomeScreen from './components/HomeScreen';
 import CalendarScreen from './components/CalendarScreen';
 import ProfileScreen from './components/ProfileScreen';
+import SettingsScreen from './components/SettingsScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -20,6 +21,7 @@ const MainStack = () => {
       <Stack.Screen name="Tasks" component={TasksScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }}/>
     </Stack.Navigator>
   );
 };
@@ -38,13 +40,5 @@ const App = () => {
   );
 };
 
-export default App;
-
-// <View style={styles.container}>
-    //   <Text>This is where the screens will be imported to and loaded in a HomeStack to navigate between the pages.</Text>
-    //   <HomeScreen></HomeScreen>
-    //   <CalendarScreen></CalendarScreen>
-    //   <ProfileScreen></ProfileScreen>
-    //   <TasksScreen></TasksScreen>
-    //   <GuidesScreen></GuidesScreen>
-    // </View>
+export default App
+export {MainStack}
