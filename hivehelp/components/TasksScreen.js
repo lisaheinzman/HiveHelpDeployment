@@ -28,7 +28,7 @@ const TasksScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text>This should be the tasks page.</Text>
+      <Text style={styles.title}>Tasks Page</Text>
 
       {/* Input field for new task */}
       <TextInput
@@ -55,9 +55,11 @@ const TasksScreen = () => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
           <View style={styles.taskItem}>
-            <Button title="Remove Task" onPress={() => removeTask(index)} />
-            <Text>{item.name}</Text>
-            <Text>{item.dueDate}</Text>
+            <Button title="Remove" onPress={() => removeTask(index)} />
+            <View>
+              <Text style={styles.taskName}>{item.name}</Text>
+              <Text style={styles.dueDate}>{item.dueDate}</Text>
+            </View>
           </View>
         )}
       />
@@ -70,20 +72,39 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
   },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
+    borderRadius: 8,
     padding: 8,
-    margin: 10,
+    marginVertical: 8,
     width: '80%',
   },
   taskItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 5,
+    backgroundColor: '#fff',
+    padding: 12,
+    marginVertical: 8,
+    borderRadius: 8,
     width: '80%',
+  },
+  taskName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  dueDate: {
+    fontSize: 14,
+    color: '#666',
   },
 });
 
