@@ -1,4 +1,3 @@
-// screens/ProfileScreen.js
 import React from 'react';
 import { View, Text, Image, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';

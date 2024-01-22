@@ -1,10 +1,12 @@
 // screens/SettingsScreen.js
 import React from 'react';
 import { View, Text, Image, StyleSheet, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 
-const SettingsScreen = ({ navigation }) => {
+const SettingsScreen = () => {
+    const navigation = useNavigation();
   const navigateToProfile = () => {
-    navigation.goBack(); // Go back to the previous screen
+    navigation.navigate('Profile'); // Go back to the previous screen
   };
 
   return (

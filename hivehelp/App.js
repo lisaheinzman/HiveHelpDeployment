@@ -13,7 +13,10 @@ import SettingsScreen from './components/SettingsScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const MainStack = () => {
+
+
+const App = () => {
+  const MainStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
@@ -21,24 +24,20 @@ const MainStack = () => {
       <Stack.Screen name="Tasks" component={TasksScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false}}/>
     </Stack.Navigator>
-  );
-};
-
-const App = () => {
+  );}
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Guides" component={GuidesScreen} options={{ headerShown: false }}/>
-        <Tab.Screen name="Tasks" component={TasksScreen} options={{ headerShown: false }}/>
-        <Tab.Screen name="Home" component={MainStack} options={{ headerShown: false }}/>
-        <Tab.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: false }}/>
-        <Tab.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }}/>
+        <Tab.Screen name="Guides" component={GuidesScreen} options={{ headerShown: false }} />
+        <Tab.Screen name="Tasks" component={TasksScreen} options={{ headerShown: false }} />
+        <Tab.Screen name="Home" component={MainStack} options={{ headerShown: false }} />
+        <Tab.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: false }} />
+        <Tab.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
 };
 
 export default App
-export {MainStack}
