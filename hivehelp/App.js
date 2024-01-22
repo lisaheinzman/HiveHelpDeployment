@@ -7,7 +7,6 @@ export default function App() {
     <View style={styles.container}>
       <Text>This is where the screens will be imported to and loaded in a HomeStack to navigate between the pages.</Text>
       <HomeScreen></HomeScreen>
-      <Text>above should be the home page</Text>
     </View>
   )
 }
