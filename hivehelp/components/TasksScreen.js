@@ -49,17 +49,15 @@ const TasksScreen = () => {
       {/* Button to add a new task */}
       <Button title="Add Task" onPress={addTask} />
 
-      {/* List of tasks with three columns */}
+      {/* List of tasks in a grid layout */}
       <FlatList
         data={tasks}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
-          <View style={styles.taskItem}>
+          <View style={styles.taskContainer}>
+            <Text style={styles.taskName}>{item.name}</Text>
+            <Text style={styles.dueDate}>{item.dueDate}</Text>
             <Button title="Remove" onPress={() => removeTask(index)} />
-            <View>
-              <Text style={styles.taskName}>{item.name}</Text>
-              <Text style={styles.dueDate}>{item.dueDate}</Text>
-            </View>
           </View>
         )}
       />
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     width: '80%',
   },
-  taskItem: {
+  taskContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
