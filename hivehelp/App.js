@@ -15,9 +15,9 @@ const Tab = createBottomTabNavigator();
 const MainStack = () => {
   return (
     <Stack.Navigator>
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Guides" component={GuidesScreen} />
       <Stack.Screen name="Tasks" component={TasksScreen} />
-      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Calendar" component={CalendarScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
@@ -28,7 +28,6 @@ const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-      
         <Tab.Screen name="Guides" component={GuidesScreen} />
         <Tab.Screen name="Tasks" component={TasksScreen} />
         <Tab.Screen name="Home" component={MainStack} />
