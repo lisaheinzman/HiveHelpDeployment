@@ -1,18 +1,35 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-//import { ColorScheme } from './ColorScheme';
+//  import { ColorScheme } from './ColorScheme';
 
 const HomeScreen = ({lightA}) => {
   const navigation = useNavigation();
 
+  const [displayText, setDisplayText] = useState('This');
+
+  const changeTextL = () => {
+    setDisplayText('Remeber to always do what you love!');
+  };
+  const changeTextR = () => {
+    setDisplayText("It\'s okay to make mistakes\! \nYour mistakes don\'t define you.");
+  };
   const goToTemplatePage = () => {
     navigation.navigate('Template'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
 
   return (
     <View style={styles.container}>
+      <View style={styles.yellowBox}>
+        <TouchableOpacity style={styles.button} onPress={changeTextL}>
+          <Text style={styles.buttonText}>{'<'}</Text>
+        </TouchableOpacity>
+        <Text style={styles.text}>{displayText}</Text>
+        {/* Button on the right side */}
+        <TouchableOpacity style={styles.button} onPress={changeTextR}>
+          <Text style={styles.buttonText}>{'>'}</Text>
+        </TouchableOpacity>
+      </View>
       {/* Blue box acting as a button */}
       <Text style={styles.titleText} >Welcome</Text>
       <TouchableOpacity style={styles.studyTipsButton} onPress={goToTemplatePage}>
@@ -38,6 +55,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 100,
     left: 20
+  },
+  yellowBox: {
+    backgroundColor: 'FFDBA2',
+    width: '80%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 25,
+    position: 'absolute',
+    top: 250,
+    left: 30
   },
   studyTipsButton: {
     backgroundColor: '#FFC3C2',
