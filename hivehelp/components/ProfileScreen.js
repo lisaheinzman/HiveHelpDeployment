@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Button } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
+import { Ionicons } from '@expo/vector-icons';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -31,18 +31,25 @@ const ProfileScreen = () => {
       </View>
 
       <View style={styles.buttonSection}>
-        <View style={styles.buttonContainer}>
-          <Button title="Favorited Guides" onPress={navigateToFavoritedGuides} />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button title="Recently Viewed" onPress={navigateToRecentlyViewedGuides} />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button title="Settings" onPress={navigateToSettings} />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button title="Logout" onPress={handleLogout} />
-        </View>
+        <TouchableOpacity style={styles.buttonContainer} onPress={navigateToFavoritedGuides}>
+          <Ionicons name="star-outline" size={24} color="black" />
+          <Text style={styles.buttonText}>Favorited Guides</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.buttonContainer} onPress={navigateToRecentlyViewedGuides}>
+          <Ionicons name="time-outline" size={24} color="black" />
+          <Text style={styles.buttonText}>Recently Viewed</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.buttonContainer} onPress={navigateToSettings}>
+          <Ionicons name="settings-outline" size={24} color="black" />
+          <Text style={styles.buttonText}>Settings</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.buttonContainer} onPress={handleLogout}>
+          <Ionicons name="log-out-outline" size={24} color="black" />
+          <Text style={styles.buttonText}>Logout</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -51,36 +58,44 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff4e7',
+    color: '#4C3313',
   },
   profileSection: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    backgroundColor: 'yellow',
+    backgroundColor: '#ffdba2',
+    paddingTop: 60,
+    padding: 40,
   },
   profilePicture: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: 'lightgrey',
+    backgroundColor: 'whitesmoke',
   },
   userName: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
-    marginLeft: 10,
+    padding: 30,
+    marginLeft: 20,
   },
   buttonSection: {
-    flexDirection: 'column', // Change to column
-    alignItems: 'flex-start', // Align items to the start (left)
+    flexDirection: 'column', 
+    alignItems: 'flex-start',
     marginTop: 20,
   },
   buttonContainer: {
-    padding: 10,
-    width: '60%', 
-    marginBottom: 10, 
-    justifyContent: 'flex-end',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 10,
+    paddingLeft: 20,
+  },
+  buttonText: {
+    marginLeft: 10,
+    fontSize: 20,
   },
 });
 
