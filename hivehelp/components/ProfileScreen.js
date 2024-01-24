@@ -31,10 +31,18 @@ const ProfileScreen = () => {
       </View>
 
       <View style={styles.buttonSection}>
-        <Button title="Favorited Guides" onPress={navigateToFavoritedGuides} />
-        <Button title="Recently Viewed" onPress={navigateToRecentlyViewedGuides} />
-        <Button title="Settings" onPress={navigateToSettings} />
-        <Button title="Logout" onPress={handleLogout} />
+        <View style={styles.buttonContainer}>
+          <Button title="Favorited Guides" onPress={navigateToFavoritedGuides} />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Recently Viewed" onPress={navigateToRecentlyViewedGuides} />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Settings" onPress={navigateToSettings} />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Logout" onPress={handleLogout} />
+        </View>
       </View>
 
       {/* Add the rest of your profile content below */}
@@ -64,9 +72,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   buttonSection: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: 'column', // Change to column
+    alignItems: 'flex-start', // Align items to the start (left)
     marginTop: 20,
+  },
+  buttonContainer: {
+    width: '100%', // Take full width
+    marginBottom: 10, // Add margin between buttons
   },
 });
 
