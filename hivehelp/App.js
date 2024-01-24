@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import * as Font from 'expo-font';
+
 
 import GuidesScreen from './components/GuidesScreen';
 import TasksScreen from './components/TasksScreen';
@@ -17,12 +17,6 @@ const Tab = createBottomTabNavigator();
 
 
 const App = () => {
-  // useEffect(() => {
-  //   // Load custom font
-  //   Font.loadAsync({
-  //     'Como': require('./assets/font/Como.ttf'), // Adjust the path and font name as needed
-  //   });
-  // }, []);
 
   const MainStack = () => {
   return (
