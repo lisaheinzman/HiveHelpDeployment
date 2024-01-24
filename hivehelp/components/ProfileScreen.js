@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   buttonContainer: {
-    width: '100%', // Take full width
+    padding: 10,
+    width: '60%', // Take full width
     marginBottom: 10, // Add margin between buttons
   },
 });
