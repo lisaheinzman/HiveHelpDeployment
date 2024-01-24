@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+
 const ProfileScreen = () => {
   const navigation = useNavigation();
 
@@ -20,7 +21,6 @@ const ProfileScreen = () => {
 
   const handleLogout = () => {
     console.log('Logout');
-    // Implement your logout logic here
   };
 
   return (
@@ -44,8 +44,6 @@ const ProfileScreen = () => {
           <Button title="Logout" onPress={handleLogout} />
         </View>
       </View>
-
-      {/* Add the rest of your profile content below */}
     </View>
   );
 };
@@ -60,11 +58,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingVertical: 20,
     paddingHorizontal: 20,
+    backgroundColor: 'yellow',
   },
   profilePicture: {
     width: 100,
     height: 100,
     borderRadius: 50,
+    backgroundColor: 'lightgrey',
   },
   userName: {
     fontSize: 20,
@@ -78,8 +78,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     padding: 10,
-    width: '60%', // Take full width
-    marginBottom: 10, // Add margin between buttons
+    width: '60%', 
+    marginBottom: 10, 
+    justifyContent: 'flex-end',
   },
 });
 
