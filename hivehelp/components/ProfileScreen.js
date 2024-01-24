@@ -1,10 +1,13 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
+
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [newName, setNewName] = useState('');
 
   const navigateToFavoritedGuides = () => {
     console.log('Navigate to Favorited Guides');
@@ -15,7 +18,7 @@ const ProfileScreen = () => {
   };
 
   const navigateToSettings = () => {
-    console.log('go to settings')
+    console.log('go to settings');
     navigation.navigate('Settings');
   };
 
@@ -23,11 +26,28 @@ const ProfileScreen = () => {
     console.log('Logout');
   };
 
+  const handleEditPress = () => {
+    setEditModalVisible(true);
+    setNewName(''); // Reset the input field
+  };
+
+  const handleCancelEdit = () => {
+    setEditModalVisible(false);
+  };
+
+  const handleSaveEdit = () => {
+    // Implement logic to save changes (e.g., update profile picture and name)
+    setEditModalVisible(false);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.profileSection}>
         <Image source={'./assets/bee_icon.jpg'} style={styles.profilePicture} />
-        <Text style={styles.userName}>John Doe</Text>
+        <Text style={styles.userName}>New User</Text>
+        <TouchableOpacity onPress={handleEditPress} style={styles.editButton}>
+          <Ionicons name="create-outline" size={30} color="black" />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.buttonSection}>
@@ -51,6 +71,22 @@ const ProfileScreen = () => {
           <Text style={styles.buttonText}>Logout</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Edit Profile Modal */}
+      <Modal visible={editModalVisible} animationType="slide">
+        <View style={styles.modalContainer}>
+          <TextInput
+            placeholder="Enter new name"
+            style={styles.input}
+            value={newName}
+            onChangeText={(text) => setNewName(text)}
+          />
+          <View style={styles.modalButtonsContainer}>
+            <Button title="Cancel" onPress={handleCancelEdit} />
+            <Button title="Save" onPress={handleSaveEdit} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -92,10 +128,34 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 10,
     paddingLeft: 20,
+    padding: 10,
+    borderBottomWidth: 1,
   },
   buttonText: {
     marginLeft: 10,
     fontSize: 20,
+  },
+  editButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  input: {
+    borderBottomWidth: 1,
+    marginBottom: 20,
+    padding: 10,
+    width: '80%',
+    fontSize: 18,
+  },
+  modalButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '80%',
   },
 });
 
