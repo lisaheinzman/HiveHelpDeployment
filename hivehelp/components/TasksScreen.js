@@ -103,6 +103,111 @@ const TasksScreen = () => {
   );
 };
 
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+
+const TasksScreen = () => {
+  const [tasks, setTasks] = useState([]);
+  const [newTask, setNewTask] = useState('');
+  const [taskDescription, setTaskDescription] = useState('');
+  const [dueDate, setDueDate] = useState('');
+  const [showTaskInput, setShowTaskInput] = useState(false); // To toggle task input fields
+
+  // Function to add a task
+  const addTask = () => {
+    if (newTask.trim() !== '' && dueDate.trim() !== '') {
+      const task = {
+        name: newTask,
+        description: taskDescription,
+        dueDate: dueDate,
+        completed: false, // Initially, the task is not completed
+      };
+      setTasks([...tasks, task]);
+      setNewTask('');
+      setTaskDescription('');
+      setDueDate('');
+      setShowTaskInput(false); // Hide task input fields after adding a task
+    }
+  };
+
+  // Function to remove a task
+  const removeTask = (index) => {
+    const updatedTasks = [...tasks];
+    updatedTasks.splice(index, 1);
+    setTasks(updatedTasks);
+  };
+
+  // Function to toggle task completion
+  const toggleCompletion = (index) => {
+    const updatedTasks = [...tasks];
+    updatedTasks[index].completed = !updatedTasks[index].completed;
+    setTasks(updatedTasks);
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Tasks</Text>
+        <TouchableOpacity onPress={() => setShowTaskInput(!showTaskInput)}>
+          <Text style={styles.addButton}>+</Text>
+        </TouchableOpacity>
+      </View>
+
+      {showTaskInput && (
+        <View>
+          {/* Input field for new task */}
+          <TextInput
+            style={styles.input}
+            placeholder="Enter a new task"
+            value={newTask}
+            onChangeText={(text) => setNewTask(text)}
+          />
+
+          {/* Input field for task description */}
+          <TextInput
+            style={styles.input}
+            placeholder="Enter task description"
+            value={taskDescription}
+            onChangeText={(text) => setTaskDescription(text)}
+          />
+
+          {/* Input field for task due date */}
+          <TextInput
+            style={styles.input}
+            placeholder="Enter due date"
+            value={dueDate}
+            onChangeText={(text) => setDueDate(text)}
+          />
+
+          {/* Button to add a new task */}
+          <Button title="Add Task" onPress={addTask} />
+        </View>
+      )}
+
+      {/* List of tasks in separate boxes with lines */}
+      <FlatList
+        data={tasks}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
+          <View style={styles.taskBox}>
+            <TouchableOpacity onPress={() => toggleCompletion(index)} style={styles.taskButton}>
+              <Text style={styles.taskButtonText}>{item.completed ? '✓' : '○'}</Text>
+            </TouchableOpacity>
+            <View style={styles.lineVertical} />
+            <View style={styles.taskDetails}>
+              <Text style={[styles.taskName, item.completed && styles.completedTask]}>{item.name}</Text>
+              <View style={styles.lineHorizontal} />
+              <Text style={styles.dueDate}>{item.dueDate}</Text>
+            </View>
+            <View style={styles.lineVertical} />
+            <Button title="Remove" onPress={() => removeTask(index)} />
+          </View>
+        )}
+      />
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -115,7 +220,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '80%',
+    width: '100%', // Use 100% width for the header
     marginBottom: 16,
   },
   title: {
@@ -182,5 +287,9 @@ const styles = StyleSheet.create({
     color: '#666',
   },
 });
+
+export default TasksScreen;
+
+
 
 export default TasksScreen;
