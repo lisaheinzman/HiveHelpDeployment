@@ -4,19 +4,24 @@ import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, FlatList }
 const TasksScreen = () => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
+  const [taskDescription, setTaskDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
+  const [showTaskInput, setShowTaskInput] = useState(false); // To toggle task input fields
 
   // Function to add a task
   const addTask = () => {
     if (newTask.trim() !== '' && dueDate.trim() !== '') {
       const task = {
         name: newTask,
+        description: taskDescription,
         dueDate: dueDate,
         completed: false, // Initially, the task is not completed
       };
       setTasks([...tasks, task]);
       setNewTask('');
+      setTaskDescription('');
       setDueDate('');
+      setShowTaskInput(false); // Hide task input fields after adding a task
     }
   };
 
@@ -36,40 +41,60 @@ const TasksScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tasks Page</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Tasks</Text>
+        <TouchableOpacity onPress={() => setShowTaskInput(!showTaskInput)}>
+          <Text style={styles.addButton}>+</Text>
+        </TouchableOpacity>
+      </View>
 
-      {/* Input field for new task */}
-      <TextInput
-        style={styles.input}
-        placeholder="Enter a new task"
-        value={newTask}
-        onChangeText={(text) => setNewTask(text)}
-      />
+      {showTaskInput && (
+        <View>
+          {/* Input field for new task */}
+          <TextInput
+            style={styles.input}
+            placeholder="Enter a new task"
+            value={newTask}
+            onChangeText={(text) => setNewTask(text)}
+          />
 
-      {/* Input field for task due date */}
-      <TextInput
-        style={styles.input}
-        placeholder="Enter due date"
-        value={dueDate}
-        onChangeText={(text) => setDueDate(text)}
-      />
+          {/* Input field for task description */}
+          <TextInput
+            style={styles.input}
+            placeholder="Enter task description"
+            value={taskDescription}
+            onChangeText={(text) => setTaskDescription(text)}
+          />
 
-      {/* Button to add a new task */}
-      <Button title="Add Task" onPress={addTask} />
+          {/* Input field for task due date */}
+          <TextInput
+            style={styles.input}
+            placeholder="Enter due date"
+            value={dueDate}
+            onChangeText={(text) => setDueDate(text)}
+          />
 
-      {/* List of tasks in a grid layout */}
+          {/* Button to add a new task */}
+          <Button title="Add Task" onPress={addTask} />
+        </View>
+      )}
+
+      {/* List of tasks in separate boxes with lines */}
       <FlatList
         data={tasks}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
-          <View style={styles.taskContainer}>
-            <TouchableOpacity onPress={() => toggleCompletion(index)}>
-              <Text style={[styles.taskName, item.completed && styles.completedTask]}>
-                {item.completed ? '✓ ' : '○ '}
-              </Text>
+          <View style={styles.taskBox}>
+            <TouchableOpacity onPress={() => toggleCompletion(index)} style={styles.taskButton}>
+              <Text style={styles.taskButtonText}>{item.completed ? '✓' : '○'}</Text>
             </TouchableOpacity>
-            <Text style={[styles.taskName, item.completed && styles.completedTask]}>{item.name}</Text>
-            <Text style={styles.dueDate}>{item.dueDate}</Text>
+            <View style={styles.lineVertical} />
+            <View style={styles.taskDetails}>
+              <Text style={[styles.taskName, item.completed && styles.completedTask]}>{item.name}</Text>
+              <View style={styles.lineHorizontal} />
+              <Text style={styles.dueDate}>{item.dueDate}</Text>
+            </View>
+            <View style={styles.lineVertical} />
             <Button title="Remove" onPress={() => removeTask(index)} />
           </View>
         )}
@@ -84,38 +109,73 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f5f5f5',
-    padding: 16,
+    padding: 24,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '80%',
+    marginBottom: 16,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 16,
+  },
+  addButton: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#007bff', // Blue color
   },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
-    padding: 8,
-    marginVertical: 8,
+    padding: 12,
+    marginVertical: 12,
     width: '80%',
   },
-  taskContainer: {
+  taskBox: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-    padding: 12,
-    marginVertical: 8,
+    padding: 16,
+    marginVertical: 12,
     borderRadius: 8,
     width: '80%',
+  },
+  taskButton: {
+    backgroundColor: '#007bff',
+    padding: 8,
+    borderRadius: 8,
+  },
+  taskButtonText: {
+    color: '#fff',
+    fontSize: 18,
+  },
+  taskDetails: {
+    flex: 1,
+    marginHorizontal: 8,
+  },
+  lineVertical: {
+    height: '100%',
+    width: 1,
+    backgroundColor: '#ccc',
+  },
+  lineHorizontal: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#ccc',
+    marginVertical: 8,
   },
   taskName: {
     fontSize: 16,
     fontWeight: 'bold',
-    textDecorationLine: 'none', // Initial state: no strike-through
+    textDecorationLine: 'none',
   },
   completedTask: {
-    textDecorationLine: 'line-through', // Apply strike-through for completed tasks
+    textDecorationLine: 'line-through',
   },
   dueDate: {
     fontSize: 14,
