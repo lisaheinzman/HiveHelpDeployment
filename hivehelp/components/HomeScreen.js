@@ -16,7 +16,7 @@ const HomeScreen = ({}) => {
     setDisplayText("It\'s okay to make mistakes\! \nYour mistakes don\'t define you.");
   };
   const goToTemplatePage = () => {
-    navigation.navigate('Profile'); // 'Template' should match the name of the stack or screen you want to navigate to
+    navigation.navigate('SignIn'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
 
   return (
@@ -35,39 +35,55 @@ const HomeScreen = ({}) => {
         </View>
       <View style={styles.container}>
         <View style={styles.column}>
+          {/* Pinned Guide */}
           <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.primary }, { borderColor: ColorScheme.primaryRich }]} onPress={goToTemplatePage}>
             <Text style={styles.buttonText}>Pinned Guide</Text>
           </TouchableOpacity>
+          {/* Suggested Guide */}
           <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.primary }, { borderColor: ColorScheme.primaryRich }]} onPress={goToTemplatePage}>
-            <Text style={[styles.buttonText, { paddingTop: 10 }]} >Suggested</Text>
+            <View>
+              </View><Text style={[styles.buttonText, { paddingTop: 10 }]} >Suggested</Text>
             <Text style={[styles.buttonText]}>Guide</Text>
           </TouchableOpacity>
         </View>
+        {/* Tasks */}
         <View style={[styles.column]}>
-        <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.secondary }, { borderColor: ColorScheme.secondaryRich }]} onPress={goToTemplatePage}>
-            <Text style={styles.buttonText}>Tasks</Text>
+        <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.secondaryLite }, { borderColor: ColorScheme.secondaryRich }]} onPress={goToTemplatePage}>
+        <View style={[styles.boxHeader, { backgroundColor: ColorScheme.secondary }, { borderBottomEndRadius: 0 }]}>
+        <Text style={styles.buttonText}>Tasks</Text>
+        </View>
           </TouchableOpacity>
         </View>
-        {/* Blue box acting as a button */}
       </View>
-    </View>
+      {/* Calendar */}
+      <View style={styles.container}>
+          <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.tertiary }, { borderColor: ColorScheme.tertiaryRich }]} onPress={goToTemplatePage}>
+          <View style={[styles.boxHeader, { backgroundColor: ColorScheme.tertiaryRich }, { borderBottomEndRadius: 0 }]}>
+        <Text style={styles.buttonText}>This Week</Text>
+        </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+  //  </View>
   );
 };
 
 const styles = StyleSheet.create({
   pageContainer: {
-    flex: 3,
+    flex: 1,
     backgroundColor: '#84A59D',
     justifyContent: 'center',
     alignItems: 'flex-start', // Align to the left
-    padding: 1
+    paddingTop: 170
   },
   container: {
   //  flex: 1,
     height: '40%',
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 2
+    padding: 2,
+    borderRadius: 30
   },
   column: {
     flex: 1,
@@ -80,6 +96,11 @@ const styles = StyleSheet.create({
     margin: 8,
     borderBottomWidth: 5,
     borderRightWidth: 5
+  },
+  boxHeader: {
+    height: '20%',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20
   },
   backgroundBox: {
     backgroundColor: '#FFF4E7',

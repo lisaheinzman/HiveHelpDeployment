@@ -10,6 +10,7 @@ import HomeScreen from './components/HomeScreen';
 import CalendarScreen from './components/CalendarScreen';
 import ProfileScreen from './components/ProfileScreen';
 import SettingsScreen from './components/SettingsScreen';
+import SignInScreen from './components/SignInScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,8 +28,9 @@ const App = () => {
       <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false}}/>
+      <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }}/>
     </Stack.Navigator>
-  );}
+)}
   return (
     <NavigationContainer>
       <Tab.Navigator>
