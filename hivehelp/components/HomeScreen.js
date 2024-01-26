@@ -3,9 +3,8 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Theme } from './Theme';
 import TasksScreen from './TasksScreen';
-import { Quicksand_400Regular } from '@expo-google-fonts/quicksand';
 
-const font = 'Quicksand_400Regular';
+
 const ColorScheme = Theme.lightA;
 
 const HomeScreen = ({}) => {
@@ -79,8 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: ColorScheme.secondaryRich,
     justifyContent: 'center',
     alignItems: 'flex-start', // Align to the left
-    paddingTop: 170,
-    fontFamily: font,
+    paddingTop: 170
   },
   container: {
   //  flex: 1,

@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import profilePicture from '../assets/bee_icon.jpg'
 
+import HexagonIcon from '../assets/hexagonicon';
+
 const ProfileScreen = () => {
   const navigation = useNavigation();
 
@@ -45,6 +47,7 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.profileSection}>
+        <HexagonIcon size={100} color="#f7f7f7" /> {/* Adjust size and color based on your design */}
         <Image source={profilePicture} style={styles.profilePicture} />
         <Text style={styles.userName}>New User</Text>
         <TouchableOpacity onPress={handleEditPress} style={styles.editButton}>
@@ -106,12 +109,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffdba2',
     paddingTop: 60,
     padding: 40,
+    position: 'relative',
   },
   profilePicture: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: 'whitesmoke',
+    backgroundColor: 'grey',
+    position: 'absolute',
   },
   userName: {
     fontSize: 25,
