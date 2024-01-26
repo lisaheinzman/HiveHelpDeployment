@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import profilePicture from '../assets/bee_icon.jpg'
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -24,6 +25,7 @@ const ProfileScreen = () => {
 
   const handleLogout = () => {
     console.log('Logout');
+    navigation.navigate('SignIn');
   };
 
   const handleEditPress = () => {
@@ -43,7 +45,7 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.profileSection}>
-        <Image source={'./assets/bee_icon.jpg'} style={styles.profilePicture} />
+        <Image source={profilePicture} style={styles.profilePicture} />
         <Text style={styles.userName}>New User</Text>
         <TouchableOpacity onPress={handleEditPress} style={styles.editButton}>
           <Ionicons name="create-outline" size={30} color="black" />

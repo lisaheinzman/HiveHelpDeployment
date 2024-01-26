@@ -23,6 +23,7 @@ import calendarIcon from './assets/icons/calendar-icon.png';
 import profileIcon from './assets/icons/profile-icon.png';
 
 const App = () => {
+
   const getIconSize = (routeName) => {
     // Define aspect ratios for each tab icon
     const aspectRatioMap = {
@@ -42,7 +43,7 @@ const App = () => {
   };
   const MainStack = () => {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Guides" component={GuidesScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Tasks" component={TasksScreen} options={{ headerShown: false }} />
@@ -91,11 +92,11 @@ const App = () => {
           tabStyle: { flexDirection: 'column', justifyContent: 'flex-end' }, // Align icons to the bottom of each tab
         }}
       >
-        <Tab.Screen name="Guides" component={GuidesScreen}  />
-        <Tab.Screen name="Tasks" component={TasksScreen} />
-        <Tab.Screen name="Home" component={MainStack} />
-        <Tab.Screen name="Calendar" component={CalendarScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="Guides" component={GuidesScreen} options={{ headerShown: false }} />
+        <Tab.Screen name="Tasks" component={TasksScreen} options={{ headerShown: false }} />
+        <Tab.Screen name="Home" component={MainStack} options={{ headerShown: false }} />
+        <Tab.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: false }} />
+        <Tab.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
