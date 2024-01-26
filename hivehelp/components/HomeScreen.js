@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ColorScheme } from './ColorScheme';
+import { Theme } from './Theme';
 import TasksScreen from './TasksScreen';
+
+
+const ColorScheme = Theme.lightA;
 
 const HomeScreen = ({}) => {
   const navigation = useNavigation();
@@ -23,7 +26,7 @@ const HomeScreen = ({}) => {
     <View style={styles.pageContainer}>
       <Text style={styles.titleText} >Welcome</Text>
       <View style={styles.backgroundBox}></View>
-      <View style={styles.yellowBox}>
+      <View style={[styles.yellowBox, { borderColor: ColorScheme.tertiaryRich }]}>
           <TouchableOpacity style={styles.button} onPress={changeTextL}>
             <Text style={styles.buttonText}>{'<'}</Text>
           </TouchableOpacity>
@@ -72,7 +75,7 @@ const HomeScreen = ({}) => {
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
-    backgroundColor: '#84A59D',
+    backgroundColor: ColorScheme.secondaryRich,
     justifyContent: 'center',
     alignItems: 'flex-start', // Align to the left
     paddingTop: 170
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20
   },
   backgroundBox: {
-    backgroundColor: '#FFF4E7',
+    backgroundColor: ColorScheme.background,
     borderRadius: 20,
     paddingHorizontal: 215,
     paddingVertical: 500,
@@ -118,13 +121,15 @@ const styles = StyleSheet.create({
     left: 20
   },
   yellowBox: {
-    backgroundColor: '#FFDBA2',
+    backgroundColor: ColorScheme.tertiaryLite,
     width: '90%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderRadius: 20,
     paddingHorizontal: 10,
     paddingVertical: 25,
+    borderBottomWidth: 5,
+    borderRightWidth: 5,
     position: 'absolute',
     top: 150,
     left: 20
