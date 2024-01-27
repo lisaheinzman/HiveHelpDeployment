@@ -1,44 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native';
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 import { Theme } from './Theme.js';
 
-const TasksScreen = ({ navigation }) => {
-  const [tasks, setTasks] = useState([])
-  const [showAddTask, setShowAddTask] = useState(false)
-  const [showCompletedTasks, setShowCompletedTasks] = useState(false)
-  const [newTaskName, setNewTaskName] = useState("")
-  const [newTaskDescription, setNewTaskDescription] = useState("")
-  const [newTaskDueDate, setNewTaskDueDate] = useState("")
+const TasksScreen = () => {
+  const [tasks, setTasks] = useState([]);
+  const [showAddTask, setShowAddTask] = useState(false);
+  const [showCompletedTasks, setShowCompletedTasks] = useState(false);
+  const [newTaskName, setNewTaskName] = useState("");
+  const [newTaskDescription, setNewTaskDescription] = useState("");
+  const [newTaskDueDate, setNewTaskDueDate] = useState("");
 
   useEffect(() => {
     const taskData = [
-      { name: "Walk Dog", description: "Walk my neighbors dog on 11/5.", dueDate: "01/05/2023", completed: false },
+      { name: "Walk Dog", description: "Walk my neighbor's dog on 11/5.", dueDate: "01/05/2023", completed: false },
       { name: "Finish Research Project", description: "Complete performing research and finish paper.", dueDate: "01/15/2023", completed: false },
       { name: "Fold Clothes", description: "Finished laundry, just have to fold clothes and put them away.", dueDate: "01/28/2023", completed: true },
       { name: "Call Mom", description: "Mom wanted me to call her about Dad's birthday after she gets back from the trip.", dueDate: "01/30/2023", completed: true },
-    ]
-    setTasks(taskData)
-  }, [])
+    ];
+    setTasks(taskData);
+  }, []);
 
   const toggleCompletion = (index) => {
-    const updatedTasks = [...tasks]
-    updatedTasks[index].completed = !updatedTasks[index].completed
-    setTasks(updatedTasks)
-  }
+    const updatedTasks = [...tasks];
+    updatedTasks[index].completed = !updatedTasks[index].completed;
+    setTasks(updatedTasks);
+  };
 
   const addTask = () => {
     if (newTaskName.trim() !== "" && newTaskDueDate.trim() !== "") {
-      const newTask = { name: newTaskName, description: newTaskDescription, dueDate: newTaskDueDate, completed: false }
-      setTasks([...tasks, newTask])
-      setNewTaskName("")
-      setNewTaskDescription("")
-      setNewTaskDueDate("")
-      setShowAddTask(false)
+      const newTask = { name: newTaskName, description: newTaskDescription, dueDate: newTaskDueDate, completed: false };
+      setTasks([...tasks, newTask]);
+      setNewTaskName("");
+      setNewTaskDescription("");
+      setNewTaskDueDate("");
+      setShowAddTask(false);
     }
-  }
+  };
 
-  const completedTasks = tasks.filter((task) => task.completed)
+  const completedTasks = tasks.filter((task) => task.completed);
+
+  // Navigation hook
+  const navigation = useNavigation();
+
+  // Function to navigate to task details screen
+  const navigateToTaskDetails = (task) => {
+    navigation.navigate('TaskDetails', { task });
+  };
 
   return (
     <View style={styles.container}>
@@ -67,26 +76,29 @@ const TasksScreen = ({ navigation }) => {
         data={showCompletedTasks ? completedTasks : tasks}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
-          <View style={styles.task}>
-            <TouchableOpacity onPress={() => toggleCompletion(index)} style={styles.completeButton}>
-              <View style={styles.hexagonInner} />
-              <View style={styles.hexagonBefore} />
-              <View style={styles.hexagonAfter} />
-            </TouchableOpacity>
-            <View style={styles.taskDetails}>
-              <Text style={[styles.taskName, item.completed && styles.completedTask]}>{item.name}</Text>
-              <Text style={styles.taskDescription}>{item.description}</Text>
-              <Text style={styles.dueDate}>Due Date: {item.dueDate}</Text>
+          <TouchableOpacity onPress={() => navigateToTaskDetails(item)}>
+            <View style={styles.task}>
+              <View style={styles.completeButton}>
+                <View style={styles.hexagonInner} />
+                <View style={styles.hexagonBefore} />
+                <View style={styles.hexagonAfter} />
+              </View>
+              <View style={styles.taskDetails}>
+                <Text style={[styles.taskName, item.completed && styles.completedTask]}>{item.name}</Text>
+                <Text style={styles.taskDescription}>{item.description}</Text>
+                <Text style={styles.dueDate}>Due Date: {item.dueDate}</Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
       <TouchableOpacity style={styles.showCompletedButton} onPress={() => setShowCompletedTasks(!showCompletedTasks)}>
         <Text style={styles.showCompletedButtonText}>{showCompletedTasks ? "Hide Completed Tasks" : "Show Completed Tasks"}</Text>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
+
 
 const styles = StyleSheet.create({
   container: {
