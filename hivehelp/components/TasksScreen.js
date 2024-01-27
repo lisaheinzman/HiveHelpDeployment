@@ -1,102 +1,169 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
-import { Theme } from './Theme.js';
+import { AntDesign } from '@expo/vector-icons'; // Importing the AntDesign icon library
+import { Theme } from './Theme.js'; // Import the Theme object
 
-const TasksScreen = () => {
-  const [tasks, setTasks] = useState([]);
-  const [showAddTask, setShowAddTask] = useState(false);
-  const [showCompletedTasks, setShowCompletedTasks] = useState(false);
-  const [newTaskName, setNewTaskName] = useState("");
-  const [newTaskDescription, setNewTaskDescription] = useState("");
-  const [newTaskDueDate, setNewTaskDueDate] = useState("");
+const TasksScreen = ({ navigation }) => {
+  const [tasks, setTasks] = useState([])
+  const [showAddTask, setShowAddTask] = useState(false) // State to toggle add task section
+  const [showCompletedTasks, setShowCompletedTasks] = useState(false) // State to toggle completed tasks
+  const [newTaskName, setNewTaskName] = useState("")
+  const [newTaskDescription, setNewTaskDescription] = useState("")
+  const [newTaskDueDate, setNewTaskDueDate] = useState("")
 
   useEffect(() => {
-    const taskData = [
-      { name: "Walk Dog", description: "Walk my neighbor's dog.", dueDate: "01/05/2023", completed: false },
-      { name: "Finish Research Project", description: "Complete performing research and finish paper.", dueDate: "01/15/2023", completed: false },
-      { name: "Fold Clothes", description: "Finished laundry, just have to fold clothes and put them away.", dueDate: "01/28/2023", completed: true },
-      { name: "Call Mom", description: "Mom wanted me to call her about Dad's birthday after she gets back from the trip.", dueDate: "01/30/2023", completed: true },
-    ];
-    setTasks(taskData);
-  }, []);
+    // Simulating loading tasks from JSON file
+    const jsonData = [
+      {
+        name: "Walk Dog",
+        description: "Walk my neighbors dog on 11/5.",
+        dueDate: "01/05/2023",
+        completed: false,
+      },
+      {
+        name: "Finish Research Project",
+        description: "Complete performing research and finish paper.",
+        dueDate: "01/15/2023",
+        completed: false,
+      },
+      {
+        name: "Fold Clothes",
+        description: "Finished laundry, just have to fold clothes and put them away.",
+        dueDate: "01/28/2023",
+        completed: true,
+      },
+      {
+        name: "Call Mom",
+        description: "Mom wanted me to call her about Dad's birthday after she gets back from the trip.",
+        dueDate: "01/30/2023",
+        completed: true,
+      },
+    ]
+    setTasks(jsonData)
+  }, [])
 
+  // Function to toggle task completion
   const toggleCompletion = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index].completed = !updatedTasks[index].completed;
-    setTasks(updatedTasks);
-  };
+    const updatedTasks = [...tasks]
+    updatedTasks[index].completed = !updatedTasks[index].completed
+    setTasks(updatedTasks)
+  }
 
+  // Function to add a new task
   const addTask = () => {
     if (newTaskName.trim() !== "" && newTaskDueDate.trim() !== "") {
-      const newTask = { name: newTaskName, description: newTaskDescription, dueDate: newTaskDueDate, completed: false };
-      setTasks([...tasks, newTask]);
-      setNewTaskName("");
-      setNewTaskDescription("");
-      setNewTaskDueDate("");
-      setShowAddTask(false);
+      const newTask = {
+        name: newTaskName,
+        description: newTaskDescription,
+        dueDate: newTaskDueDate,
+        completed: false,
+      }
+      setTasks([...tasks, newTask])
+      // Resetting input fields
+      setNewTaskName("")
+      setNewTaskDescription("")
+      setNewTaskDueDate("")
+      // Hiding the add task section
+      setShowAddTask(false)
     }
-  };
+  }
 
-  const completedTasks = tasks.filter((task) => task.completed);
+  // Filter completed tasks
+  const completedTasks = tasks.filter((task) => task.completed)
 
-  const navigation = useNavigation();
-
-  const navigateToTaskDetails = (task) => {
-    navigation.navigate('TaskDetails', { task });
-  };
+ 
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Tasks</Text>
-        <TouchableOpacity style={styles.plusButton} onPress={() => setShowAddTask(!showAddTask)}>
+        <TouchableOpacity
+          style={styles.plusButton}
+          onPress={() => setShowAddTask(!showAddTask)}
+        >
           <View style={styles.hexagonInner} />
           <View style={styles.hexagonBefore} />
           <View style={styles.hexagonAfter} />
-          <AntDesign name="plus" size={24} color="black" style={styles.plusIcon} />
+          <AntDesign
+            name="plus"
+            size={24}
+            color="black"
+            style={styles.plusIcon}
+          />
         </TouchableOpacity>
       </View>
 
+      {/* Add Task Section */}
       {showAddTask && (
         <View style={styles.addTaskSection}>
           <Text style={styles.sectionTitle}>Add Task</Text>
-          <TextInput style={styles.input} placeholder="Task Name" value={newTaskName} onChangeText={setNewTaskName} />
-          <TextInput style={styles.input} placeholder="Task Description" value={newTaskDescription} onChangeText={setNewTaskDescription} />
-          <TextInput style={styles.input} placeholder="Due Date" value={newTaskDueDate} onChangeText={setNewTaskDueDate} />
+          <TextInput
+            style={styles.input}
+            placeholder="Task Name"
+            value={newTaskName}
+            onChangeText={setNewTaskName}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Task Description"
+            value={newTaskDescription}
+            onChangeText={setNewTaskDescription}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Due Date"
+            value={newTaskDueDate}
+            onChangeText={setNewTaskDueDate}
+          />
           <TouchableOpacity style={styles.addButton} onPress={addTask}>
             <Text style={styles.addButtonText}>Add</Text>
           </TouchableOpacity>
         </View>
       )}
+
+      {/* List of tasks */}
       <FlatList
         data={showCompletedTasks ? completedTasks : tasks}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
-          <TouchableOpacity onPress={() => navigateToTaskDetails(item)}>
-            <View style={styles.task}>
-              <View style={styles.completeButton}>
-                <View style={styles.hexagonInner} />
-                <View style={styles.hexagonBefore} />
-                <View style={styles.hexagonAfter} />
-              </View>
-              <View style={styles.taskDetails}>
-                <Text style={[styles.taskName, item.completed && styles.completedTask]}>{item.name}</Text>
-                <Text style={styles.taskDescription}>{item.description}</Text>
-                <Text style={styles.dueDate}>Due Date: {item.dueDate}</Text>
-              </View>
+          <View style={styles.task}>
+            {/* Hexagon button to mark task completed */}
+            <TouchableOpacity
+              onPress={() => toggleCompletion(index)}
+              style={styles.completeButton}
+            >
+              <View style={styles.hexagonInner} />
+              <View style={styles.hexagonBefore} />
+              <View style={styles.hexagonAfter} />
+            </TouchableOpacity>
+            <View style={styles.taskDetails}>
+              <Text
+                style={[
+                  styles.taskName,
+                  item.completed && styles.completedTask,
+                ]}
+              >
+                {item.name}
+              </Text>
+              <Text style={styles.taskDescription}>{item.description}</Text>
+              <Text style={styles.dueDate}>Due Date: {item.dueDate}</Text>
             </View>
-          </TouchableOpacity>
+          </View>
         )}
       />
-      <TouchableOpacity style={styles.showCompletedButton} onPress={() => setShowCompletedTasks(!showCompletedTasks)}>
-        <Text style={styles.showCompletedButtonText}>{showCompletedTasks ? "Hide Completed Tasks" : "Show Completed Tasks"}</Text>
+
+      {/* Show Completed Tasks Button */}
+      <TouchableOpacity
+        style={styles.showCompletedButton}
+        onPress={() => setShowCompletedTasks(!showCompletedTasks)}
+      >
+        <Text style={styles.showCompletedButtonText}>
+          {showCompletedTasks ? "Hide Completed Tasks" : "Show Completed Tasks"}
+        </Text>
       </TouchableOpacity>
     </View>
-  );
-};
-
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -113,7 +180,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: Theme.lightA.text,
+    color: Theme.lightA.text, // Use theme color for text
   },
   plusButton: {
     width: 50,
@@ -165,7 +232,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
-    color: Theme.lightA.text,
+    color: Theme.lightA.text, // Use theme color for text
   },
   input: {
     borderWidth: 1,
@@ -173,7 +240,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
-    color: Theme.lightA.text,
+    color: Theme.lightA.text, // Use theme color for text
   },
   addButton: {
     backgroundColor: Theme.lightA.secondary,
@@ -198,16 +265,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
-    color: Theme.lightA.text,
+    color: Theme.lightA.text, // Use theme color for text
   },
   taskDescription: {
     fontSize: 16,
-    color: Theme.lightA.text,
+    color: Theme.lightA.text, // Use theme color for text
     marginBottom: 5,
   },
   dueDate: {
     fontSize: 14,
-    color: Theme.lightA.text,
+    color: Theme.lightA.text, // Use theme color for text
   },
   completeButton: {
     width: 50,
@@ -216,7 +283,7 @@ const styles = StyleSheet.create({
   },
   completedTask: {
     textDecorationLine: "line-through",
-    color: Theme.lightA.text,
+    color: Theme.lightA.text, // Use theme color for text
   },
   showCompletedButton: {
     backgroundColor: Theme.lightA.secondary,
