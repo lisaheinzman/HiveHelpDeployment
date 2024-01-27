@@ -14,7 +14,7 @@ const TasksScreen = () => {
 
   useEffect(() => {
     const taskData = [
-      { name: "Walk Dog", description: "Walk my neighbor's dog on 11/5.", dueDate: "01/05/2023", completed: false },
+      { name: "Walk Dog", description: "Walk my neighbor's dog.", dueDate: "01/05/2023", completed: false },
       { name: "Finish Research Project", description: "Complete performing research and finish paper.", dueDate: "01/15/2023", completed: false },
       { name: "Fold Clothes", description: "Finished laundry, just have to fold clothes and put them away.", dueDate: "01/28/2023", completed: true },
       { name: "Call Mom", description: "Mom wanted me to call her about Dad's birthday after she gets back from the trip.", dueDate: "01/30/2023", completed: true },
@@ -41,10 +41,8 @@ const TasksScreen = () => {
 
   const completedTasks = tasks.filter((task) => task.completed);
 
-  // Navigation hook
   const navigation = useNavigation();
 
-  // Function to navigate to task details screen
   const navigateToTaskDetails = (task) => {
     navigation.navigate('TaskDetails', { task });
   };
