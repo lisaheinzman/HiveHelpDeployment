@@ -52,7 +52,7 @@ const App = () => {
         <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }} />
         <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="TaskDetailsScreen" component={TaskDetailsScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     );
   };
