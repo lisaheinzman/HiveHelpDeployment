@@ -6,7 +6,9 @@ import { Theme } from './Theme.js';
 import { useNavigation } from '@react-navigation/native';
 
 const CalendarScreen = () => {
+
   const navigation = useNavigation();
+
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [showAddDate, setShowAddDate] = useState(false);
   const [newDateName, setNewDateName] = useState('');
@@ -69,6 +71,7 @@ const CalendarScreen = () => {
         </TouchableOpacity>
       </View>
       <CalendarPicker
+        styles = {styles.calendarMonth}
         onDateChange={onDateChange}
         markedDates={markedDates}
         width={400}
@@ -77,20 +80,32 @@ const CalendarScreen = () => {
       {showAddDate && (
         <View style={styles.modalContainer}>
           <Text>Create Event</Text>
+          <Text>Event Title</Text>
           <TextInput
+            width={200}
+            height= {40}
             style={styles.textInput}
-            placeholder="Event Name"
+            placeholder="Enter Title"
             value={newDateName}
             onChangeText={(text) => setNewDateName(text)}
           />
+          <Text>Enter Notes</Text>
           <TextInput
+            width={200}
+            height={100}
             style={styles.textInput}
-            placeholder="Event Notes"
+            placeholder="Enter Notes"
             value={newDateNotes}
             onChangeText={(text) => setNewDateNotes(text)}
           />
-          <Button title="Add" onPress={addEvent} />
-          <Button title="Cancel" onPress={() => setShowAddDate(false)} />
+          <Button 
+            style= {styles.button}
+            title="Add"
+            onPress={addEvent} />
+          <Button
+            style= {styles.button}
+            title="Cancel"
+            onPress={() => setShowAddDate(false)} />
         </View>
       )}
     </View>
@@ -99,16 +114,17 @@ const CalendarScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: '15%',
-    backgroundColor: Theme.lightA.background,
+    flex: 1, 
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    backgroundColor: Theme.lightA.secondary , 
+    textAlign: 'center',
     width: '100%',
-    padding: 20,
+    paddingTop: 50,
+    paddingBottom: 20,
+    paddingHorizontal: 10
   },
   heading: {
     fontSize: 30,
@@ -157,18 +173,27 @@ const styles = StyleSheet.create({
     left: 14,
   },
   modalContainer: {
-    flex: 1,
+    flex: 1 ,
     justifyContent: 'center',
     alignItems: 'center',
   }, 
   textInput: {
-    color: Theme.lightA.text, 
-    padding: 7, 
-    borderWidth: 1, 
-    backgroundColor: 'white', 
+    textAlign: 'left',
+    textAlignVertical: 'top',
+    color: Theme.lightA.text,
+    borderWidth: 1,
+    backgroundColor: 'white',
     borderStyle: 'solid',
     borderRadius: 10,
-    margin: 3, 
+    margin: 3,
+  }, 
+  button: {
+    fontSize: 20, 
+    backgroundColor: Theme.lightA.tertiaryRich, 
+    borderWidth: 1, 
+  }, 
+  calendarMonth: {
+  
   }
 
 });
