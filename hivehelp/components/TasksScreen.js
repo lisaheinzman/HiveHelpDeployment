@@ -10,6 +10,7 @@ const TasksScreen = () => {
   const handleTaskPress = (task) => {
     navigation.navigate('TaskDetails', { task }); // Navigate to TaskDetailsScreen and pass task details
   };
+  
   const [tasks, setTasks] = useState([]);
   const [showAddTask, setShowAddTask] = useState(false);
   const [showCompletedTasks, setShowCompletedTasks] = useState(false);
