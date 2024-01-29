@@ -19,6 +19,7 @@ const ProfileScreen = () => {
 
   const navigateToRecentlyViewedGuides = () => {
     console.log('Navigate to Recently Viewed Guides');
+    navigation.navigate('RecentGuides');
   };
 
   const navigateToSettings = () => {
