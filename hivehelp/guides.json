@@ -1,0 +1,782 @@
+{
+    "guides":{
+        "School": [
+            {"title": "Study Tips",
+            "overview": "Welcome to your ultimate guide on how to master the art of studying in college. We know that balancing classes, assignments, and a bustling social life can be a challenge, but fear not! With the right strategies, you can not only succeed but also enjoy the journey.Let's dive in!",
+             "sections": [
+                {
+                  "heading": "Create the Perfect Environment",
+                  "content": "Choose a quiet spot with good lighting. Create a comfortable workspace with all your study essentials.Experiment with music or white noise if it helps you focus."
+                },
+                {
+                    "heading": "Use Active Learning Strategies",
+                    "content": "Engage in discussions, group study, or teaching the material to someone else. Use flashcards, mind maps, and other visual aids to reinforce learning."
+
+                },
+                {
+                    "heading": "Use Your Resources",
+                    "content": "Attend office hours and seek help from professors or teaching assistants.Explore online resources, textbooks, and study apps tailored to your subjects."
+                }
+             ]
+            },
+            {
+                "title": "Paper Formatting",
+                "overview": "Embarking on your college journey involves mastering various paper formatting styles. Each style has its unique set of rules, and understanding them is key to presenting your ideas accurately and professionally. Let's explore some of the most common formatting styles you might encounter in your academic endeavors.",
+                "sections":[
+                    {
+                        "heading":"APA (American Psychological Association)",
+                        "content":"Typically used in the social sciences. Features in-text citations and a reference page. Follow guidelines for font (usually Times New Roman, 12pt), margins, and line spacing."
+                    },
+                    {
+                        "heading":"MLA (Modern Language Association)",
+                        "content": "Commonly used in humanities. Emphasizes in-text citations and a Works Cited page.Standard font is Times New Roman, 12pt, with one-inch margins."
+                    },
+                    {
+                        "heading": "Chicago/Turabian Style",
+                        "content":"Chicago Manual of Style is used in various disciplines. Turabian style is a simplified version often used in history and some social sciences. Allows for both footnotes/endnotes and in-text citations."
+                    },
+                    {
+                        "heading":"Harvard Style",
+                        "content": "Common in the UK and Australia. Uses an author-date system for in-text citations. References are listed in alphabetical order."
+                    },
+                    {
+                        "heading":" IEEE (Institute of Electrical and Electronics Engineers)",
+                        "content":"Primarily used in technical fields. Employs a numerical citation system. Focuses on concise and precise writing."
+                    },
+                    {
+                        "heading":"AMA (American Medical Association)",
+                        "content":"Common in medical and scientific fields. Uses superscript numbers for in-text citations.Includes a list of references at the end."
+                    },
+                    {
+                        "heading": "ASA (American Sociological Association)",
+                        "content":"Preferred in sociology and related fields. Utilizes in-text citations and a reference list. Requires adherence to specific guidelines for headings and formatting."
+                    },
+                    {
+                        "heading":"AP (Associated Press)",
+                        "content": "Common in journalism and communication. Emphasizes brevity and clarity. Features a straightforward citation style."
+                    },
+                    {
+                        "heading":"CSE (Council of Science Editors)",
+                        "content":"Used in the natural and physical sciences. Offers three systems for citation citation-sequence, name-year, and citation-name."
+                    },
+                    {
+                        "heading":"Vancouver Style",
+                        "content":"Common in biomedical and health sciences. Employs a numerical citation style. References are listed numerically in the order they appear in the text"
+                    }
+                ]
+
+            },
+            {
+                "title":"Financial AId",
+                "overview":"Navigating the world of financial aid can be overwhelming, but fear not! The Free Application for Federal Student Aid (FAFSA) is your key to unlocking various financial assistance opportunities for college. This step-by-step guide will walk you through the FAFSA application process, ensuring you access the support you need for your education.",
+                "sections":[
+                    {
+                        "heading": "Gather Essential Documents",
+                        "content":"Before diving in, collect the necessary documents, including your Social Security number, federal income tax returns, W-2 forms, bank statements, and records of any investments."
+                    },
+                    {
+                        "heading":"Create an FSA ID",
+                        "content":"Visit the Federal Student Aid website to create a unique FSA ID. This will serve as your electronic signature and grant you access to the FAFSA online system."
+                    },
+                    {
+                        "heading":"Choose the Right FAFSA Form",
+                        "content":"There are different FAFSA forms, so make sure to select the correct one for your academic year. Most students use the standard form, but there are options for specific circumstances."
+                    },
+                    {
+                        "heading":"Start the FAFSA Application",
+                        "content":"Begin the application by entering your personal information. Take your time to ensure accuracy, and use your FSA ID for secure access."
+                    },
+                    {
+                        "heading":"Financial Information Section",
+                        "content":"Provide details about your financial situation, including income and tax information. Utilize the IRS Data Retrieval Tool for accuracy and efficiency."
+                    },
+                    {
+                        "heading":"List Your College Choices",
+                        "content":"Include all the schools you're considering attending. This step is crucial for the distribution of your financial aid information to potential colleges."
+                    },
+                    {
+                        "heading":"Dependency Status",
+                        "content":"Answer the dependency status questions to determine if you'll need to provide parental information. This is crucial for accurate aid assessment."
+                    },
+                    {
+                        "heading":"Sign and Submit",
+                        "content":"Review your application thoroughly, correct any errors, and sign it electronically using your FSA ID. Submit the application promptly to ensure timely processing."
+                    },
+                    {
+                        "heading":"Follow Up",
+                        "content":"After submission, monitor your email and FAFSA account for any updates or requests for additional information. Respond promptly to any requests to avoid delays."
+                    },
+                    {
+                        "heading":"Explore Additional Aid Opportunities",
+                        "content":"While waiting for your FAFSA results, research and apply for scholarships, grants, and other financial aid options to maximize your support."
+                    }
+                ]
+            },
+            {
+                "title":"Internships",
+                "overview":"Embarking on an internship is a crucial step towards gaining practical experience in your field of study. This guide will equip you with the tools and strategies to navigate the competitive landscape and secure valuable internship opportunities. Let's dive into the world of internships and explore effective methods for finding and applying to the right positions.",
+                "sections":[
+                    {
+                        "heading":"Decide the Scope of your Search",
+                        "content":"Internship hunting is very competitive and exhausting when searching through so many. Begin by narrowing down your search. Pick a few types of positions that pertain to your field of study. Don't be afraid to go a little out of your comfort zone - finding an internship that isn't specifically aligned with your major can still be rewarding and help you build your experience."
+                    },
+                    {
+                        "heading":"Utilize University Resources",
+                        "content":"Check out your university email for listings and career fairs. You can also sign up to browse website's like Handshake using your school email address. "
+                    },
+                    {
+                        "heading":"Job Websites",
+                        "content":"Create profiles on websites like LinkedIn and Indeed. Network to recruiters from companies that catch your interest. Make sure you include all relevant skills and experience in your profile. A professional profile picture is also great to include so people can familiarize themselves with you. "
+                    },
+                    {
+                        "heading":"Look for Companies you Like",
+                        "content":"We are always more passionate about doing things we like. Research companies that you have an existing appreciation for and check their job sites for internship listings that relate to your field of study. You can also check their socials for any hiring events. "
+                    },
+                    {
+                        "heading":"Prep your Resume ",
+                        "content":"A good resume is key when applying online. It is the first impression that employers can get of you prior to the interview. Research what formats are typically accepted in the field. Highlight skills that pertain to the position and tailor your resume differently for different applications. "
+                    },
+                    {
+                        "heading":"Interview Prep ",
+                        "content":"We go over more of this in our work guides, but rehearsing for an interview can be key. Some companies provide interview layouts for their hiring managers, and sometimes you can find those available to the public. "
+                    },
+                    {
+                        "heading":"Career Fairs ",
+                        "content":"Participate in virtual and in-person career fairs for your university and industry organizations. Check any flyers/posts they have made of the event for a dress code, but business casual/professional is generally accepted. Provide yourself with multiple copies of your resume printed and ready to hand out. "
+                    },
+                    {
+                        "heading":"Leverage the University Network ",
+                        "content":"Connect with alumni from your university who are working in your desired industry. Alumni can provide valuable insights and may even help you discover internship opportunities. "
+                    },
+                    {
+                        "heading":"Talk with Professors",
+                        "content":"Interacting with your professors outside of the classroom during office hours can do wonders for your search. See if they know anyone currently hiring internships, pick their brain for what they recommend doing and ask if there are any fairs going on they are aware of. "
+                    },
+                    {
+                        "heading":"Set up Job Alerts ",
+                        "content":"On job platforms, set up alerts with specific keywords related to your field. This way, you'll receive notifications for relevant internship postings."
+                    }
+                ]
+            },
+            {
+                "title":"Networking",
+                "overview":,
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    }
+                ]
+            },
+            {
+                "title":"Clubs",
+                "overview":,
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    }
+                ]
+            },
+            {
+                "title":"Greek Life",
+                "overview":,
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    }
+                ]
+            }
+            
+        ],
+        "Work": [
+            {
+                "title":"Interview Questions",
+                "sections":[
+                    {
+                        "heading": "Nailing The Interview",
+                        "content":"Job interviews can be nerve-wracking, but with the right preparation, you can confidently navigate any interview scenario. This guide is designed to help you understand common interview questions, formulate thoughtful responses, and present yourself as the ideal candidate for the job."
+                    },
+                    {
+                        "heading":"Know Yourself ",
+                        "content":"Reflect on your strengths, weaknesses, skills, and experiences. Identify specific examples that showcase your abilities and accomplishments."
+                    },
+                    {
+                        "heading":"Research the Company",
+                        "content":"Understand the company's values, mission, and culture. Tailor your responses to demonstrate alignment with the organization."
+                    },
+                    {
+                        "heading":"Practice, Practice, Practice:",
+                        "content":"Rehearse your responses to common questions in front of a mirror or with a friend."
+                    },
+                    {
+                        "heading":"Behavioral Questions",
+                        "content":"Prepare for questions that assess your behavior in various scenarios. Use past experiences to demonstrate your ability to handle challenges, work in teams, and overcome obstacles."
+                    },
+                    {
+                        "heading":"Non-verbal Communication ",
+                        "content":"Pay attention to your body language, maintaining eye contact and a confident posture. Practice a firm handshake and friendly demeanor."
+                    },
+                    {
+                        "heading":"Stay Positive",
+                        "content":"Pay attention to your body language, maintaining eye contact and a confident posture. Practice a firm handshake and friendly demeanor."
+                    },
+                    {
+                        "heading":"Adaptability",
+                        "content":"Be ready to adapt your responses based on the interviewer's style and the context of the conversation."
+                    },
+                    {
+                        "heading":"Follow Up",
+                        "content":"Send a thank-you email expressing your appreciation for the interview and reiterating your interest in the position."
+                    },
+                    {
+                        "heading":"STAR Method",
+                        "content":"Use the STAR method (Situation, Task, Action, Result) to structure your answers. Demonstrate how you utilize the company mission and values in your problem-solving. "
+                    }
+                ]
+                
+            },
+            {
+                "title":"Interview Attire",
+                "sections":[
+                    {
+                        "heading":"Research Company Culture",
+                        "content": "Understand the company's dress code by researching its culture. Some organizations have a formal dress code, while others embrace a more casual atmosphere."
+                    },
+                    {
+                        "heading":"Classic Business",
+                        "content":"For traditional industries like finance or law, stick to classic business attire: Masculine: Wear a suit in a neutral color, a dress shirt, and a conservative tie. Feminine: Choose a tailored suit, blouse, and closed-toe shoes."
+                    },
+                    {
+                        "heading":"Business Casual",
+                        "content":"In industries with a more relaxed environment, consider business casual attire: Masculine: Khakis or dress pants with a collared shirt or a sweater. Feminine: A blouse with dress pants or a pencil skirt is appropriate."
+                    },
+                    {
+                        "heading":"Pay Attention to Grooming",
+                        "content":"Ensure your clothes are clean, well-pressed, and in good condition. Maintain personal grooming with clean hair, trimmed nails, and minimal fragrance."
+                    },
+                    {
+                        "heading":"Moderate your Accessories",
+                        "content":"Keep accessories minimal and conservative. Avoid flashy jewelry or overly bold ties. Carry a professional-looking portfolio to hold your resume and notes."
+                    },
+                    {
+                        "heading":"Consider the Role",
+                        "content":"Tailor your attire to the specific job role. A creative position may allow for more individuality, while a corporate role may require a more traditional approach."
+                    },
+                    {
+                        "heading":"Check the Dress Code ",
+                        "content":"If you're unsure about the dress code, don't hesitate to ask the recruiter or HR representative in advance."
+                    },
+                    {
+                        "heading":"Plan Ahead",
+                        "content":"Lay out your outfit the night before to avoid last-minute stress. Ensure everything is clean, ironed, and ready to go."
+                    },
+                    {
+                        "heading":"Conclusion",
+                        "content":"Choosing the right interview attire is a key component of making a positive impression. By understanding the company culture, opting for classic and professional attire, and paying attention to grooming details, you'll present yourself as a polished and serious candidate. Dress for success, and let your skills and qualifications shine in the interview!"
+                    }
+                    
+                ]
+            },
+            {
+                "title":"First Day",
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                ]
+            },
+            {
+                "title":"Quitting",
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+
+                ]
+            },
+            {
+                "title":"PTO",
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                ]
+            },
+            {
+                "title":"401K",
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                ]
+            },
+            {
+                "title":"Insurance",
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                ]
+            }
+        ],
+        "Personal":[
+            {
+                "title":"Meditation",
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                ]
+            },
+            {
+                "title":"Skin Care",
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                ]
+            },
+            {
+                "title":"Nail Care",
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                ]
+            },
+            {
+                "title":"Nutrition",
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                ]
+            },
+            {
+                "title":"Exercise",
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                ]
+            },
+            {
+                "title":"Rest",
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                ]
+            },
+            {
+                "title":"Mental Health",
+                "sections":[
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    },
+                    {
+                        "heading":,
+                        "content":
+                    }
+                ]
+            }
+            
+        ]
+
+        
+        }
+    }
