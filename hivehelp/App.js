@@ -14,12 +14,14 @@ import SettingsScreen from './components/SettingsScreen';
 import SignInScreen from './components/SignInScreen';
 import CreateAccountScreen from './components/CreateAccountScreen';
 import TaskDetailsScreen from './components/TaskDetailsScreen';
+import FavoriteGuidesScreen from './components/FavoriteGuidesScreen';
 
 import homeIcon from './assets/icons/home-icon.png';
 import guidesIcon from './assets/icons/guides-icon.png';
 import tasksIcon from './assets/icons/tasks-icon.png';
 import calendarIcon from './assets/icons/calendar-icon.png';
 import profileIcon from './assets/icons/profile-icon.png';
+import RecentGuidesScreen from './components/RecentScreen';
 
 const App = () => {
 
@@ -55,6 +57,8 @@ const App = () => {
         <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
         <Stack.Screen name="CreateAccount" component={CreateAccountScreen} options={{ headerShown: false }} />
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} options={{ headerShown: false }}  />
+        <Stack.Screen name="FavoriteGuides" component={FavoriteGuidesScreen} options={{ headerShown: false }}  />
+        <Stack.Screen name="RecentGuides" component={RecentGuidesScreen} options={{ headerShown: false }}  />
       </Stack.Navigator>
     );
   };

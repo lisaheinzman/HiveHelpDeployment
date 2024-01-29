@@ -14,10 +14,12 @@ const ProfileScreen = () => {
 
   const navigateToFavoritedGuides = () => {
     console.log('Navigate to Favorited Guides');
+    navigation.navigate('FavoriteGuides');
   };
 
   const navigateToRecentlyViewedGuides = () => {
     console.log('Navigate to Recently Viewed Guides');
+    navigation.navigate('RecentGuides');
   };
 
   const navigateToSettings = () => {
@@ -116,15 +118,6 @@ const styles = StyleSheet.create({
     padding: 40,
     position: 'relative',
   },
-  // profilePicture: {
-  //   width: 110,
-  //   height: 110,
-  //   borderRadius: 50,
-  //   backgroundColor: 'grey',
-  //   position: 'absolute',
-  //   top: -25,
-  //   left: -5,
-  // },
   userName: {
     fontSize: 25,
     fontWeight: 'bold',

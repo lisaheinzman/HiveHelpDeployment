@@ -17,7 +17,7 @@ const SignInScreen = () => {
     <View style={styles.pageContainer}>
         <Image source={ExampleImage} style={styles.image} />
         <View style={styles.container}>
-          <Text>Sign In</Text>
+          <Text>Name</Text>
           <TextInput style={styles.input} placeholder="Enter Email"/>
           <TextInput style={styles.input} placeholder="Password"/>
           <View style={styles.textContainer}>
