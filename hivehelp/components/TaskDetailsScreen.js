@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { Theme } from './Theme.js'; // Import your theme from Theme.js
 
 const TaskDetailsScreen = ({ route, navigation }) => {
   const { task } = route.params;
@@ -13,24 +14,26 @@ const TaskDetailsScreen = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        <View>
-          <Text style={styles.label}>Task Name:</Text>
-          <Text>{task.name}</Text>
-        </View>
-        <View>
-          <Text style={styles.label}>Description:</Text>
-          <Text>{task.description}</Text>
-        </View>
-        <View>
-          <Text style={styles.label}>Due Date:</Text>
-          <Text>{task.dueDate}</Text>
+        <View style={styles.taskDetailsContainer}>
+          <View style={styles.detail}>
+            <Text style={[styles.label, { color: Theme.lightA.text }]}>Task Name:</Text>
+            <Text style={{ color: Theme.lightA.text }}>{task.name}</Text>
+          </View>
+          <View style={styles.detail}>
+            <Text style={[styles.label, { color: Theme.lightA.text }]}>Description:</Text>
+            <Text style={{ color: Theme.lightA.text }}>{task.description}</Text>
+          </View>
+          <View style={styles.detail}>
+            <Text style={[styles.label, { color: Theme.lightA.text }]}>Due Date:</Text>
+            <Text style={{ color: Theme.lightA.text }}>{task.dueDate}</Text>
+          </View>
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={[styles.button, { backgroundColor: Theme.lightA.primary }]} onPress={() => navigation.goBack()}>
           <Text style={styles.buttonText}>Back</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.updateButton]} onPress={handleUpdate}>
+        <TouchableOpacity style={[styles.button, styles.updateButton, { backgroundColor: Theme.lightA.secondary }]} onPress={handleUpdate}>
           <Text style={styles.buttonText}>Update</Text>
         </TouchableOpacity>
       </View>
@@ -41,32 +44,38 @@ const TaskDetailsScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    backgroundColor: Theme.lightA.background,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   contentContainer: {
-    paddingBottom: 80, // Adjust as per your content
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
+  taskDetailsContainer: {
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  detail: {
+    marginBottom: 20,
   },
   label: {
     fontWeight: 'bold',
     marginBottom: 4,
   },
   buttonContainer: {
-    position: 'absolute',
-    bottom: 16,
-    left: 0,
-    right: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
+    marginBottom: 20,
   },
   button: {
-    backgroundColor: '#007AFF',
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
   },
   updateButton: {
-    backgroundColor: '#4CD964',
+    backgroundColor: Theme.lightA.secondary,
   },
   buttonText: {
     color: 'white',
