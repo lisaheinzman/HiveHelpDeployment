@@ -77,7 +77,7 @@ const ProfileScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <Modal visible={editModalVisible} animationType="slide">
+      <Modal visible={editModalVisible} animationType="none">
         <View style={styles.modalContainer}>
           <TextInput
             placeholder="Enter new name"
@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
+    backgroundColor: '#f5cac3',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -153,13 +154,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginBottom: 20,
     padding: 10,
-    width: '80%',
+    width: '60%',
     fontSize: 18,
+    backgroundColor: 'white',
+    color: 'black',
   },
   modalButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '80%',
+    color: 'black',
   },
 });
 
