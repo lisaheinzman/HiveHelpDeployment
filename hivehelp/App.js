@@ -12,10 +12,7 @@ import CalendarScreen from './components/CalendarScreen';
 import ProfileScreen from './components/ProfileScreen';
 import SettingsScreen from './components/SettingsScreen';
 import SignInScreen from './components/SignInScreen';
-//import TaskDetailsScreen from './components/TaskDetailsScreen';
-
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+import TaskDetailsScreen from './components/TaskDetailsScreen';
 
 import homeIcon from './assets/icons/home-icon.png';
 import guidesIcon from './assets/icons/guides-icon.png';
@@ -24,6 +21,9 @@ import calendarIcon from './assets/icons/calendar-icon.png';
 import profileIcon from './assets/icons/profile-icon.png';
 
 const App = () => {
+
+ const Stack = createStackNavigator();
+ const Tab = createBottomTabNavigator();
 
   const getIconSize = (routeName) => {
     // Define aspect ratios for each tab icon
@@ -52,6 +52,7 @@ const App = () => {
         <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }} />
         <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
       </Stack.Navigator>
     );
   };

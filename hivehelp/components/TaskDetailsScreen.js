@@ -1,24 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 
 const TaskDetailsScreen = ({ route }) => {
   const { task } = route.params;
 
   return (
-    <View style={styles.container}>
-      <Text>Name: {task.name}</Text>
-      <Text>Description: {task.description}</Text>
-      <Text>Due Date: {task.dueDate}</Text>
+    <View>
+      <Text>{task.name}</Text>
+      <Text>{task.description}</Text>
+      <Text>{task.dueDate}</Text>
+      {/* Other task details */}
     </View>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+}
 
 export default TaskDetailsScreen;
