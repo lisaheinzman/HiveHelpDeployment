@@ -45,23 +45,52 @@ const App = () => {
       height: aspectRatio.height,
     };
   };
-  const MainStack = () => {
+
+  const GuidesStack = () => {
     return (
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Guides" component={GuidesScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Tasks" component={TasksScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="CreateAccount" component={CreateAccountScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} options={{ headerShown: false }}  />
-        <Stack.Screen name="FavoriteGuides" component={FavoriteGuidesScreen} options={{ headerShown: false }}  />
-        <Stack.Screen name="RecentGuides" component={RecentGuidesScreen} options={{ headerShown: false }}  />
-      </Stack.Navigator>
-    );
-  };
+    <Stack.Navigator initialRouteName="Guides" screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Guides" component={GuidesScreen}/>
+    </Stack.Navigator>
+    )
+  }
+
+  const TasksStack = () => {
+    return (
+      <Stack.Navigator initialRouteName="Tasks" screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Tasks" component={TasksScreen}/>
+      <Stack.Screen name="TaskDetails" component={TaskDetailsScreen}/>
+    </Stack.Navigator>
+    )
+  }
+
+  const HomeStack = () => {
+    return (
+      <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Home" component={HomeScreen}/>
+    </Stack.Navigator>
+    )
+  }
+
+  const CalendarStack = () => {
+    return (
+    <Stack.Navigator initialRouteName="Calendar" screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Calendar" component={CalendarScreen}/>
+    </Stack.Navigator>
+    )
+  }
+
+  const ProfileStack = () => {
+    return (
+    <Stack.Navigator initialRouteName="Profile" screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Profile" component={ProfileScreen}/>
+      <Stack.Screen name="Settings" component={SettingsScreen}/>
+      <Stack.Screen name="SignIn" component={SignInScreen}/>
+      <Stack.Screen name="CreateAccount" component={CreateAccountScreen}/>
+      <Stack.Screen name="FavoriteGuides" component={FavoriteGuidesScreen}/>
+      <Stack.Screen name="RecentGuides" component={RecentGuidesScreen}/>
+    </Stack.Navigator>
+    )
+  }
 
   return (
     <NavigationContainer>
@@ -108,11 +137,11 @@ const App = () => {
           },
         }}
       >
-        <Tab.Screen name="Guides" component={GuidesScreen} options={{ headerShown: false }} />
-        <Tab.Screen name="Tasks" component={TasksScreen} options={{ headerShown: false }} />
-        <Tab.Screen name="Home" component={MainStack} options={{ headerShown: false }} />
-        <Tab.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: false }} />
-        <Tab.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
+        <Tab.Screen name="Guides" component={GuidesStack} options={{ headerShown: false }} />
+        <Tab.Screen name="Tasks" component={TasksStack} options={{ headerShown: false }} />
+        <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }} />
+        <Tab.Screen name="Calendar" component={CalendarStack} options={{ headerShown: false }} />
+        <Tab.Screen name="Profile" component={ProfileStack} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
