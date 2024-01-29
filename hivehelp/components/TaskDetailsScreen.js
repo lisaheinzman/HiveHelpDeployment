@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   contentContainer: {
-    paddingBottom: 80, // Adjust as per your content
+    paddingBottom: 80,
   },
   label: {
     fontWeight: 'bold',

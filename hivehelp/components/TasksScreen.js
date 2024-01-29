@@ -22,7 +22,7 @@ const TasksScreen = () => {
     const jsonData = [
       {
         name: "Walk Dog",
-        description: "Walk my neighbors dog on 11/5.",
+        description: "Walk my neighbors dog on 1/5.",
         dueDate: "01/05/2023",
         completed: false,
       },
@@ -30,6 +30,18 @@ const TasksScreen = () => {
         name: "Finish Research Project",
         description: "Complete performing research and finish paper.",
         dueDate: "01/15/2023",
+        completed: false,
+      },
+      {
+        name: "Grocery Shop",
+        description: "Weekly grocery shopping at Trader Joes and Aldis.",
+        dueDate: "02/05/2023",
+        completed: false,
+      },
+      {
+        name: "Car Wash",
+        description: "Take car to car wash.",
+        dueDate: "01/29/2023",
         completed: false,
       },
       {
