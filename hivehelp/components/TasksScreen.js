@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: "bold",
     color: Theme.lightA.text, // Use theme color for text
   },
