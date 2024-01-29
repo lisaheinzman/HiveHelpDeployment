@@ -59,6 +59,7 @@ const SettingsScreen = () => {
     // Add logic for deleting the account
     console.log('Deleting Account...');
     closeDeleteAccountModal();
+    navigation.navigate('SignIn');
   };
 
   const navigateToProfile = () => {
