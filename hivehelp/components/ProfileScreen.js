@@ -60,17 +60,17 @@ const ProfileScreen = () => {
           <Ionicons name="star-outline" size={24} color="black" />
           <Text style={styles.buttonText}>Favorited Guides</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.buttonContainer} onPress={navigateToRecentlyViewedGuides}>
           <Ionicons name="time-outline" size={24} color="black" />
           <Text style={styles.buttonText}>Recently Viewed</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.buttonContainer} onPress={navigateToSettings}>
           <Ionicons name="settings-outline" size={24} color="black" />
           <Text style={styles.buttonText}>Settings</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.buttonContainer} onPress={handleLogout}>
           <Ionicons name="log-out-outline" size={24} color="black" />
           <Text style={styles.buttonText}>Logout</Text>
@@ -84,8 +84,7 @@ const ProfileScreen = () => {
             placeholder="Enter new name"
             style={styles.input}
             value={newName}
-            onChangeText={(text) => setNewName(text)}
-          />
+            onChangeText={(text) => setNewName(text)} />
           <View style={styles.modalButtonsContainer}>
             <Button title="Cancel" onPress={handleCancelEdit} />
             <Button title="Save" onPress={handleSaveEdit} />
@@ -125,7 +124,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   buttonSection: {
-    flexDirection: 'column', 
+    flexDirection: 'column',
     alignItems: 'flex-start',
     marginTop: 20,
   },
