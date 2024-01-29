@@ -116,15 +116,6 @@ const styles = StyleSheet.create({
     padding: 40,
     position: 'relative',
   },
-  // profilePicture: {
-  //   width: 110,
-  //   height: 110,
-  //   borderRadius: 50,
-  //   backgroundColor: 'grey',
-  //   position: 'absolute',
-  //   top: -25,
-  //   left: -5,
-  // },
   userName: {
     fontSize: 25,
     fontWeight: 'bold',
