@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Theme } from './Theme';
-import TasksScreen from './TasksScreen';
+import * as FileSystem from 'expo-file-system';
+import {TaskList} from './TaskList.json'
 
 
 const ColorScheme = Theme.lightA;
 
 const HomeScreen = ({}) => {
   const navigation = useNavigation();
+
+  const [jsonData, setJsonData] = useState(null);
+
+  useEffect(() => {
+    const readJsonFile = async () => {
+      try {
+        const filePath = FileSystem.documentDirectory + TaskList;
+        const result = await FileSystem.readAsStringAsync(filePath);
+        setJsonData(JSON.parse(result));
+      } catch (error) {
+        console.error('Error reading JSON file:', error);
+      }
+    };
+
+    readJsonFile();
+  }, []);
 
   const [displayText, setDisplayText] = useState('Remeber to always do what you love!');
 
@@ -52,20 +69,47 @@ const HomeScreen = ({}) => {
         {/* Tasks */}
         <View style={[styles.column]}>
         <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.secondaryLite }, { borderColor: ColorScheme.secondaryRich }]} onPress={goToTemplatePage}>
-        <View style={[styles.boxHeader, { backgroundColor: ColorScheme.secondary }, { borderBottomEndRadius: 0 }]}>
-        <Text style={styles.buttonText}>Tasks</Text>
-        </View>
-          </TouchableOpacity>
+          <View style={[styles.boxHeader, { backgroundColor: ColorScheme.secondary }, { borderBottomEndRadius: 0 }]}>
+            <Text style={styles.buttonText}>Tasks</Text>
+          </View>
+        </TouchableOpacity>
         </View>
       </View>
       {/* Calendar */}
       <View style={styles.container}>
           <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.tertiary }, { borderColor: ColorScheme.tertiaryRich }]} onPress={goToTemplatePage}>
-          <View style={[styles.boxHeader, { backgroundColor: ColorScheme.tertiaryRich }, { borderBottomEndRadius: 0 }]}>
-        <Text style={styles.buttonText}>This Week</Text>
-        </View>
+            <View style={[styles.boxHeader, { backgroundColor: ColorScheme.tertiaryRich }, { borderBottomEndRadius: 0 }]}>
+              <Text style={styles.buttonText}>This Week</Text>
+            </View>
+            <View style={[styles.container]}>
+            <View style={[styles.column]}>
+              <Text>S</Text>
+              </View>
+              <View style={[styles.column]}>
+              <Text>M</Text>
+              </View>
+              <View style={[styles.column]}>
+              <Text>T</Text>
+              </View>
+              <View style={[styles.column]}>
+              <Text>W</Text>
+              </View>
+              <View style={[styles.column]}>
+              <Text>T</Text>
+              </View>
+              <View style={[styles.column]}>
+              <Text>F</Text>
+              </View>
+              <View style={[styles.column]}>
+              <Text>S</Text>
+              </View>
+            </View>
           </TouchableOpacity>
         </View>
+        <View>
+      <Text>JSON Data:</Text>
+      <Text>{JSON.stringify(jsonData, null, 2)}</Text>
+    </View>
       </View>
 
   //  </View>

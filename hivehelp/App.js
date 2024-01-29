@@ -12,17 +12,21 @@ import CalendarScreen from './components/CalendarScreen';
 import ProfileScreen from './components/ProfileScreen';
 import SettingsScreen from './components/SettingsScreen';
 import SignInScreen from './components/SignInScreen';
-
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+import CreateAccountScreen from './components/CreateAccountScreen';
+import TaskDetailsScreen from './components/TaskDetailsScreen';
+import FavoriteGuidesScreen from './components/FavoriteGuidesScreen';
 
 import homeIcon from './assets/icons/home-icon.png';
 import guidesIcon from './assets/icons/guides-icon.png';
 import tasksIcon from './assets/icons/tasks-icon.png';
 import calendarIcon from './assets/icons/calendar-icon.png';
 import profileIcon from './assets/icons/profile-icon.png';
+import RecentGuidesScreen from './components/RecentScreen';
 
 const App = () => {
+
+  const Stack = createStackNavigator();
+  const Tab = createBottomTabNavigator();
 
   const getIconSize = (routeName) => {
     // Define aspect ratios for each tab icon
@@ -51,6 +55,10 @@ const App = () => {
         <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }} />
         <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="CreateAccount" component={CreateAccountScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} options={{ headerShown: false }}  />
+        <Stack.Screen name="FavoriteGuides" component={FavoriteGuidesScreen} options={{ headerShown: false }}  />
+        <Stack.Screen name="RecentGuides" component={RecentGuidesScreen} options={{ headerShown: false }}  />
       </Stack.Navigator>
     );
   };
@@ -61,9 +69,9 @@ const App = () => {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
             const iconSize = getIconSize(route.name);
-        
+
             let iconComponent;
-        
+
             if (route.name === 'Home') {
               iconComponent = (
                 <React.Fragment>
@@ -73,23 +81,31 @@ const App = () => {
                 </React.Fragment>
               );
             } else if (route.name === 'Guides') {
-              iconComponent = <Image source={guidesIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center' , position: 'absolute', top: 15,}} />;
+              iconComponent = <Image source={guidesIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15, }} />;
             } else if (route.name === 'Tasks') {
-              iconComponent = <Image source={tasksIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center' , position: 'absolute', top: 15, left: 20}} />;
+              iconComponent = <Image source={tasksIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15, left: 20 }} />;
             } else if (route.name === 'Calendar') {
-              iconComponent = <Image source={calendarIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center' , position: 'absolute', top: 15, left: 20}} />;
+              iconComponent = <Image source={calendarIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15, left: 20 }} />;
             } else if (route.name === 'Profile') {
               iconComponent = <Image source={profileIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15 }} />;
             }
-        
+
             return iconComponent;
           },
         })}
-        
+
         tabBarOptions={{
-          showLabel: false,
-          style: { height: 90, paddingTop: 20 }, // Add paddingTop to increase space above icons
-          tabStyle: { flexDirection: 'column', justifyContent: 'flex-end' }, // Align icons to the bottom of each tab
+          labelStyle: {
+            display: 'none',
+          },
+          style: {
+            height: 90,
+            paddingTop: 20,
+          },
+          tabStyle: {
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+          },
         }}
       >
         <Tab.Screen name="Guides" component={GuidesScreen} options={{ headerShown: false }} />

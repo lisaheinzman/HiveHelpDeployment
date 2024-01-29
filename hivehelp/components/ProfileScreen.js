@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import profilePicture from '../assets/bee_icon.jpg'
+import profilePicture from '../assets/bee_icon.jpg';
 
 import HexagonIcon from '../assets/hexagonicon';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
 
-  const [editModalVisible, setEditModalVisible] = useState(false);
-  const [newName, setNewName] = useState('');
+  const [editing, setEditing] = useState(false);
+  const [newName, setNewName] = useState('New User'); // Default name
 
   const navigateToFavoritedGuides = () => {
     console.log('Navigate to Favorited Guides');
+    navigation.navigate('FavoriteGuides');
   };
 
   const navigateToRecentlyViewedGuides = () => {
     console.log('Navigate to Recently Viewed Guides');
+    navigation.navigate('RecentGuides');
   };
 
   const navigateToSettings = () => {
-    console.log('go to settings');
+    console.log('Go to settings');
     navigation.navigate('Settings');
   };
 
@@ -31,28 +33,49 @@ const ProfileScreen = () => {
   };
 
   const handleEditPress = () => {
-    setEditModalVisible(true);
-    setNewName(''); // Reset the input field
+    setEditing(true);
   };
 
   const handleCancelEdit = () => {
-    setEditModalVisible(false);
+    setEditing(false);
+    // Reset the name to the original value if needed
+    setNewName('New User');
   };
 
   const handleSaveEdit = () => {
     // Implement logic to save changes (e.g., update profile picture and name)
-    setEditModalVisible(false);
+    setEditing(false);
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.profileSection}>
-        <HexagonIcon size={100} color="#f7f7f7" /> {/* Adjust size and color based on your design */}
-        <Image source={profilePicture} style={styles.profilePicture} />
-        <Text style={styles.userName}>New User</Text>
-        <TouchableOpacity onPress={handleEditPress} style={styles.editButton}>
-          <Ionicons name="create-outline" size={30} color="black" />
-        </TouchableOpacity>
+      <View style={styles.hexagonContainer}>
+      <View style={styles.hexagonMask}>
+        <Image source={profilePicture} style={styles.image} />
+      </View>
+    </View>
+        {editing ? (
+          <View>
+          <TextInput
+            placeholder="Enter new name"
+            style={styles.editingName}
+            value={newName}
+            onChangeText={(text) => setNewName(text)}
+          />
+          <View style={styles.editButtonsContainer}>
+            <Button title="Cancel" onPress={handleCancelEdit} />
+            <Button title="Save" onPress={handleSaveEdit} />
+          </View>
+        </View>
+        ) : (
+          <Text style={styles.userName}>{newName}</Text>
+        )}
+        {!editing && (
+          <TouchableOpacity onPress={handleEditPress} style={styles.editButton}>
+            <Ionicons name="create-outline" size={30} color="black" />
+          </TouchableOpacity>
+        )}
       </View>
 
       <View style={styles.buttonSection}>
@@ -60,38 +83,23 @@ const ProfileScreen = () => {
           <Ionicons name="star-outline" size={24} color="black" />
           <Text style={styles.buttonText}>Favorited Guides</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.buttonContainer} onPress={navigateToRecentlyViewedGuides}>
           <Ionicons name="time-outline" size={24} color="black" />
           <Text style={styles.buttonText}>Recently Viewed</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.buttonContainer} onPress={navigateToSettings}>
           <Ionicons name="settings-outline" size={24} color="black" />
           <Text style={styles.buttonText}>Settings</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.buttonContainer} onPress={handleLogout}>
           <Ionicons name="log-out-outline" size={24} color="black" />
           <Text style={styles.buttonText}>Logout</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Edit Profile Modal */}
-      <Modal visible={editModalVisible} animationType="slide">
-        <View style={styles.modalContainer}>
-          <TextInput
-            placeholder="Enter new name"
-            style={styles.input}
-            value={newName}
-            onChangeText={(text) => setNewName(text)}
-          />
-          <View style={styles.modalButtonsContainer}>
-            <Button title="Cancel" onPress={handleCancelEdit} />
-            <Button title="Save" onPress={handleSaveEdit} />
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 };
@@ -100,7 +108,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff4e7',
-    color: '#4C3313',
   },
   profileSection: {
     flexDirection: 'row',
@@ -111,21 +118,21 @@ const styles = StyleSheet.create({
     padding: 40,
     position: 'relative',
   },
-  profilePicture: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: 'grey',
-    position: 'absolute',
-  },
   userName: {
     fontSize: 25,
     fontWeight: 'bold',
-    padding: 30,
     marginLeft: 20,
   },
+  editingName: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginLeft: 20,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    width: '100%',
+  },
   buttonSection: {
-    flexDirection: 'column', 
+    flexDirection: 'column',
     alignItems: 'flex-start',
     marginTop: 20,
   },
@@ -147,22 +154,28 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 20,
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    borderBottomWidth: 1,
-    marginBottom: 20,
-    padding: 10,
-    width: '80%',
-    fontSize: 18,
-  },
-  modalButtonsContainer: {
+  editButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '80%',
+    marginTop: 20,
+  },
+  hexagonContainer: {
+    width: 100,
+    height: 100,
+    overflow: 'hidden', // Clip content outside the container
+    borderWidth: 2,
+    borderRadius: 30,
+  },
+  hexagonMask: {
+    width: 100,
+    height: 100,
+    position: 'relative',
+    backgroundColor: 'transparent',
+    overflow: 'hidden', // Clip content outside the mask
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
 });
 
