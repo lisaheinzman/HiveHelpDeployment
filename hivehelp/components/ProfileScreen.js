@@ -47,7 +47,7 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.profileSection}>
-        <HexagonIcon size={100} color="#f7f7f7" /> {/* Adjust size and color based on your design */}
+        <HexagonIcon size={100} color="#f7f7f7" />
         <Image source={profilePicture} style={styles.profilePicture} />
         <Text style={styles.userName}>New User</Text>
         <TouchableOpacity onPress={handleEditPress} style={styles.editButton}>
