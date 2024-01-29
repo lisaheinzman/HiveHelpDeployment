@@ -77,7 +77,6 @@ const ProfileScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Edit Profile Modal */}
       <Modal visible={editModalVisible} animationType="slide">
         <View style={styles.modalContainer}>
           <TextInput
@@ -99,7 +98,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff4e7',
-    color: '#4C3313',
   },
   profileSection: {
     flexDirection: 'row',
