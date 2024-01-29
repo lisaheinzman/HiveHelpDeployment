@@ -54,7 +54,7 @@ const App = () => {
         <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }} />
         <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
         <Stack.Screen name="CreateAccount" component={CreateAccountScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
+        <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} options={{ headerShown: false }}  />
       </Stack.Navigator>
     );
   };

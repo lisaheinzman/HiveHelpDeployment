@@ -17,13 +17,13 @@
               "name": "Fold Clothes",
               "description": "Finished laundry, just have to fold clothes and put them away.",
               "dueDate": "01/28/2023",
-              "completed": true,
+              "completed": true
             },
             {
               "name": "Call Mom",
               "description": "Mom wanted me to call her about Dad's birthday after she gets back from the trip.",
               "dueDate": "01/30/2023",
-              "completed": true,
+              "completed": true
             }
           ]
     ]
