@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Theme } from './Theme';
-import TasksScreen from './TasksScreen';
 
 
 const ColorScheme = Theme.lightA;
