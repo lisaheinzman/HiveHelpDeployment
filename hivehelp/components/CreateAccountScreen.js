@@ -8,8 +8,8 @@ const CreateAccountScreen = () => {
     <View style={styles.pageContainer}>
         <View style={styles.container}>
           <Text style= {styles.text}>Name*</Text>
-          <TextInput style={styles.input} placeholder="Enter Email"/>
-          <TextInput style={styles.input} placeholder="Password"/>
+          <TextInput style={styles.input}/>
+          <TextInput style={styles.input}/>
           <View style={styles.textContainer}>
               <View style={[styles.column]}>
                  <Text>Forgot Password?</Text>
