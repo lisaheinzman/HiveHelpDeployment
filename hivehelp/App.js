@@ -23,8 +23,8 @@ import profileIcon from './assets/icons/profile-icon.png';
 
 const App = () => {
 
- const Stack = createStackNavigator();
- const Tab = createBottomTabNavigator();
+  const Stack = createStackNavigator();
+  const Tab = createBottomTabNavigator();
 
   const getIconSize = (routeName) => {
     // Define aspect ratios for each tab icon
@@ -65,9 +65,9 @@ const App = () => {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
             const iconSize = getIconSize(route.name);
-        
+
             let iconComponent;
-        
+
             if (route.name === 'Home') {
               iconComponent = (
                 <React.Fragment>
@@ -77,23 +77,31 @@ const App = () => {
                 </React.Fragment>
               );
             } else if (route.name === 'Guides') {
-              iconComponent = <Image source={guidesIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center' , position: 'absolute', top: 15,}} />;
+              iconComponent = <Image source={guidesIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15, }} />;
             } else if (route.name === 'Tasks') {
-              iconComponent = <Image source={tasksIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center' , position: 'absolute', top: 15, left: 20}} />;
+              iconComponent = <Image source={tasksIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15, left: 20 }} />;
             } else if (route.name === 'Calendar') {
-              iconComponent = <Image source={calendarIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center' , position: 'absolute', top: 15, left: 20}} />;
+              iconComponent = <Image source={calendarIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15, left: 20 }} />;
             } else if (route.name === 'Profile') {
               iconComponent = <Image source={profileIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15 }} />;
             }
-        
+
             return iconComponent;
           },
         })}
-        
+
         tabBarOptions={{
-          showLabel: false,
-          style: { height: 90, paddingTop: 20 }, // Add paddingTop to increase space above icons
-          tabStyle: { flexDirection: 'column', justifyContent: 'flex-end' }, // Align icons to the bottom of each tab
+          labelStyle: {
+            display: 'none',
+          },
+          style: {
+            height: 90,
+            paddingTop: 20,
+          },
+          tabStyle: {
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+          },
         }}
       >
         <Tab.Screen name="Guides" component={GuidesScreen} options={{ headerShown: false }} />

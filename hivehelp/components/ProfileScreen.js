@@ -47,7 +47,7 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.profileSection}>
-        <HexagonIcon size={100} color="#f7f7f7" /> {/* Adjust size and color based on your design */}
+        <HexagonIcon size={100} color="#f7f7f7" />
         <Image source={profilePicture} style={styles.profilePicture} />
         <Text style={styles.userName}>New User</Text>
         <TouchableOpacity onPress={handleEditPress} style={styles.editButton}>
@@ -60,32 +60,30 @@ const ProfileScreen = () => {
           <Ionicons name="star-outline" size={24} color="black" />
           <Text style={styles.buttonText}>Favorited Guides</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.buttonContainer} onPress={navigateToRecentlyViewedGuides}>
           <Ionicons name="time-outline" size={24} color="black" />
           <Text style={styles.buttonText}>Recently Viewed</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.buttonContainer} onPress={navigateToSettings}>
           <Ionicons name="settings-outline" size={24} color="black" />
           <Text style={styles.buttonText}>Settings</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.buttonContainer} onPress={handleLogout}>
           <Ionicons name="log-out-outline" size={24} color="black" />
           <Text style={styles.buttonText}>Logout</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Edit Profile Modal */}
-      <Modal visible={editModalVisible} animationType="slide">
+      <Modal visible={editModalVisible} animationType="none">
         <View style={styles.modalContainer}>
           <TextInput
             placeholder="Enter new name"
             style={styles.input}
             value={newName}
-            onChangeText={(text) => setNewName(text)}
-          />
+            onChangeText={(text) => setNewName(text)} />
           <View style={styles.modalButtonsContainer}>
             <Button title="Cancel" onPress={handleCancelEdit} />
             <Button title="Save" onPress={handleSaveEdit} />
@@ -100,7 +98,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff4e7',
-    color: '#4C3313',
   },
   profileSection: {
     flexDirection: 'row',
@@ -125,7 +122,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   buttonSection: {
-    flexDirection: 'column', 
+    flexDirection: 'column',
     alignItems: 'flex-start',
     marginTop: 20,
   },
@@ -149,6 +146,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
+    backgroundColor: '#f5cac3',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -156,13 +154,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginBottom: 20,
     padding: 10,
-    width: '80%',
+    width: '60%',
     fontSize: 18,
+    backgroundColor: 'white',
+    color: 'black',
   },
   modalButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '80%',
+    color: 'black',
   },
 });
 
