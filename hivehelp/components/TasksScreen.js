@@ -23,25 +23,25 @@ const TasksScreen = () => {
       {
         name: "Walk Dog",
         description: "Walk my neighbors dog on 1/5.",
-        dueDate: "01/05/2023",
+        dueDate: "01/05/2024",
         completed: false,
       },
       {
         name: "Finish Research Project",
         description: "Complete performing research and finish paper.",
-        dueDate: "01/15/2023",
+        dueDate: "01/15/2024",
         completed: false,
       },
       {
         name: "Grocery Shop",
         description: "Weekly grocery shopping at Trader Joes and Aldis.",
-        dueDate: "02/05/2023",
+        dueDate: "02/05/2024",
         completed: false,
       },
       {
         name: "Car Wash",
         description: "Take car to car wash.",
-        dueDate: "01/29/2023",
+        dueDate: "01/29/2024",
         completed: false,
       },
       {
@@ -53,7 +53,7 @@ const TasksScreen = () => {
       {
         name: "Call Mom",
         description: "Mom wanted me to call her about Dad's birthday after she gets back from the trip.",
-        dueDate: "01/30/2023",
+        dueDate: "01/30/2024",
         completed: true,
       },
     ];
