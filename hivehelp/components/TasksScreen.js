@@ -183,10 +183,11 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.lightA.background, // Use theme color for background
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    padding: 20,
   },
   title: {
     fontSize: 24,
