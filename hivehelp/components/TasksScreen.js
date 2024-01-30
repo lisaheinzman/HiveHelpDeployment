@@ -179,19 +179,22 @@ const TasksScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    //padding: 20,
     backgroundColor: Theme.lightA.background, // Use theme color for background
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    backgroundColor: Theme.lightA.secondary , 
+    textAlign: 'center',
     width: '100%',
-    padding: 30,
+    paddingTop: 50,
+    paddingBottom: 20,
+    paddingHorizontal: 10
   },
   title: {
     fontSize: 30,
-    fontWeight: "bold",
+    //fontWeight: "bold",
     color: Theme.lightA.text, // Use theme color for text
   },
   plusButton: {
@@ -244,7 +247,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
-    color: Theme.lightA.text, // Use theme color for text
+    color: Theme.lightA.text, 
+   textAlign: "center",
   },
   input: {
     borderWidth: 1,
@@ -252,12 +256,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
-    color: Theme.lightA.text, // Use theme color for text
+    color: Theme.lightA.text,
   },
   addButton: {
     backgroundColor: Theme.lightA.secondary,
     padding: 10,
-    borderRadius: 8,
+    borderRadius: 10,
     alignItems: "center",
   },
   addButtonText: {
@@ -267,7 +271,7 @@ const styles = StyleSheet.create({
   task: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 30,
   },
   taskDetails: {
     flex: 1,
@@ -277,16 +281,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
-    color: Theme.lightA.text, // Use theme color for text
+    color: Theme.lightA.text, 
   },
   taskDescription: {
     fontSize: 16,
-    color: Theme.lightA.text, // Use theme color for text
+    color: Theme.lightA.text, 
     marginBottom: 5,
   },
   dueDate: {
     fontSize: 14,
-    color: Theme.lightA.text, // Use theme color for text
+    color: Theme.lightA.text, 
   },
   completeButton: {
     width: 50,
