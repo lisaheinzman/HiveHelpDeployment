@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Modal, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Modal, TextInput, Button, Switch } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import profilePicture from '../assets/bee_icon.jpg';
+
+import lightMode1 from '../assets/light_mode_1.png';
+import lightMode2 from '../assets/light_mode_2.png';
+import darkMode1 from '../assets/dark_mode_1.png';
+import darkMode2 from '../assets/dark_mode_2.png';
 
 const SettingsScreen = () => {
   const navigation = useNavigation();
@@ -12,6 +17,9 @@ const SettingsScreen = () => {
   const [newPassword, setNewPassword] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
+  const [colorThemeModalVisible, setColorThemeModalVisible] = useState(false);
+  const [selectedColorTheme, setSelectedColorTheme] = useState('Light'); // Default theme
+  const [notifications, setNotifications] = useState(true);
 
   const openUpdateEmailModal = () => {
     setNewEmail('');
@@ -41,6 +49,14 @@ const SettingsScreen = () => {
     setDeleteAccountModalVisible(false);
   };
 
+  const openColorThemeModal = () => {
+    setColorThemeModalVisible(true);
+  };
+
+  const closeColorThemeModal = () => {
+    setColorThemeModalVisible(false);
+  };
+
   const handleUpdateEmail = () => {
     if (isValidEmail) {
       console.log('New Email:', newEmail);
@@ -56,14 +72,49 @@ const SettingsScreen = () => {
   };
 
   const handleDeleteAccount = () => {
-    // Add logic for deleting the account
     console.log('Deleting Account...');
     closeDeleteAccountModal();
     navigation.navigate('SignIn');
   };
 
+  const handleColorThemeChange = (theme) => {
+    setSelectedColorTheme(theme);
+  };
+
+  const handleColorThemeConfirm = () => {
+    console.log('Selected Color Theme:', selectedColorTheme);
+    closeColorThemeModal();
+  };
+
+  const toggleNotifications = () => {
+    setNotifications((prev) => !prev);
+  };
+
   const navigateToProfile = () => {
     navigation.navigate('Profile');
+  };
+
+  const renderImagesForColorTheme = () => {
+    if (selectedColorTheme === 'Light') {
+      return (
+        <View style={styles.imageContainer}>
+          <Image source={lightMode1} style={styles.themeImage} />
+          <Text>Light Mode 1</Text>
+          <Image source={lightMode2} style={styles.themeImage} />
+          <Text>Light Mode 2</Text>
+        </View>
+      );
+    } else if (selectedColorTheme === 'Dark') {
+      return (
+        <View style={styles.imageContainer}>
+          <Image source={darkMode1} style={styles.themeImage} />
+          <Text>Dark Mode 1</Text>
+          <Image source={darkMode2} style={styles.themeImage} />
+          <Text>Dark Mode 2</Text>
+        </View>
+      );
+    }
+    return null;
   };
 
   const renderUpdateEmailModal = () => (
@@ -133,11 +184,10 @@ const SettingsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View>
-        <TouchableOpacity onPress={navigateToProfile} style={styles.profileButton}>
-          <Image source={profilePicture} style={styles.profilePicture} />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={navigateToProfile} style={styles.profileButton}>
+        <Image source={profilePicture} style={styles.profilePicture} />
+      </TouchableOpacity>
+
       <View style={styles.header}>
         <Text style={styles.heading}>Settings</Text>
       </View>
@@ -156,18 +206,115 @@ const SettingsScreen = () => {
         </TouchableOpacity>
       </View>
 
+      <View style={styles.section}>
+        <Text style={styles.sectionHeading}>Color Theme</Text>
+        <View style={styles.line} />
+        <TouchableOpacity style={styles.button} onPress={openColorThemeModal}>
+          <Text style={styles.buttonText}>Change Color Theme</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionHeading}>Notifications</Text>
+        <View style={styles.line} />
+        <View style={styles.switchContainer}>
+          <Text style={styles.switchLabel}>Push Notifications</Text>
+          <Switch value={notifications} onValueChange={toggleNotifications} />
+        </View>
+      </View>
+
       {renderUpdateEmailModal()}
       {renderUpdatePasswordModal()}
       {renderDeleteAccountModal()}
-
-      {/* ... Other sections ... */}
+      <Modal visible={colorThemeModalVisible} animationType="slide" transparent={true}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Color Theme</Text>
+            <View style={styles.colorThemeContainer}>
+              <TouchableOpacity
+                style={[
+                  styles.colorThemeOption,
+                  selectedColorTheme === 'Light' && { borderColor: '#3498db' },
+                ]}
+                onPress={() => handleColorThemeChange('Light')}
+              >
+                <Text>Light</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.colorThemeOption,
+                  selectedColorTheme === 'Dark' && { borderColor: '#3498db' },
+                ]}
+                onPress={() => handleColorThemeChange('Dark')}
+              >
+                <Text>Dark</Text>
+              </TouchableOpacity>
+              
+            </View>
+            {renderImagesForColorTheme()}
+            <View style={styles.buttonContainer}>
+              <Button title="Cancel" onPress={closeColorThemeModal} color="#999" />
+              <Button title="Confirm" onPress={handleColorThemeConfirm} />
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  // ... Other styles ...
-
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    padding: 20,
+  },
+  profileButton: {
+    width: 60,
+    height: 60,
+    borderRadius: 50,
+    overflow: 'hidden',
+    position: 'relative',
+    top: 10,
+    left: 10,
+  },
+  profilePicture: {
+    width: 60,
+    height: 60,
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  heading: {
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  section: {
+    marginBottom: 20,
+  },
+  sectionHeading: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  line: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    marginBottom: 10,
+  },
+  button: {
+    backgroundColor: '#3498db',
+    padding: 15,
+    borderRadius: 5,
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -192,6 +339,7 @@ const styles = StyleSheet.create({
   confirmText: {
     fontSize: 16,
     marginBottom: 10,
+    textAlign: 'center',
   },
   input: {
     width: '100%',
@@ -212,6 +360,36 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  colorThemeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+  },
+  colorThemeOption: {
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 5,
+    margin: 15,
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  switchLabel: {
+    fontSize: 16,
+  },
+  imageContainer: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    paddingBottom: 20,
+  },
+  themeImage: {
+    width: 150,
+    height: 50,
+    marginBottom: 10,
   },
 });
 
