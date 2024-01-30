@@ -67,6 +67,8 @@ const App = () => {
     return (
       <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
       <Stack.Screen name="Home" component={HomeScreen}/>
+      <Stack.Screen name="SignIn" component={SignInScreen}/>
+      <Stack.Screen name="CreateAccount" component={CreateAccountScreen} screenOptions={{tabBarVisible: false}}/>
     </Stack.Navigator>
     )
   }
