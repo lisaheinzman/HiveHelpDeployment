@@ -6,7 +6,7 @@ import ExampleImage from '../assets/createAccount.png';
 const CreateAccountScreen = () => {
   const navigation = useNavigation();
   const goToHomePage = () => {
-    navigation.navigate('Home'); // 'Template' should match the name of the stack or screen you want to navigate to
+    navigation.navigate('TabNavigator'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
   return (
     <View style={styles.ultimatecontainer}>

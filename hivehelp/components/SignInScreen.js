@@ -7,7 +7,7 @@ const SignInScreen = () => {
   const navigation = useNavigation();
 
   const goToHomePage = () => {
-    navigation.navigate('Home'); // 'Template' should match the name of the stack or screen you want to navigate to
+    navigation.navigate('TabNavigator'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
   const goToCreateAccount = () => {
     navigation.navigate('CreateAccount'); // 'Template' should match the name of the stack or screen you want to navigate to
