@@ -185,12 +185,13 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: Theme.lightA.secondary , 
+    backgroundColor: Theme.lightA.secondaryRich , 
     textAlign: 'center',
     width: '100%',
     paddingTop: 50,
     paddingBottom: 20,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    marginBottom: 20
   },
   title: {
     fontSize: 30,
@@ -259,7 +260,7 @@ const styles = StyleSheet.create({
     color: Theme.lightA.text,
   },
   addButton: {
-    backgroundColor: Theme.lightA.secondary,
+    backgroundColor: Theme.lightA.secondaryRich,
     padding: 10,
     borderRadius: 10,
     alignItems: "center",
@@ -302,15 +303,15 @@ const styles = StyleSheet.create({
     color: Theme.lightA.text, // Use theme color for text
   },
   showCompletedButton: {
-    backgroundColor: Theme.lightA.secondary,
+    backgroundColor: Theme.lightA.secondaryRich,
     padding: 10,
     borderRadius: 8,
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 50,
   },
   showCompletedButtonText: {
     color: Theme.lightA.text,
-    fontWeight: "bold",
+    fontWeight: "bold", 
   },
 })
 

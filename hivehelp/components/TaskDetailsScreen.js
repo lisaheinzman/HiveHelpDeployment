@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    marginBottom: 20,
+    marginBottom: 80,
   },
   button: {
     paddingVertical: 12,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.lightA.secondary,
   },
   buttonText: {
-    color: 'white',
+    color: 'Theme.lightA.text',
     fontWeight: 'bold',
     textAlign: 'center',
   },
