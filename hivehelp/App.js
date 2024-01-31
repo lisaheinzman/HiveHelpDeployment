@@ -5,23 +5,36 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
 import HexagonIcon from './assets/hexagonicon';
 
+
 import GuidesScreen from './components/GuidesScreen';
+import schoolGuides from './components/School';
+import workGuides from './components/Work';
+import personalGuides from './components/Personal';
 import TasksScreen from './components/TasksScreen';
+import TaskDetailsScreen from './components/TaskDetailsScreen';
+import EditTask from './components/EditTask';
+
 import HomeScreen from './components/HomeScreen';
+
 import CalendarScreen from './components/CalendarScreen';
+import DateDetailsScreen from './components/DateDetailsScreen';
+
 import ProfileScreen from './components/ProfileScreen';
 import SettingsScreen from './components/SettingsScreen';
+import FavoriteGuidesScreen from './components/FavoriteGuidesScreen';
+import RecentGuidesScreen from './components/RecentScreen';
+
 import SignInScreen from './components/SignInScreen';
 import CreateAccountScreen from './components/CreateAccountScreen';
-import TaskDetailsScreen from './components/TaskDetailsScreen';
-import FavoriteGuidesScreen from './components/FavoriteGuidesScreen';
+
+
+
 
 import homeIcon from './assets/icons/home-icon.png';
 import guidesIcon from './assets/icons/guides-icon.png';
 import tasksIcon from './assets/icons/tasks-icon.png';
 import calendarIcon from './assets/icons/calendar-icon.png';
 import profileIcon from './assets/icons/profile-icon.png';
-import RecentGuidesScreen from './components/RecentScreen';
 
 const App = () => {
 
@@ -39,17 +52,25 @@ const getIconSize = (routeName) => {
   };
 
   const aspectRatio = aspectRatioMap[routeName] || { width: 25, height: 25 }; // Default aspect ratio is 1:1
+  
 
   return {
     width: aspectRatio.width,
     height: aspectRatio.height,
   };
-};
+}
+
+  
+
+
 
 const GuidesStack = () => {
   return (
     <Stack.Navigator initialRouteName="Guides" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Guides" component={GuidesScreen} />
+       <Stack.Screen name="School Guides" component={schoolGuides}/>
+      <Stack.Screen name="Work Guides" component={workGuides}/>
+      <Stack.Screen name="Personal Guides" component={personalGuides}/>
     </Stack.Navigator>
   );
 };
@@ -59,6 +80,7 @@ const TasksStack = () => {
     <Stack.Navigator initialRouteName="Tasks" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Tasks" component={TasksScreen} />
       <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
+      <Stack.Screen name="EditTask" component={EditTask} />
     </Stack.Navigator>
   );
 };
@@ -75,6 +97,7 @@ const CalendarStack = () => {
   return (
     <Stack.Navigator initialRouteName="Calendar" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Calendar" component={CalendarScreen} />
+      <Stack.Screen name="DateDetails" component={DateDetailsScreen} />
     </Stack.Navigator>
   );
 };
@@ -163,5 +186,6 @@ const TabNavigator = () => {
     </NavigationContainer>
   );
 };
+
 
 export default App;

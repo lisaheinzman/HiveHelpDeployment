@@ -10,16 +10,23 @@ import darkMode2 from '../assets/dark_mode_2.png';
 
 const SettingsScreen = () => {
   const navigation = useNavigation();
+
   const [updateEmailModalVisible, setUpdateEmailModalVisible] = useState(false);
-  const [updatePasswordModalVisible, setUpdatePasswordModalVisible] = useState(false);
-  const [deleteAccountModalVisible, setDeleteAccountModalVisible] = useState(false);
   const [newEmail, setNewEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
+
+  const [updatePasswordModalVisible, setUpdatePasswordModalVisible] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
   const [isValidPassword, setIsValidPassword] = useState(true);
+
+  const [deleteAccountModalVisible, setDeleteAccountModalVisible] = useState(false);
+
+  const [notifications, setNotifications] = useState(true);
+
   const [colorThemeModalVisible, setColorThemeModalVisible] = useState(false);
   const [selectedColorTheme, setSelectedColorTheme] = useState('Light'); // Default theme
-  const [notifications, setNotifications] = useState(true);
+
+  const [selectedColorModeImage, setSelectedColorModeImage] = useState(null);
 
   const openUpdateEmailModal = () => {
     setNewEmail('');
@@ -82,7 +89,7 @@ const SettingsScreen = () => {
   };
 
   const handleColorThemeConfirm = () => {
-    console.log('Selected Color Theme:', selectedColorTheme);
+    console.log('Selected Color Theme:', selectedColorModeImage);
     closeColorThemeModal();
   };
 
@@ -94,23 +101,59 @@ const SettingsScreen = () => {
     navigation.navigate('Profile');
   };
 
+  const handleColorModeImageSelect = (image) => {
+    setSelectedColorModeImage(image);
+  };
+
   const renderImagesForColorTheme = () => {
     if (selectedColorTheme === 'Light') {
       return (
         <View style={styles.imageContainer}>
-          <Image source={lightMode1} style={styles.themeImage} />
-          <Text>Light Mode 1</Text>
-          <Image source={lightMode2} style={styles.themeImage} />
-          <Text>Light Mode 2</Text>
+          <TouchableOpacity
+            style={[
+              styles.themeImageContainer,
+              selectedColorModeImage === 'lightMode1' && styles.selectedImage,
+            ]}
+            onPress={() => handleColorModeImageSelect('lightMode1')}
+          >
+            <Image source={lightMode1} style={[styles.themeImage, selectedColorModeImage === 'lightMode1' && styles.selectedImage]} />
+            <Text>Light Mode 1</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.themeImageContainer,
+              selectedColorModeImage === 'lightMode2' && styles.selectedImage,
+            ]}
+            onPress={() => handleColorModeImageSelect('lightMode2')}
+          >
+            <Image source={lightMode2} style={[styles.themeImage, selectedColorModeImage === 'lightMode2' && styles.selectedImage]} />
+            <Text>Light Mode 2</Text>
+          </TouchableOpacity>
         </View>
       );
     } else if (selectedColorTheme === 'Dark') {
       return (
         <View style={styles.imageContainer}>
-          <Image source={darkMode1} style={styles.themeImage} />
-          <Text>Dark Mode 1</Text>
-          <Image source={darkMode2} style={styles.themeImage} />
-          <Text>Dark Mode 2</Text>
+          <TouchableOpacity
+            style={[
+              styles.themeImageContainer,
+              selectedColorModeImage === 'darkMode1' && styles.selectedImage,
+            ]}
+            onPress={() => handleColorModeImageSelect('darkMode1')}
+          >
+            <Image source={darkMode1} style={[styles.themeImage, selectedColorModeImage === 'darkMode1' && styles.selectedImage]} />
+            <Text>Dark Mode 1</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.themeImageContainer,
+              selectedColorModeImage === 'darkMode2' && styles.selectedImage,
+            ]}
+            onPress={() => handleColorModeImageSelect('darkMode2')}
+          >
+            <Image source={darkMode2} style={[styles.themeImage, selectedColorModeImage === 'darkMode2' && styles.selectedImage]} />
+            <Text>Dark Mode 2</Text>
+          </TouchableOpacity>
         </View>
       );
     }
@@ -249,7 +292,7 @@ const SettingsScreen = () => {
               >
                 <Text>Dark</Text>
               </TouchableOpacity>
-              
+
             </View>
             {renderImagesForColorTheme()}
             <View style={styles.buttonContainer}>
@@ -390,6 +433,13 @@ const styles = StyleSheet.create({
     width: 150,
     height: 50,
     marginBottom: 10,
+  },
+  themeImageContainer: {
+    alignItems: 'center',
+  },
+  selectedImage: {
+    borderColor: '#3498db', 
+    borderWidth: 1,
   },
 });
 
