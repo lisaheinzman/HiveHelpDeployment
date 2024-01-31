@@ -164,7 +164,6 @@ const styles = StyleSheet.create({
   },
   calendarWidget: {
     height: '40%'
-
   },
 });
 
