@@ -263,8 +263,7 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.lightA.secondaryRich,
     padding: 10,
     borderRadius: 10,
-    alignItems: "center",
-    marginHorizontal: 20, 
+    alignItems: "center", 
   },
   addButtonText: {
     color: Theme.lightA.text,
