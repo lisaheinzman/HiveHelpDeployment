@@ -31,23 +31,17 @@ const App = () => {
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
 
-  const getIconSize = (routeName) => {
-    // Define aspect ratios for each tab icon
-    const aspectRatioMap = {
-      Home: { width: 70, height: 70 }, // Adjust these values based on the aspect ratio of your Home icon
-      Guides: { width: 35, height: 46 }, // Adjust these values based on the aspect ratio of your Guides icon
-      Tasks: { width: 35, height: 46 }, // Adjust these values based on the aspect ratio of your Tasks icon
-      Calendar: { width: 58, height: 45 }, // Adjust these values based on the aspect ratio of your Calendar icon
-      Profile: { width: 38, height: 45 }, // Adjust these values based on the aspect ratio of your Profile icon
-    };
-
-    const aspectRatio = aspectRatioMap[routeName] || { width: 25, height: 25 }; // Default aspect ratio is 1:1
-
-    return {
-      width: aspectRatio.width,
-      height: aspectRatio.height,
-    };
+const getIconSize = (routeName) => {
+  // Define aspect ratios for each tab icon
+  const aspectRatioMap = {
+    Home: { width: 70, height: 70 }, // Adjust these values based on the aspect ratio of your Home icon
+    Guides: { width: 35, height: 46 }, // Adjust these values based on the aspect ratio of your Guides icon
+    Tasks: { width: 35, height: 46 }, // Adjust these values based on the aspect ratio of your Tasks icon
+    Calendar: { width: 58, height: 45 }, // Adjust these values based on the aspect ratio of your Calendar icon
+    Profile: { width: 38, height: 45 }, // Adjust these values based on the aspect ratio of your Profile icon
   };
+}
+
 
   const GuidesStack = () => {
     return (
@@ -56,99 +50,134 @@ const App = () => {
       <Stack.Screen name="School Guides" component={schoolGuides}/>
       <Stack.Screen name="Work Guides" component={workGuides}/>
       <Stack.Screen name="Personal Guides" component={personalGuides}/>
-    </Stack.Navigator>
-    )
-  }
+      </Stack.Navigator>
+   
+  const aspectRatio = aspectRatioMap[routeName] || { width: 25, height: 25 }; // Default aspect ratio is 1:1
+  
 
-  const TasksStack = () => {
-    return (
-      <Stack.Navigator initialRouteName="Tasks" screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Tasks" component={TasksScreen}/>
-      <Stack.Screen name="TaskDetails" component={TaskDetailsScreen}/>
-    </Stack.Navigator>
+  return {
+    width: aspectRatio.width,
+    height: aspectRatio.height,
+  };
+  
     )
-  }
+};
 
-  const HomeStack = () => {
-    return (
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home" component={HomeScreen}/>
-    </Stack.Navigator>
-    )
-  }
 
-  const CalendarStack = () => {
-    return (
-    <Stack.Navigator initialRouteName="Calendar" screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Calendar" component={CalendarScreen}/>
+const GuidesStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Guides" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Guides" component={GuidesScreen} />
     </Stack.Navigator>
-    )
-  }
+  );
+};
 
-  const ProfileStack = () => {
-    return (
-    <Stack.Navigator initialRouteName="Profile" screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Profile" component={ProfileScreen}/>
-      <Stack.Screen name="Settings" component={SettingsScreen}/>
-      <Stack.Screen name="SignIn" component={SignInScreen}/>
-      <Stack.Screen name="CreateAccount" component={CreateAccountScreen}/>
-      <Stack.Screen name="FavoriteGuides" component={FavoriteGuidesScreen}/>
-      <Stack.Screen name="RecentGuides" component={RecentGuidesScreen}/>
+const TasksStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Tasks" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Tasks" component={TasksScreen} />
+      <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
     </Stack.Navigator>
-    )
-  }
+  );
+};
+
+const HomeStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={HomeScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const CalendarStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Calendar" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Calendar" component={CalendarScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Profile" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="FavoriteGuides" component={FavoriteGuidesScreen} />
+      <Stack.Screen name="RecentGuides" component={RecentGuidesScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator
+    initialRouteName='Home'
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color, size }) => {
+          const iconSize = getIconSize(route.name);
+
+          let iconComponent;
+
+          if (route.name === 'Home') {
+            iconComponent = (
+              <React.Fragment>
+                {/* Display Home icon on top of HexagonIcon */}
+                <HexagonIcon size={size} color={color} style={{ position: 'absolute', top: 10, alignSelf: 'center' }} />
+                <Image source={homeIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, position: 'absolute', top: -10, alignSelf: 'center' }} />
+              </React.Fragment>
+            );
+          } else if (route.name === 'Guides') {
+            iconComponent = <Image source={guidesIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15, }} />;
+          } else if (route.name === 'Tasks') {
+            iconComponent = <Image source={tasksIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15, left: 20 }} />;
+          } else if (route.name === 'Calendar') {
+            iconComponent = <Image source={calendarIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15, left: 20 }} />;
+          } else if (route.name === 'Profile') {
+            iconComponent = <Image source={profileIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15 }} />;
+          }
+
+          return iconComponent;
+        },
+      })}
+
+      tabBarOptions={{
+        labelStyle: {
+          display: 'none',
+        },
+        style: {
+          height: 90,
+          paddingTop: 20,
+        },
+        tabStyle: {
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+        },
+      }}
+    >
+      <Tab.Screen name="Guides" component={GuidesStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="Tasks" component={TasksStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="Calendar" component={CalendarStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="Profile" component={ProfileStack} options={{ headerShown: false }}/>
+    </Tab.Navigator>
+  );
+};
+
+  const AuthStack = () => {
+    return (
+      <Stack.Navigator initialRouteName="SignIn" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
+      </Stack.Navigator>
+    );
+  };
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ color, size }) => {
-            const iconSize = getIconSize(route.name);
-
-            let iconComponent;
-
-            if (route.name === 'Home') {
-              iconComponent = (
-                <React.Fragment>
-                  {/* Display Home icon on top of HexagonIcon */}
-                  <HexagonIcon size={size} color={color} style={{ position: 'absolute', top: 10, alignSelf: 'center' }} />
-                  <Image source={homeIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, position: 'absolute', top: -10, alignSelf: 'center' }} />
-                </React.Fragment>
-              );
-            } else if (route.name === 'Guides') {
-              iconComponent = <Image source={guidesIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15, }} />;
-            } else if (route.name === 'Tasks') {
-              iconComponent = <Image source={tasksIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15, left: 20 }} />;
-            } else if (route.name === 'Calendar') {
-              iconComponent = <Image source={calendarIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15, left: 20 }} />;
-            } else if (route.name === 'Profile') {
-              iconComponent = <Image source={profileIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, alignSelf: 'center', position: 'absolute', top: 15 }} />;
-            }
-
-            return iconComponent;
-          },
-        })}
-
-        tabBarOptions={{
-          labelStyle: {
-            display: 'none',
-          },
-          style: {
-            height: 90,
-            paddingTop: 20,
-          },
-          tabStyle: {
-            flexDirection: 'column',
-            justifyContent: 'flex-end',
-          },
-        }}
-      >
-        <Tab.Screen name="Guides" component={GuidesStack} options={{ headerShown: false }} />
-        <Tab.Screen name="Tasks" component={TasksStack} options={{ headerShown: false }} />
-        <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }} />
-        <Tab.Screen name="Calendar" component={CalendarStack} options={{ headerShown: false }} />
-        <Tab.Screen name="Profile" component={ProfileStack} options={{ headerShown: false }} />
-      </Tab.Navigator>
+      <Stack.Navigator initialRouteName="AuthStack" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="AuthStack" component={AuthStack} />
+        <Stack.Screen name="TabNavigator" component={TabNavigator} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };

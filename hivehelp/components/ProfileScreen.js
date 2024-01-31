@@ -163,8 +163,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     overflow: 'hidden', // Clip content outside the container
-    borderWidth: 2,
-    borderRadius: 30,
+    borderRadius: 50,
   },
   hexagonMask: {
     width: 100,

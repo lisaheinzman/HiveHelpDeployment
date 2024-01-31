@@ -179,19 +179,22 @@ const TasksScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: Theme.lightA.background, // Use theme color for background
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    backgroundColor: Theme.lightA.secondaryRich , 
+    textAlign: 'center',
     width: '100%',
-    padding: 20,
+    paddingTop: 50,
+    paddingBottom: 20,
+    paddingHorizontal: 10,
+    marginBottom: 20
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 30,
+    //fontWeight: "bold",
     color: Theme.lightA.text, // Use theme color for text
   },
   plusButton: {
@@ -239,12 +242,14 @@ const styles = StyleSheet.create({
   },
   addTaskSection: {
     marginBottom: 20,
+    marginHorizontal: 20, 
   },
   sectionTitle: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
-    color: Theme.lightA.text, // Use theme color for text
+    color: Theme.lightA.text, 
+   textAlign: "center",
   },
   input: {
     borderWidth: 1,
@@ -252,22 +257,28 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
-    color: Theme.lightA.text, // Use theme color for text
+    color: Theme.lightA.text,
   },
   addButton: {
-    backgroundColor: Theme.lightA.secondary,
+    backgroundColor: Theme.lightA.secondaryRich,
     padding: 10,
-    borderRadius: 8,
-    alignItems: "center",
+    borderRadius: 10,
+    alignItems: "center", 
   },
   addButtonText: {
     color: Theme.lightA.text,
     fontWeight: "bold",
   },
   task: {
+    marginLeft: 20, 
+    marginRight: 20,
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 15,
+    paddingBottom: 15, 
+    borderBottomWidth: 1,
+    marginRight: 20,
+    paddingBottom: 15,
   },
   taskDetails: {
     flex: 1,
@@ -277,16 +288,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
-    color: Theme.lightA.text, // Use theme color for text
+    color: Theme.lightA.text, 
   },
   taskDescription: {
     fontSize: 16,
-    color: Theme.lightA.text, // Use theme color for text
+    color: Theme.lightA.text, 
     marginBottom: 5,
   },
   dueDate: {
     fontSize: 14,
-    color: Theme.lightA.text, // Use theme color for text
+    color: Theme.lightA.text, 
   },
   completeButton: {
     width: 50,
@@ -298,15 +309,16 @@ const styles = StyleSheet.create({
     color: Theme.lightA.text, // Use theme color for text
   },
   showCompletedButton: {
-    backgroundColor: Theme.lightA.secondary,
+    backgroundColor: Theme.lightA.secondaryRich,
     padding: 10,
     borderRadius: 8,
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 50,
+    marginHorizontal: 20, 
   },
   showCompletedButtonText: {
     color: Theme.lightA.text,
-    fontWeight: "bold",
+    fontWeight: "bold", 
   },
 })
 

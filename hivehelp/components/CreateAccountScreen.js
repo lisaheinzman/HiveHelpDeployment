@@ -1,27 +1,43 @@
 import React from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput  } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import ExampleImage from '../assets/createAccount.png';
 
 const CreateAccountScreen = () => {
+  const navigation = useNavigation();
+  const goToHomePage = () => {
+    navigation.navigate('TabNavigator'); // 'Template' should match the name of the stack or screen you want to navigate to
+  };
   return (
     <View style={styles.ultimatecontainer}>
     <View style={styles.pageContainer}>
+    <Image source={ExampleImage} style={styles.image} />
         <View style={styles.container}>
           <Text style= {styles.text}>Name*</Text>
-          <TextInput style={styles.input} placeholder="Enter Email"/>
-          <TextInput style={styles.input} placeholder="Password"/>
           <View style={styles.textContainer}>
-              <View style={[styles.column]}>
-                 <Text>Forgot Password?</Text>
+              <View style={[styles.column, {alignItems: 'center'}]}>
+              <TextInput style={[styles.input, {width: 95}]}/>
               </View>
-              <View style={[styles.column, {alignItems: 'flex-end'}]}>
-                  <TouchableOpacity>
-                    <Text>Sign In</Text>
-                  </TouchableOpacity>
+              <View style={[styles.column, {alignItems: 'center'}]}>
+              <TextInput style ={[styles.input, {width: 95}]}/>
               </View>
             </View>
+            <Text style= {styles.text}>Email*</Text>
+            <TextInput style={styles.input}/>
+            <Text style= {styles.text}>Confirm Email*</Text>
+            <TextInput style={styles.input}/>
+            <Text style= {styles.text}>Create Password*</Text>
+            <TextInput style={styles.input}/>
+            <Text style= {styles.text}>Confirm Password*</Text>
+            <TextInput style={styles.input}/>
+            <TouchableOpacity style = {{alignItems: 'center'}} onPress={goToHomePage}>
+                    <Text>Sign In</Text>
+                  </TouchableOpacity>
         </View>
     </View>
+    <TouchableOpacity style= {{alignItems: 'flex-start'}}>
+                    <Text>Click Here</Text>
+  </TouchableOpacity>
     </View>
   )
 }
@@ -39,13 +55,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+  
     paddingTop: 80
   },
   image: {
     width: width, // Set the width to the width of the screen
     height: height, // Set the height to the height of the screen
-    resizeMode: 'cover'// Adjust the resizeMode as needed
+    resizeMode: 'cover',// Adjust the resizeMode as needed
+    position: 'absolute'
   },
   input: {
     height: 40,
@@ -53,18 +70,17 @@ const styles = StyleSheet.create({
     margin: 12,
     borderRadius: 10,
     backgroundColor: 'white',
-    borderWidth: 1,
     padding: 10
   },
   textContainer: {
-    height: '40%',
+   // height: '40%',
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 2,
     borderRadius: 30
   },
   text: {
-    textAlign: 'left', // Align text to the left
+    alignItems: 'flex-start' // Align text to the left
     // Add any other text styles as needed (font size, color, etc.)
   },
   column: {
