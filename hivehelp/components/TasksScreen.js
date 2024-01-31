@@ -273,6 +273,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 30,
+    paddingBottom: 15, 
+    borderBottomWidth: 1,
   },
   taskDetails: {
     flex: 1,
