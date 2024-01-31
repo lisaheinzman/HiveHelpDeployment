@@ -17,24 +17,28 @@ const SignInScreen = () => {
     <View style={styles.pageContainer}>
         <Image source={ExampleImage} style={styles.image} />
         <View style={styles.container}>
-          <Text>Name</Text>
+          <Text>Sign In</Text>
           <TextInput style={styles.input} placeholder="Enter Email"/>
           <TextInput style={styles.input} placeholder="Password"/>
           <View style={styles.textContainer}>
               <View style={[styles.column]}>
-                 <Text>Forgot Password?</Text>
+              <TouchableOpacity onPress={goToHomePage}>
+                    <Text>Forgot</Text>
+                    <Text>Password</Text>
+                  </TouchableOpacity>
               </View>
               <View style={[styles.column, {alignItems: 'flex-end'}]}>
-                  <TouchableOpacity onPress={goToHomePage}>
-                    <Text>Sign In</Text>
+                  <TouchableOpacity style ={styles.button} onPress={goToHomePage}>
+                    <Text>   Sign In</Text>
                   </TouchableOpacity>
               </View>
             </View>
         </View>
-  </View>
-  <TouchableOpacity style= {{alignItems: 'flex-end'}} onPress={goToCreateAccount}>
+        <TouchableOpacity style= {[{alignItems: 'flex-end'}, {paddingBottom: 20}, {paddingRight:100}]} onPress={goToCreateAccount}>
                     <Text>Click Here</Text>
   </TouchableOpacity>
+  </View>
+
   </View>
   )
 }
@@ -57,9 +61,17 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     width: width, // Set the width to the width of the screen
-    height: height, // Set the height to the height of the screen
+    height: height + 20, // Set the height to the height of the screen
     resizeMode: 'cover',
     position: 'absolute'
+  },
+  button: {
+    height: 40,
+    width: 100,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    padding: 10
   },
   input: {
     height: 40,
@@ -67,7 +79,6 @@ const styles = StyleSheet.create({
     margin: 12,
     borderRadius: 10,
     backgroundColor: 'white',
-    borderWidth: 1,
     padding: 10
   },
   textContainer: {
