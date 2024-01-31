@@ -3,12 +3,26 @@ import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, Button } fr
 import CalendarPicker from 'react-native-calendar-picker';
 import { AntDesign } from '@expo/vector-icons'; 
 import { Theme } from './Theme.js'; 
+import eventsData from './EventList.json';
 import { useNavigation } from '@react-navigation/native';
 
 const CalendarScreen = () => {
 
   const navigation = useNavigation();
 
+  // Define the function to extract marked dates from events
+  const getMarkedDatesFromEvents = () => {
+    const markedDates = {};
+    eventsData.events.forEach((event) => {
+      markedDates[event.date] = {
+        marked: true,
+        dotColor: Theme.lightA.primary, // Customize dot color as needed
+      };
+    });
+    return markedDates;
+  };
+
+  const markedDates = getMarkedDatesFromEvents();
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [showAddDate, setShowAddDate] = useState(false);
   const [newDateName, setNewDateName] = useState('');
@@ -17,24 +31,6 @@ const CalendarScreen = () => {
 
   const onDateChange = (date) => {
     setSelectedStartDate(date);
-  };
-
-  const startDate = selectedStartDate ? selectedStartDate.toString() : '';
-
-  const markedDates = { [startDate]: { selected: true, marked: true, selectedColor: Theme.lightA.primary } };
-
-  const handleDatePress = () => {
-    const endDate = new Date(selectedStartDate);
-    endDate.setDate(selectedStartDate.getDate() + 1);
-
-    const dateDetails = {
-      name: 'Sample Event',
-      notes: 'Event details go here',
-      startDate: selectedStartDate.toString(),
-      endDate: endDate.toString(),
-    };
-
-    navigation.navigate('DateDetails', { date: dateDetails });
   };
 
   const addEvent = () => {
@@ -71,7 +67,7 @@ const CalendarScreen = () => {
         </TouchableOpacity>
       </View>
       <CalendarPicker
-        styles = {styles.calendarMonth}
+        styles={styles.calendarMonth}
         onDateChange={onDateChange}
         markedDates={markedDates}
         width={400}
@@ -83,7 +79,7 @@ const CalendarScreen = () => {
           <Text>Event Title</Text>
           <TextInput
             width={200}
-            height= {40}
+            height={40}
             style={styles.textInput}
             placeholder="Enter Title"
             value={newDateName}
@@ -99,13 +95,15 @@ const CalendarScreen = () => {
             onChangeText={(text) => setNewDateNotes(text)}
           />
           <Button 
-            style= {styles.button}
+            style={styles.button}
             title="Add"
-            onPress={addEvent} />
+            onPress={addEvent}
+          />
           <Button
-            style= {styles.button}
+            style={styles.button}
             title="Cancel"
-            onPress={() => setShowAddDate(false)} />
+            onPress={() => setShowAddDate(false)}
+          />
         </View>
       )}
     </View>

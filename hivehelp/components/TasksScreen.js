@@ -179,7 +179,6 @@ const TasksScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //padding: 20,
     backgroundColor: Theme.lightA.background, // Use theme color for background
   },
   header: {
@@ -270,6 +269,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   task: {
+    marginLeft: 20, 
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 30,
