@@ -10,6 +10,7 @@ import GuidesScreen from './components/GuidesScreen';
 
 import TasksScreen from './components/TasksScreen';
 import TaskDetailsScreen from './components/TaskDetailsScreen';
+import EditTask from './components/EditTask';
 
 import HomeScreen from './components/HomeScreen';
 
@@ -69,6 +70,7 @@ const TasksStack = () => {
     <Stack.Navigator initialRouteName="Tasks" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Tasks" component={TasksScreen} />
       <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
+      <Stack.Screen name="EditTask" component={EditTask} />
     </Stack.Navigator>
   );
 };

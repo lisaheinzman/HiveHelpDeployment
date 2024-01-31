@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import { Theme } from './Theme.js'; 
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
+import { useNavigation } from '@react-navigation/native';
 
 const TasksScreen = () => {
-  const navigation = useNavigation(); // Initialize navigation
+  const navigation = useNavigation(); 
 
   const handleTaskPress = (task) => {
-    navigation.navigate('TaskDetails', { task }); // Navigate to TaskDetailsScreen and pass task details
+    navigation.navigate('TaskDetails', { task }); 
   };
   
   const [tasks, setTasks] = useState([]);
@@ -179,7 +179,7 @@ const TasksScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Theme.lightA.background, // Use theme color for background
+    backgroundColor: Theme.lightA.background,
   },
   header: {
     flexDirection: 'row',
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     //fontWeight: "bold",
-    color: Theme.lightA.text, // Use theme color for text
+    color: Theme.lightA.text,
   },
   plusButton: {
     width: 50,
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   hexagonInner: {
     width: "100%",
     height: "100%",
-    backgroundColor: Theme.lightA.primary,
+    backgroundColor: Theme.lightA.tertiary,
   },
   hexagonAfter: {
     position: "absolute",
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 25,
     borderRightColor: "transparent",
     borderTopWidth: 13,
-    borderTopColor: Theme.lightA.primary,
+    borderTopColor: Theme.lightA.tertiary,
   },
   hexagonBefore: {
     position: "absolute",
@@ -233,8 +233,8 @@ const styles = StyleSheet.create({
     borderRightWidth: 25,
     borderRightColor: "transparent",
     borderBottomWidth: 13,
-    borderBottomColor: Theme.lightA.primary,
-  },
+    borderBottomColor: Theme.lightA.tertiary,
+  },  
   plusIcon: {
     position: "absolute",
     top: 3,
@@ -298,6 +298,7 @@ const styles = StyleSheet.create({
   dueDate: {
     fontSize: 14,
     color: Theme.lightA.text, 
+    fontWeight: "Bold",
   },
   completeButton: {
     width: 50,
@@ -306,7 +307,7 @@ const styles = StyleSheet.create({
   },
   completedTask: {
     textDecorationLine: "line-through",
-    color: Theme.lightA.text, // Use theme color for text
+    color: Theme.lightA.text,
   },
   showCompletedButton: {
     backgroundColor: Theme.lightA.secondaryRich,
