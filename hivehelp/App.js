@@ -5,16 +5,27 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
 import HexagonIcon from './assets/hexagonicon';
 
+
 import GuidesScreen from './components/GuidesScreen';
+
 import TasksScreen from './components/TasksScreen';
+import TaskDetailsScreen from './components/TaskDetailsScreen';
+
 import HomeScreen from './components/HomeScreen';
+
 import CalendarScreen from './components/CalendarScreen';
+import DateDetailsScreen from './components/DateDetailsScreen';
+
 import ProfileScreen from './components/ProfileScreen';
 import SettingsScreen from './components/SettingsScreen';
+import FavoriteGuidesScreen from './components/FavoriteGuidesScreen';
+import RecentGuidesScreen from './components/RecentScreen';
+
 import SignInScreen from './components/SignInScreen';
 import CreateAccountScreen from './components/CreateAccountScreen';
-import TaskDetailsScreen from './components/TaskDetailsScreen';
-import FavoriteGuidesScreen from './components/FavoriteGuidesScreen';
+
+
+
 
 import homeIcon from './assets/icons/home-icon.png';
 import guidesIcon from './assets/icons/guides-icon.png';
@@ -75,6 +86,7 @@ const CalendarStack = () => {
   return (
     <Stack.Navigator initialRouteName="Calendar" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Calendar" component={CalendarScreen} />
+      <Stack.Screen name="DateDetails" component={DateDetailsScreen} />
     </Stack.Navigator>
   );
 };
@@ -136,11 +148,11 @@ const TabNavigator = () => {
         },
       }}
     >
-      <Tab.Screen name="Guides" component={GuidesStack} options={{ headerShown: false }}/>
-      <Tab.Screen name="Tasks" component={TasksStack} options={{ headerShown: false }}/>
-      <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }}/>
-      <Tab.Screen name="Calendar" component={CalendarStack} options={{ headerShown: false }}/>
-      <Tab.Screen name="Profile" component={ProfileStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="GuidesTab" component={GuidesStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="TasksTab" component={TasksStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="HomeTab" component={HomeStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="CalendarTab" component={CalendarStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="ProfileTab" component={ProfileStack} options={{ headerShown: false }}/>
     </Tab.Navigator>
   );
 };
