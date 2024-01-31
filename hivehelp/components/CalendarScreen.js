@@ -218,3 +218,121 @@ const CalendarScreen = () => {
 
 export default CalendarScreen;
 */
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
+import { Calendar } from 'react-native-calendars';
+import { AntDesign } from '@expo/vector-icons'; 
+import { Theme } from './Theme.js'; 
+
+const CalendarScreen = () => {
+
+  const currentDate = new Date().toISOString().split('T')[0];
+
+  const markedDates = {
+    [currentDate]: { selected: true, marked: true },
+    '2024-02-04': { marked: true , dotColor: Theme.lightA.primaryRich},
+    '2024-02-06': { marked: true, dotColor: 'red', activeOpacity: 0 },
+ };
+
+  return (
+    <View style={styles.container}>
+       <View style={styles.header}>
+        <Text style={styles.heading}>Calendar</Text>
+        <TouchableOpacity
+          style={styles.addEventButton}
+          onPress={() => setShowAddDate(true)}
+        >
+          <View style={styles.hexagonInner} />
+          <View style={styles.hexagonBefore} />
+          <View style={styles.hexagonAfter} />
+          <AntDesign
+            name="plus"
+            size={24}
+            color="black"
+            style={styles.plusIcon}
+          />
+        </TouchableOpacity>
+      </View>
+      <Calendar
+        markedDates={markedDates}
+        style={styles.Calendar}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'top',
+    alignItems: 'center',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: Theme.lightA.secondary, 
+    textAlign: 'center',
+    width: '100%',
+    paddingTop: 50,
+    paddingBottom: 20,
+    paddingHorizontal: 10
+  },
+  heading: {
+    fontSize: 30,
+  },
+  addEventButton: {
+    width: 50,
+    height: 29,
+    position: 'relative',
+  },
+  hexagonInner: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: Theme.lightA.primary,
+  },
+  hexagonAfter: {
+    position: 'absolute',
+    bottom: -13,
+    left: 0,
+    width: 0,
+    height: 0,
+    borderStyle: 'solid',
+    borderLeftWidth: 25,
+    borderLeftColor: 'transparent',
+    borderRightWidth: 25,
+    borderRightColor: 'transparent',
+    borderTopWidth: 13,
+    borderTopColor: Theme.lightA.primary,
+  },
+  hexagonBefore: {
+    position: 'absolute',
+    top: -13,
+    left: 0,
+    width: 0,
+    height: 0,
+    borderStyle: 'solid',
+    borderLeftWidth: 25,
+    borderLeftColor: 'transparent',
+    borderRightWidth: 25,
+    borderRightColor: 'transparent',
+    borderBottomWidth: 13,
+    borderBottomColor: Theme.lightA.primary,
+  },
+  plusIcon: {
+    position: 'absolute',
+    top: 3,
+    left: 14,
+  },
+  modalContainer: {
+    flex: 1 ,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }, 
+  Calendar: {
+    width: 400,
+    height: 'auto',
+  },
+
+});
+
+export default CalendarScreen;
