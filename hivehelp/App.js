@@ -40,18 +40,7 @@ const getIconSize = (routeName) => {
     Calendar: { width: 58, height: 45 }, // Adjust these values based on the aspect ratio of your Calendar icon
     Profile: { width: 38, height: 45 }, // Adjust these values based on the aspect ratio of your Profile icon
   };
-}
 
-
-  const GuidesStack = () => {
-    return (
-    <Stack.Navigator initialRouteName="Guides" screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Guides" component={GuidesScreen}/>
-      <Stack.Screen name="School Guides" component={schoolGuides}/>
-      <Stack.Screen name="Work Guides" component={workGuides}/>
-      <Stack.Screen name="Personal Guides" component={personalGuides}/>
-      </Stack.Navigator>
-   
   const aspectRatio = aspectRatioMap[routeName] || { width: 25, height: 25 }; // Default aspect ratio is 1:1
   
 
@@ -59,15 +48,19 @@ const getIconSize = (routeName) => {
     width: aspectRatio.width,
     height: aspectRatio.height,
   };
+}
+
   
-    )
-};
+
 
 
 const GuidesStack = () => {
   return (
     <Stack.Navigator initialRouteName="Guides" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Guides" component={GuidesScreen} />
+       <Stack.Screen name="School Guides" component={schoolGuides}/>
+      <Stack.Screen name="Work Guides" component={workGuides}/>
+      <Stack.Screen name="Personal Guides" component={personalGuides}/>
     </Stack.Navigator>
   );
 };
@@ -181,5 +174,6 @@ const TabNavigator = () => {
     </NavigationContainer>
   );
 };
+
 
 export default App;

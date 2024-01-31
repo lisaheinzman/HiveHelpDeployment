@@ -1,13 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Theme } from './Theme'
 import { Theme } from './Theme.js'; // Importing the Theme from themes.js
 
 // Extracting the lightA theme for now
 const { lightA } = Theme;
 
-const GuidesScreen = ({ navigation }) => {
+const GuidesScreen = () => {
 
   const navigation = useNavigation()
 
