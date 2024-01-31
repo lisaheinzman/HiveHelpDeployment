@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.lightA.background,
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center'
   },
   contentContainer: {
     flexGrow: 1,
