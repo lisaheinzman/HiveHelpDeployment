@@ -91,6 +91,7 @@ const TasksStack = () => {
     return (
       <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Tasks" component={TasksScreen} />
       </Stack.Navigator>
     );
   };
