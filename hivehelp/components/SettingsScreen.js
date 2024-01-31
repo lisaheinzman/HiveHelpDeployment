@@ -112,21 +112,21 @@ const SettingsScreen = () => {
           <TouchableOpacity
             style={[
               styles.themeImageContainer,
-              selectedColorModeImage === 'lightMode1' && styles.selectedImage,
+              selectedColorModeImage === 'lightA' && styles.selectedImage,
             ]}
-            onPress={() => handleColorModeImageSelect('lightMode1')}
+            onPress={() => handleColorModeImageSelect('lightA')}
           >
-            <Image source={lightMode1} style={[styles.themeImage, selectedColorModeImage === 'lightMode1' && styles.selectedImage]} />
+            <Image source={lightMode1} style={[styles.themeImage, selectedColorModeImage === 'lightA' && styles.selectedImage]} />
             <Text>Light Mode 1</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
               styles.themeImageContainer,
-              selectedColorModeImage === 'lightMode2' && styles.selectedImage,
+              selectedColorModeImage === 'lightB' && styles.selectedImage,
             ]}
-            onPress={() => handleColorModeImageSelect('lightMode2')}
+            onPress={() => handleColorModeImageSelect('lightB')}
           >
-            <Image source={lightMode2} style={[styles.themeImage, selectedColorModeImage === 'lightMode2' && styles.selectedImage]} />
+            <Image source={lightMode2} style={[styles.themeImage, selectedColorModeImage === 'lightB' && styles.selectedImage]} />
             <Text>Light Mode 2</Text>
           </TouchableOpacity>
         </View>
@@ -137,21 +137,21 @@ const SettingsScreen = () => {
           <TouchableOpacity
             style={[
               styles.themeImageContainer,
-              selectedColorModeImage === 'darkMode1' && styles.selectedImage,
+              selectedColorModeImage === 'darkA' && styles.selectedImage,
             ]}
-            onPress={() => handleColorModeImageSelect('darkMode1')}
+            onPress={() => handleColorModeImageSelect('darkA')}
           >
-            <Image source={darkMode1} style={[styles.themeImage, selectedColorModeImage === 'darkMode1' && styles.selectedImage]} />
+            <Image source={darkMode1} style={[styles.themeImage, selectedColorModeImage === 'darkA' && styles.selectedImage]} />
             <Text>Dark Mode 1</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
               styles.themeImageContainer,
-              selectedColorModeImage === 'darkMode2' && styles.selectedImage,
+              selectedColorModeImage === 'darkB' && styles.selectedImage,
             ]}
-            onPress={() => handleColorModeImageSelect('darkMode2')}
+            onPress={() => handleColorModeImageSelect('darkB')}
           >
-            <Image source={darkMode2} style={[styles.themeImage, selectedColorModeImage === 'darkMode2' && styles.selectedImage]} />
+            <Image source={darkMode2} style={[styles.themeImage, selectedColorModeImage === 'darkB' && styles.selectedImage]} />
             <Text>Dark Mode 2</Text>
           </TouchableOpacity>
         </View>

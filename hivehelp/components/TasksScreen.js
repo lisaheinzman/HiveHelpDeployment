@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
   dueDate: {
     fontSize: 14,
     color: Theme.lightA.text, 
-    fontWeight: "Bold",
+    fontStyle: "Bold"
   },
   completeButton: {
     width: 50,
