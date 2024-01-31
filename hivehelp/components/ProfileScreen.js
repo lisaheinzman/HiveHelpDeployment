@@ -51,7 +51,7 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.profileSection}>
-      <View style={styles.hexagonMask}>
+      <View style={styles.imageBox}>
         <Image source={profilePicture} style={styles.image} />
       </View>
         {editing ? (
@@ -159,23 +159,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 20,
   },
-  hexagonMask: {
+  image: {
     width: 100,
     height: 100,
-    borderRadius: 50,
     position: 'relative',
-    backgroundColor: 'transparent',
-    overflow: 'hidden', // Clip content outside the mask
-    shadowColor: 'white',
-    shadowOffset: { width: 3, height: 3 },
-    shadowOpacity: .5,
-    shadowRadius: 1,
-    elevation: 5,
+    borderRadius:50,
   },
-  image: {
-    width: '100%',
-    height: '100%',
-  },
+  imageBox: {
+    borderBottomWidth: 5,
+    borderRightWidth: 5,
+    borderRadius: 50,
+    borderColor: ColorScheme.tertiaryRich,
+    right: 10
+  }
 });
 
 export default ProfileScreen;
