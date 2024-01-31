@@ -29,14 +29,19 @@ const SignInScreen = () => {
               </View>
               <View style={[styles.column, {alignItems: 'flex-end'}]}>
                   <TouchableOpacity style ={styles.button} onPress={goToHomePage}>
-                    <Text>   Sign In</Text>
+                    <Text>    Sign In</Text>
                   </TouchableOpacity>
               </View>
             </View>
         </View>
-        <TouchableOpacity style= {[{alignItems: 'flex-end'}, {paddingBottom: 20}, {paddingRight:100}]} onPress={goToCreateAccount}>
-                    <Text>Click Here</Text>
-  </TouchableOpacity>
+        <View style= { [{alignSelf: 'flex-end'}, {paddingBottom: 8}, {paddingRight: 70}]}> 
+        <TouchableOpacity style= {styles.button} onPress={goToCreateAccount}>
+                    <Text>  Click Here</Text>
+        </TouchableOpacity>
+        </View>
+
+        
+
   </View>
 
   </View>
