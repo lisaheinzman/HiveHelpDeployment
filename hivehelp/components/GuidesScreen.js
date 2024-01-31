@@ -1,5 +1,3 @@
-// screens/GuidesScreen.js
-
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Theme } from './Theme.js'; // Importing the Theme from themes.js
@@ -56,7 +54,7 @@ const styles = StyleSheet.create ({
   },
   title: {
     fontSize: 30,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
     marginBottom: 10,
     textAlign: 'center'
   },
@@ -67,12 +65,13 @@ const styles = StyleSheet.create ({
     padding: 20,
     marginBottom: 20,
     borderRadius: 10,
+    textAlign: 'center'
   },
   guideTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 8,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   buttons: {
     padding: 10,
