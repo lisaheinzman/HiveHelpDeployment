@@ -47,18 +47,22 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.lightA.background,
     justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   contentContainer: {
     flexGrow: 1,
     justifyContent: 'center',
   },
   taskDetailsContainer: {
-    alignItems: 'center',
+    //justifyContent: 'center',
     paddingHorizontal: 20,
+    alignItems: 'center',
+    marginTop: 40,
   },
   detail: {
     marginBottom: 20,
+    fontSize: 60,
+    alignItems: "center"
   },
   label: {
     fontWeight: 'bold',
@@ -74,6 +78,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
+    marginRight: 20,
+    marginLeft: 20,
+    marginBottom:80
   },
   buttonText: {
     color: 'Theme.lightA.text',
