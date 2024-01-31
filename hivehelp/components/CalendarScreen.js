@@ -21,14 +21,17 @@ const CalendarScreen = () => {
     const eventDetailsJSON = {
       [currentDate]: {
         title: "Today",
+        dateString: [currentDate], 
         description: 'Have a wonderful day!!',
       },
       '2024-02-04': {
         title: 'Special Event',
+        dateString: '2024-02-04',
         description: 'This is a special event on February 4th.',
       },
       '2024-02-06': {
         title: 'Red Dot Event',
+        dateString: '2024-02-04', 
         description: 'This event has a red dot on February 6th.',
       },
     };
@@ -79,7 +82,6 @@ const CalendarScreen = () => {
           />
         </TouchableOpacity>
       </View>
-
           {/* Calendar component with marked dates and onDayPress handler */}
           <Calendar
             markedDates={markedDates}
@@ -96,7 +98,8 @@ const CalendarScreen = () => {
       
       {/* Add event */}
       {showAddEvent && (
-        <View style={styles.addEventSection}>
+        <Modal>
+          <View style={styles.addEventSection}>
           <Text style={styles.heading}> Create Event</Text>
           <Text> Event Title</Text>
           <TextInput
@@ -115,12 +118,20 @@ const CalendarScreen = () => {
             placeholder="Enter Notes"
             value={newEventDescription}
             onChangeText={setNewEventDescription}
-          />
-          {/* Use TouchableOpacity directly here */}
+            />
+            
+            {/* Use TouchableOpacity directly here */}
+          <View style={styles.addEventButtons}>
+          <TouchableOpacity onPress={() => setShowAddEvent(false)} style={styles.backButton}>
+            <Text >Back</Text>
+            </TouchableOpacity>
           <TouchableOpacity onPress={addTask} style={styles.addButton}>
             <Text>Add</Text>
-          </TouchableOpacity>
-        </View>
+            </TouchableOpacity>
+            </View>
+            </View>
+        </Modal>
+        
       )}
 
           {/* Modal component for displaying event details */}
@@ -136,8 +147,9 @@ const CalendarScreen = () => {
               <Text>Event Details:</Text>
               <Text>Title: {markedDates[selectedDate]?.details?.title}</Text>
               <Text>Description: {markedDates[selectedDate]?.details?.description}</Text>
-              <Button title="Close" onPress={() => setShowModal(false)} />
-            </View>
+              <Text>Date: {markedDates[selectedDate]?.details?.dateString}</Text>
+            <Button title="Close" onPress={() => setShowModal(false)} />
+        </View>
           </Modal>
         </View>
       );
@@ -203,6 +215,7 @@ const styles = StyleSheet.create({
     borderRightColor: 'transparent',
     borderBottomWidth: 13,
     borderBottomColor: Theme.lightA.tertiary,
+    
   },
   plusIcon: {
     position: 'absolute',
@@ -224,9 +237,11 @@ const styles = StyleSheet.create({
     height: 'auto',
   },
   addEventSection: {
-    marginTop: 20, 
-    marginBottom: 20, 
-    width: 200
+    paddingTop: 100,
+    paddingHorizontal: 50,
+    paddingBottom: 100,
+    align: 'center', 
+    backgroundColor: Theme.lightA.background,  
   },
   textInput: {
     borderWidth: 1,
@@ -236,13 +251,25 @@ const styles = StyleSheet.create({
     color: Theme.lightA.text, 
   }, 
   addButton: {
-    alignItems: 'center', // Fix the typo here
-    backgroundColor: Theme.lightA.tertiaryRich,
+    backgroundColor: Theme.lightA.tertiaryRich, // Customize the color as needed
+    fontSize: 18,
+    marginBottom: 10,
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
   },
-  
+  backButton: {
+    backgroundColor: Theme.lightA.tertiaryRich, // Customize the color as needed
+    fontSize: 18,
+    marginBottom: 10,
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  addEventButtons: {
+    flexDirection: 'row', 
+    justifyContent: 'space-between'
+  }
 });
 
 export default CalendarScreen;
