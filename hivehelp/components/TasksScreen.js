@@ -278,6 +278,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     paddingBottom: 15, 
     borderBottomWidth: 1,
+    marginRight: 20,
+    paddingBottom: 15,
   },
   taskDetails: {
     flex: 1,
