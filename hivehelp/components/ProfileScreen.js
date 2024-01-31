@@ -4,7 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import profilePicture from '../assets/bee_icon.jpg';
 
-import HexagonIcon from '../assets/hexagonicon';
+import { Theme } from './Theme';
+const ColorScheme = Theme.lightA;
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -50,11 +51,9 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.profileSection}>
-      <View style={styles.hexagonContainer}>
       <View style={styles.hexagonMask}>
         <Image source={profilePicture} style={styles.image} />
       </View>
-    </View>
         {editing ? (
           <View>
           <TextInput
@@ -107,13 +106,14 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff4e7',
+    backgroundColor: ColorScheme.background,
+    color: ColorScheme.text,
   },
   profileSection: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: '#ffdba2',
+    backgroundColor: ColorScheme.tertiaryLite,
     paddingTop: 60,
     padding: 40,
     position: 'relative',
@@ -159,18 +159,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 20,
   },
-  hexagonContainer: {
-    width: 100,
-    height: 100,
-    overflow: 'hidden', // Clip content outside the container
-    borderRadius: 50,
-  },
   hexagonMask: {
     width: 100,
     height: 100,
+    borderRadius: 50,
     position: 'relative',
     backgroundColor: 'transparent',
     overflow: 'hidden', // Clip content outside the mask
+    shadowColor: 'white',
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: .5,
+    shadowRadius: 1,
+    elevation: 5,
   },
   image: {
     width: '100%',

@@ -32,7 +32,6 @@ import guidesIcon from './assets/icons/guides-icon.png';
 import tasksIcon from './assets/icons/tasks-icon.png';
 import calendarIcon from './assets/icons/calendar-icon.png';
 import profileIcon from './assets/icons/profile-icon.png';
-import RecentGuidesScreen from './components/RecentScreen';
 
 const App = () => {
 
@@ -148,11 +147,11 @@ const TabNavigator = () => {
         },
       }}
     >
-      <Tab.Screen name="GuidesTab" component={GuidesStack} options={{ headerShown: false }}/>
-      <Tab.Screen name="TasksTab" component={TasksStack} options={{ headerShown: false }}/>
-      <Tab.Screen name="HomeTab" component={HomeStack} options={{ headerShown: false }}/>
-      <Tab.Screen name="CalendarTab" component={CalendarStack} options={{ headerShown: false }}/>
-      <Tab.Screen name="ProfileTab" component={ProfileStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="Guides" component={GuidesStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="Tasks" component={TasksStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="Calendar" component={CalendarStack} options={{ headerShown: false }}/>
+      <Tab.Screen name="Profile" component={ProfileStack} options={{ headerShown: false }}/>
     </Tab.Navigator>
   );
 };
