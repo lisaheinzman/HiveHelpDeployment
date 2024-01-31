@@ -6,6 +6,9 @@ import { Image } from 'react-native';
 import HexagonIcon from './assets/hexagonicon';
 
 import GuidesScreen from './components/GuidesScreen';
+import schoolGuides from './components/School';
+import workGuides from './components/Work';
+import personalGuides from './components/Personal';
 import TasksScreen from './components/TasksScreen';
 import HomeScreen from './components/HomeScreen';
 import CalendarScreen from './components/CalendarScreen';
@@ -50,6 +53,9 @@ const App = () => {
     return (
     <Stack.Navigator initialRouteName="Guides" screenOptions={{headerShown: false}}>
       <Stack.Screen name="Guides" component={GuidesScreen}/>
+      <Stack.Screen name="School Guides" component={schoolGuides}/>
+      <Stack.Screen name="Work Guides" component={workGuides}/>
+      <Stack.Screen name="Personal Guides" component={personalGuides}/>
     </Stack.Navigator>
     )
   }
