@@ -74,10 +74,7 @@ const HomeScreen = () => {
             {/* Display tasks */}
             {tasks.map((task, index) => (
               <View key={index}>
-                <Text>Name: {task.name}</Text>
-                <Text>Description: {task.description}</Text>
-                <Text>Due Date: {task.dueDate}</Text>
-                <Text>Completed: {task.completed ? 'Yes' : 'No'}</Text>
+                <Text>{task.name}</Text>
               </View>
             ))}
           </TouchableOpacity>
