@@ -270,9 +270,10 @@ const styles = StyleSheet.create({
   },
   task: {
     marginLeft: 20, 
+    marginRight: 20,
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 15,
     paddingBottom: 15, 
     borderBottomWidth: 1,
   },
