@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 import { personalData } from './PersonalGuidesData';
 import { Theme } from './Theme';
 
-const PersonalGuides = () => {
+const Personal = () => {
     const [self, setSelf] = useState(personalData);
     const [expandedGuide, setExpandedGuide] = useState(null);
+    const navigation = useNavigation(); // Get navigation object using useNavigation hook
 
     const handlePress = (index) => {
         setExpandedGuide(index === expandedGuide ? null : index);
@@ -53,6 +55,9 @@ const PersonalGuides = () => {
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
             />
+            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                <Text style={styles.backButtonText}>Back</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -66,7 +71,7 @@ const styles = StyleSheet.create({
         padding: 35,
     },
     heading: {
-        fontSize: 24,
+        fontSize: 70,
         fontWeight: 'bold',
         marginBottom: 10,
         marginTop: 30,
@@ -95,6 +100,17 @@ const styles = StyleSheet.create({
     sectionContent: {
         marginBottom: 10,
     },
+    backButton: {
+        justifyConten: 'center',
+        marginBottom: 80,
+        padding: 10,
+        backgroundColor: '#ccc', // Back button background color
+
+    },
+    backButtonText: {
+        color: '#000', // Back button text color
+        textAlign: 'center'
+    },
 });
 
-export default PersonalGuides;
+export default Personal;

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 import { schoolData } from './SchoolGuideData';
-import { Theme } from './Theme.js';
+import { Theme } from './Theme';
 
 const School = () => {
     const [school, setSchool] = useState(schoolData);
     const [expandedGuide, setExpandedGuide] = useState(null);
+    const navigation = useNavigation(); // Get navigation object using useNavigation hook
 
     const handlePress = (index) => {
         setExpandedGuide(index === expandedGuide ? null : index);
@@ -53,6 +55,9 @@ const School = () => {
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
             />
+            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                <Text style={styles.backButtonText}>Back</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -64,7 +69,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: Theme.lightA.background,
         padding: 35,
-
     },
     heading: {
         fontSize: 24,
@@ -75,14 +79,15 @@ const styles = StyleSheet.create({
     itemContainer: {
         marginBottom: 10,
         marginTop: 15,
-        justifyContent: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     title: {
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 5,
-        text: Theme.lightA.secondaryRich,
-        textAlign: "center"
+        color: Theme.lightA.secondaryRich,
+        textAlign: 'center',
     },
     expandedContent: {
         marginLeft: 10,
@@ -90,10 +95,21 @@ const styles = StyleSheet.create({
     sectionHeading: {
         fontWeight: 'bold',
         marginBottom: 3,
-        text: Theme.lightA.text
+        color: Theme.lightA.text,
     },
     sectionContent: {
         marginBottom: 10,
+    },
+    backButton: {
+        justifyConten: 'center',
+        marginBottom: 80,
+        padding: 10,
+        backgroundColor: '#ccc', // Back button background color
+
+    },
+    backButtonText: {
+        color: '#000', // Back button text color
+        textAlign: 'center'
     },
 });
 

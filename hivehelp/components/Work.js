@@ -50,14 +50,14 @@ const WorkGuides = () => {
             <Text style={[styles.heading, { color: Theme.lightA.primary }]}>
                 Work Guides
             </Text>
-            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-                <Text style={styles.backButtonText}>Back</Text>
-            </TouchableOpacity>
             <FlatList
                 data={work}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
             />
+             <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                <Text style={styles.backButtonText}>Back</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -65,6 +65,8 @@ const WorkGuides = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: Theme.lightA.background,
         padding: 35,
     },
@@ -72,6 +74,8 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 10,
+        textAlign: 'center',
+        marginTop: 50
     },
     itemContainer: {
         marginBottom: 10,
@@ -95,13 +99,15 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     backButton: {
-        alignSelf: 'flex-start',
-        marginBottom: 10,
+        justifyConten: 'center',
+        marginBottom: 80,
         padding: 10,
         backgroundColor: '#ccc', // Back button background color
+
     },
     backButtonText: {
         color: '#000', // Back button text color
+        textAlign: 'center'
     },
 });
 
