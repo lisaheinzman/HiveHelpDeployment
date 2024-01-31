@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: Theme.lightA.secondary , 
+    backgroundColor: Theme.lightA.secondaryRich , 
     textAlign: 'center',
     width: '100%',
     paddingTop: 50,
@@ -259,12 +259,10 @@ const styles = StyleSheet.create({
     color: Theme.lightA.text,
   },
   addButton: {
-    backgroundColor: Theme.lightA.secondary,
+    backgroundColor: Theme.lightA.secondaryRich,
     padding: 10,
     borderRadius: 10,
     alignItems: "center",
-    paddingVertical: 12, // Adjust vertical padding to change button height
-    paddingHorizontal: 24,
   },
   addButtonText: {
     color: Theme.lightA.text,
@@ -281,7 +279,6 @@ const styles = StyleSheet.create({
   taskDetails: {
     flex: 1,
     marginLeft: 20,
-    marginRight: 20,
   },
   taskName: {
     fontSize: 18,
@@ -308,7 +305,7 @@ const styles = StyleSheet.create({
     color: Theme.lightA.text, // Use theme color for text
   },
   showCompletedButton: {
-    backgroundColor: Theme.lightA.secondary,
+    backgroundColor: Theme.lightA.secondaryRich,
     padding: 10,
     borderRadius: 8,
     alignItems: "center",
