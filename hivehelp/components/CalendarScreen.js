@@ -69,8 +69,7 @@ const CalendarScreen = () => {
         >Calendar</Text>
         <TouchableOpacity
           style={styles.plusButton}
-          onPress={() => setShowAddEvent(!showAddEvent)}
-        >
+          onPress={() => setShowAddEvent(!showAddEvent)}>
           <View style={styles.hexagonInner} />
           <View style={styles.hexagonBefore} />
           <View style={styles.hexagonAfter} />
@@ -119,7 +118,10 @@ const CalendarScreen = () => {
             value={newEventDescription}
             onChangeText={setNewEventDescription}
             />
-            
+            <Text>Date</Text>
+            <TextInput></TextInput>
+            <Text>Banner Color</Text>
+
             {/* Use TouchableOpacity directly here */}
           <View style={styles.addEventButtons}>
           <TouchableOpacity onPress={() => setShowAddEvent(false)} style={styles.backButton}>
