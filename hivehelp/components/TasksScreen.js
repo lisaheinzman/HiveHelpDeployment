@@ -242,6 +242,7 @@ const styles = StyleSheet.create({
   },
   addTaskSection: {
     marginBottom: 20,
+    marginHorizontal: 20, 
   },
   sectionTitle: {
     fontSize: 20,
@@ -263,6 +264,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     alignItems: "center",
+    marginHorizontal: 20, 
   },
   addButtonText: {
     color: Theme.lightA.text,
@@ -311,6 +313,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: "center",
     marginBottom: 50,
+    marginHorizontal: 20, 
   },
   showCompletedButtonText: {
     color: Theme.lightA.text,
