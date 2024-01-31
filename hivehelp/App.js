@@ -9,9 +9,12 @@ import { Theme } from './components/Theme';
 
 
 import GuidesScreen from './components/GuidesScreen';
-
+import schoolGuides from './components/School';
+import workGuides from './components/Work';
+import personalGuides from './components/Personal';
 import TasksScreen from './components/TasksScreen';
 import TaskDetailsScreen from './components/TaskDetailsScreen';
+import EditTask from './components/EditTask';
 
 import HomeScreen from './components/HomeScreen';
 
@@ -50,30 +53,39 @@ const App = () => {
       Profile: { width: 38, height: 45 }, // Adjust these values based on the aspect ratio of your Profile icon
     };
 
-    const aspectRatio = aspectRatioMap[routeName] || { width: 25, height: 25 }; // Default aspect ratio is 1:1
+  const aspectRatio = aspectRatioMap[routeName] || { width: 25, height: 25 }; // Default aspect ratio is 1:1
+  
 
-    return {
-      width: aspectRatio.width,
-      height: aspectRatio.height,
-    };
+  return {
+    width: aspectRatio.width,
+    height: aspectRatio.height,
   };
+}
 
-  const GuidesStack = () => {
-    return (
-      <Stack.Navigator initialRouteName="Guides" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Guides" component={GuidesScreen} />
-      </Stack.Navigator>
-    );
-  };
+  
 
-  const TasksStack = () => {
-    return (
-      <Stack.Navigator initialRouteName="Tasks" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Tasks" component={TasksScreen} />
-        <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
-      </Stack.Navigator>
-    );
-  };
+
+
+const GuidesStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Guides" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Guides" component={GuidesScreen} />
+       <Stack.Screen name="School Guides" component={schoolGuides}/>
+      <Stack.Screen name="Work Guides" component={workGuides}/>
+      <Stack.Screen name="Personal Guides" component={personalGuides}/>
+    </Stack.Navigator>
+  );
+};
+
+const TasksStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Tasks" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Tasks" component={TasksScreen} />
+      <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
+      <Stack.Screen name="EditTask" component={EditTask} />
+    </Stack.Navigator>
+  );
+};
 
   const HomeStack = () => {
     return (
@@ -176,5 +188,6 @@ const App = () => {
     </NavigationContainer>
   );
 };
+
 
 export default App;

@@ -79,7 +79,6 @@ const CalendarScreen = () => {
           />
         </TouchableOpacity>
       </View>
-
           {/* Calendar component with marked dates and onDayPress handler */}
           <Calendar
             markedDates={markedDates}
@@ -203,6 +202,7 @@ const styles = StyleSheet.create({
     borderRightColor: 'transparent',
     borderBottomWidth: 13,
     borderBottomColor: Theme.lightA.tertiary,
+    
   },
   plusIcon: {
     position: 'absolute',
@@ -226,7 +226,8 @@ const styles = StyleSheet.create({
   addEventSection: {
     marginTop: 20, 
     marginBottom: 20, 
-    width: 200
+    width: 200, 
+    marginLeft: 0
   },
   textInput: {
     borderWidth: 1,

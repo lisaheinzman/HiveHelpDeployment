@@ -1,16 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Theme } from './Theme.js'; // Importing the Theme from themes.js
 
 // Extracting the lightA theme for now
 const { lightA } = Theme;
 
-const GuidesScreen = ({ navigation }) => {
+const GuidesScreen = () => {
+
+  const navigation = useNavigation()
 
   const guideCards = [
-    { title: 'School Guides', info: 'Academic Success: Ace your studies and beyond', screen: 'School.js' },
-    { title: 'Work Guides', info: 'Career Excellence: Elevate your professional journey', screen: 'Work.js' },
-    { title: 'Personal Guides', info: 'Self Improvement: Nurture your personal growth', screen: 'Personal.js'}
+    { title: 'School Guides', info: 'Academic Success: Ace your studies and beyond', screen: 'School Guides' },
+    { title: 'Work Guides', info: 'Career Excellence: Elevate your professional journey', screen: 'Work Guides' },
+    { title: 'Personal Guides', info: 'Self Improvement: Nurture your personal growth', screen: 'Personal Guides'}
   ];
   
   const navigateToScreen = (screenName) => {

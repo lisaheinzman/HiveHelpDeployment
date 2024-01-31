@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, ViewComponent} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Theme } from './Theme';
 import * as FileSystem from 'expo-file-system';
 import {TaskList} from './TaskList.json'
-
+import Calendar from './CalendarScreen';
 
 const ColorScheme = Theme.lightA;
 
@@ -75,37 +75,15 @@ const HomeScreen = ({}) => {
         </TouchableOpacity>
         </View>
       </View>
-      {/* Calendar */}
-      <View style={styles.container}>
-          <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.tertiary }, { borderColor: ColorScheme.tertiaryRich }]} onPress={goToTemplatePage}>
-            <View style={[styles.boxHeader, { backgroundColor: ColorScheme.tertiaryRich }, { borderBottomEndRadius: 0 }]}>
-              <Text style={styles.buttonText}>This Week</Text>
-            </View>
-            <View style={[styles.container]}>
-            <View style={[styles.column]}>
-              <Text>S</Text>
-              </View>
-              <View style={[styles.column]}>
-              <Text>M</Text>
-              </View>
-              <View style={[styles.column]}>
-              <Text>T</Text>
-              </View>
-              <View style={[styles.column]}>
-              <Text>W</Text>
-              </View>
-              <View style={[styles.column]}>
-              <Text>T</Text>
-              </View>
-              <View style={[styles.column]}>
-              <Text>F</Text>
-              </View>
-              <View style={[styles.column]}>
-              <Text>S</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-        </View>
+ {/* Calendar */}
+ <View style={styles.calendarWidget}>
+        <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.tertiary }, { borderColor: ColorScheme.tertiaryRich }]} onPress={goToTemplatePage}>
+          <View style={[styles.boxHeader, { backgroundColor: ColorScheme.tertiaryRich }, { borderBottomEndRadius: 0 }]}>
+            <Text style={styles.buttonText}>This Week</Text>
+            {/*<Calendar/>*/}
+          </View>
+        </TouchableOpacity>
+      </View>
         <View>
       <Text>JSON Data:</Text>
       <Text>{JSON.stringify(jsonData, null, 2)}</Text>
@@ -126,7 +104,7 @@ const styles = StyleSheet.create({
   },
   container: {
   //  flex: 1,
-    height: '40%',
+    height: '30%',
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 2,
@@ -180,11 +158,14 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'black',
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
     paddingLeft: 12
+  },
+  calendarWidget: {
+    height: '40%'
 
-  }
+  },
 });
 
 export default HomeScreen;
