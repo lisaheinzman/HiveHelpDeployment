@@ -7,8 +7,11 @@ import lightMode1 from '../assets/light_mode_1.png';
 import lightMode2 from '../assets/light_mode_2.png';
 import darkMode1 from '../assets/dark_mode_1.png';
 import darkMode2 from '../assets/dark_mode_2.png';
+import { Theme } from './Theme';
+import {setColorScheme, colorScheme, useTheme} from './ThemeProvider';
 
 const SettingsScreen = () => {
+  const { colorScheme, changeColorScheme } = useTheme();
   const navigation = useNavigation();
 
   const [updateEmailModalVisible, setUpdateEmailModalVisible] = useState(false);
@@ -90,6 +93,7 @@ const SettingsScreen = () => {
 
   const handleColorThemeConfirm = () => {
     console.log('Selected Color Theme:', selectedColorModeImage);
+    changeColorScheme(Theme[selectedColorModeImage]);
     closeColorThemeModal();
   };
 
@@ -226,7 +230,7 @@ const SettingsScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
       <TouchableOpacity onPress={navigateToProfile} style={styles.profileButton}>
         <Image source={profilePicture} style={styles.profilePicture} />
       </TouchableOpacity>
@@ -309,7 +313,6 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
     padding: 20,
   },
   profileButton: {

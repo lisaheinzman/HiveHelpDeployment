@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
 import HexagonIcon from './assets/hexagonicon';
 
-import { Theme } from './components/Theme';
+import ThemeProvider from './components/ThemeProvider';
 
 
 import GuidesScreen from './components/GuidesScreen';
@@ -180,12 +180,14 @@ const TasksStack = () => {
   };
 
   return (
+    <ThemeProvider>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="AuthStack" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="AuthStack" component={AuthStack} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
+    </ThemeProvider>
   );
 };
 

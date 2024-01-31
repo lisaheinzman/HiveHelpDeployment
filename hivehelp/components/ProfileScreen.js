@@ -3,11 +3,10 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, Button } fr
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import profilePicture from '../assets/bee_icon.jpg';
-
-import { Theme } from './Theme';
-const ColorScheme = Theme.lightA;
+import { useTheme } from './ThemeProvider';
 
 const ProfileScreen = () => {
+  const { colorScheme } = useTheme();
   const navigation = useNavigation();
 
   const [editing, setEditing] = useState(false);
@@ -49,7 +48,7 @@ const ProfileScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
       <View style={styles.profileSection}>
       <View style={styles.imageBox}>
         <Image source={profilePicture} style={styles.image} />
@@ -106,14 +105,11 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorScheme.background,
-    color: ColorScheme.text,
   },
   profileSection: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: ColorScheme.tertiaryLite,
     paddingTop: 60,
     padding: 40,
     position: 'relative',
@@ -169,7 +165,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 5,
     borderRightWidth: 5,
     borderRadius: 50,
-    borderColor: ColorScheme.tertiaryRich,
+    borderColor: 'yellow',
     right: 10
   }
 });
