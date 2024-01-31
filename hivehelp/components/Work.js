@@ -71,17 +71,16 @@ const styles = StyleSheet.create({
         padding: 35,
     },
     heading: {
-        fontSize: 24,
+        fontSize: 30,
         fontWeight: 'bold',
         marginBottom: 10,
-        textAlign: 'center',
-        marginTop: 50
+        marginTop: 40,
     },
     itemContainer: {
         marginBottom: 10,
     },
     title: {
-        fontSize: 18,
+        fontSize: 25,
         fontWeight: 'bold',
         marginBottom: 5,
         color: Theme.lightA.secondaryRich,
@@ -94,15 +93,19 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 3,
         color: Theme.lightA.text,
+        fontSize: 20,
     },
     sectionContent: {
         marginBottom: 10,
+        fontSize: 18,
     },
     backButton: {
         justifyConten: 'center',
         marginBottom: 80,
         padding: 10,
-        backgroundColor: '#ccc', // Back button background color
+        backgroundColor: Theme.lightA.secondaryRich,
+    padding: 10,
+    borderRadius: 10, // Back button background color
 
     },
     backButtonText: {
