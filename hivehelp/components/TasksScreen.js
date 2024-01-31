@@ -274,7 +274,9 @@ const styles = StyleSheet.create({
     marginLeft: 20, 
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 20,
+    borderBottomWidth: 1,
+    marginRight: 20,
   },
   taskDetails: {
     flex: 1,
