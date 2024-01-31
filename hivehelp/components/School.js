@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Modal, Button } from 'react-native';
 import { schoolData } from './SchoolGuideData';
 
 
@@ -27,7 +27,7 @@ const schoolGuides = () => {
         return(
             <TouchableOpacity onPress={() => handlePress(index)}>
                 <View>
-                    <Text style={styles.titles}>{item.title}</Text>
+                    <Text style={styles.title}>{item.title}</Text>
                     {isExpanded && (
                         <View style={styles.content}>
                             {renderSections(item.sections)}
@@ -41,7 +41,7 @@ const schoolGuides = () => {
     
   return(
         <View>
-            <Text>School Guides</Text>
+            <Text style={styles.title}>School Guides</Text>
             <FlatList 
             data={school}
             renderItem={renderItem} 
@@ -52,14 +52,40 @@ const schoolGuides = () => {
 }
 
 const styles = StyleSheet.create({
-
+    container: {
+        flex: 1,
+        paddingHorizontal: 20,
+        paddingTop: 80,
+      },
+      title: {
+        fontSize: 30,
+        //fontWeight: 'bold',
+        marginBottom: 10,
+        textAlign: 'center'
+      },
+      text: {
+        marginBottom: 20,
+      },
+      card: {
+        padding: 20,
+        marginBottom: 20,
+        borderRadius: 10,
+        textAlign: 'center'
+      },
+      guideTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 8,
+        textAlign: 'center',
+      },
+      buttons: {
+        padding: 10,
+        borderRadius: 5,
+        marginTop: 10,
+      },
+      buttonText: {
+        textAlign: 'center',
+      }
 })
 
 export default schoolGuides;
-
-
-/*=> (
-    <TouchableOpacity onPress={() => handlePress(item)}>
-<Text style={styles.titles}>{item.title}</Text>
-</TouchableOpacity>
-)*/

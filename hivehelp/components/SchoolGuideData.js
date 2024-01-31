@@ -65,7 +65,7 @@ export const schoolData = [
 
             },
             {
-                "title":"Financial AId",
+                "title":"Financial Aid",
                 "overview":"Navigating the world of financial aid can be overwhelming, but fear not! The Free Application for Federal Student Aid (FAFSA) is your key to unlocking various financial assistance opportunities for college. This step-by-step guide will walk you through the FAFSA application process, ensuring you access the support you need for your education.",
                 "sections":[
                     {
