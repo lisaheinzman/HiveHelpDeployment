@@ -20,7 +20,7 @@ const SignInScreen = () => {
           <Text>Sign In</Text>
           <TextInput style={styles.input} placeholder="Enter Email"/>
           <TextInput style={styles.input} placeholder="Password"/>
-          <View style={styles.textContainer}>
+          <View style={[styles.textContainer, {paddingTop: 15}]}>
               <View style={[styles.column]}>
               <TouchableOpacity onPress={goToHomePage}>
                     <Text>Forgot</Text>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    width: 200,
+    width: 250,
     margin: 12,
     borderRadius: 10,
     backgroundColor: 'white',
