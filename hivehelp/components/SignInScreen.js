@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ExampleImage from '../assets/SignInBackground.png';
@@ -12,6 +12,9 @@ const SignInScreen = () => {
   const goToCreateAccount = () => {
     navigation.navigate('CreateAccount'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
+
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.ultimatecontainer}>
     <View style={styles.pageContainer}>

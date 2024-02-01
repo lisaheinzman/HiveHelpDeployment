@@ -26,14 +26,12 @@ const HomeScreen = () => {
     readJsonFile();
   }, []);
 
+  // Sets today's date to currentDate
   const currentDate = new Date().toISOString().split('T')[0];
   const todayEvent = eventDetailsJSON[currentDate];
 
-  console.log(eventDetailsJSON[currentDate])
 
-
-
-
+  // Set default text
   const [displayText, setDisplayText] = useState('Remember to always do what you love!');
 
   const changeTextL = () => {
@@ -48,10 +46,12 @@ const HomeScreen = () => {
     navigation.navigate('SignIn'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
 
+  // Navigates to TaskScreen
   const goToTasks = () => {
     navigation.navigate('Tasks'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
 
+  // Navigates to Calendar
   const goToCalendar = () => {
     navigation.navigate('Calendar'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
@@ -175,7 +175,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'black',
     fontSize: 30,
-    fontWeight: 'bold',
     paddingLeft: 12
 
   }
