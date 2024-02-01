@@ -33,22 +33,38 @@ const VerifyEmailScreen = () => {
           </View>
           {/* 4 Boxes */}
           <View style={[styles.textContainer, { paddingTop: 15 }]}>
-    
-                  <View styles={styles.box}></View>
-                  <View styles={styles.box}></View>
-                  <View styles={styles.box}></View>
+          <View style={[styles.column]}>
+              <View>
+                <Text>7</Text>
+              </View>
+          </View>
+          <View style={[styles.column]}>
+              <View>
+                <Text>5</Text>
+              </View>
+          </View>
+          <View style={[styles.column]}>
+              <View>
+                <Text>9</Text>
+              </View>
+          </View>
+          <View style={[styles.column]}>
+              <View>
+                <Text>1</Text>
+              </View>
+          </View>
             </View>
           <View style={[styles.textContainer, { paddingTop: 15 }]}>
               <View style={[styles.column]}>
                 {/* Back Button */}
                     <TouchableOpacity style ={styles.button} onPress={goToForgotPassword}>
-                            <Text>Back</Text>
+                            <Text> Back</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.column]}>
                     {/* Send Button */}
                     <TouchableOpacity style ={styles.button} onPress={goToCreateNewPassword}>
-                        <Text>Verify</Text>
+                        <Text> Verify</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -67,17 +83,19 @@ const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    paddingTop: 170
+    justifyContent: 'center'
   },
   box: {
-    width: 50,
-    height: 50,
-    backgroundColor: 'blue', // Example background color
+    height: 40,
+    width: 80,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    padding: 10
   },
   bee: {
     height: 140,
@@ -97,7 +115,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 40,
-    width: 100,
+    width: 70,
     borderRadius: 10,
     backgroundColor: 'white',
     borderWidth: 1,
@@ -112,7 +130,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   textContainer: {
-    height: '40%',
+   // height: '40%',
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 2
