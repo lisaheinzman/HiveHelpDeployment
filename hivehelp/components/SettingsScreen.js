@@ -7,8 +7,11 @@ import lightMode1 from '../assets/light_mode_1.png';
 import lightMode2 from '../assets/light_mode_2.png';
 import darkMode1 from '../assets/dark_mode_1.png';
 import darkMode2 from '../assets/dark_mode_2.png';
+import { Theme } from './Theme';
+import {setColorScheme, colorScheme, useTheme} from './ThemeProvider';
 
 const SettingsScreen = () => {
+  const { colorScheme, changeColorScheme } = useTheme();
   const navigation = useNavigation();
 
   const [updateEmailModalVisible, setUpdateEmailModalVisible] = useState(false);
@@ -90,6 +93,7 @@ const SettingsScreen = () => {
 
   const handleColorThemeConfirm = () => {
     console.log('Selected Color Theme:', selectedColorModeImage);
+    changeColorScheme(Theme[selectedColorModeImage]);
     closeColorThemeModal();
   };
 
@@ -226,43 +230,43 @@ const SettingsScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
       <TouchableOpacity onPress={navigateToProfile} style={styles.profileButton}>
         <Image source={profilePicture} style={styles.profilePicture} />
       </TouchableOpacity>
 
       <View style={styles.header}>
-        <Text style={styles.heading}>Settings</Text>
+        <Text style={[styles.heading, {color: colorScheme.text}]}>Settings</Text>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionHeading}>Account</Text>
-        <View style={styles.line} />
-        <TouchableOpacity style={styles.button} onPress={openUpdateEmailModal}>
-          <Text style={styles.buttonText}>Update Email</Text>
+        <Text style={[styles.sectionHeading, {color: colorScheme.text}]}>Account</Text>
+        <View style={[styles.line, {borderColor: colorScheme.text}]} />
+        <TouchableOpacity style={[styles.button, {backgroundColor: colorScheme.primary},{borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.primaryRich}]} onPress={openUpdateEmailModal} >
+          <Text style={[styles.buttonText,{color: colorScheme.text}]}>Update Email</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={openUpdatePasswordModal}>
-          <Text style={styles.buttonText}>Update Password</Text>
+        <TouchableOpacity style={[styles.button, {backgroundColor: colorScheme.tertiary},{borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.tertiaryRich}]} onPress={openUpdatePasswordModal}>
+        <Text style={[styles.buttonText,{color: colorScheme.text}]}>Update Password</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={openDeleteAccountModal}>
-          <Text style={styles.buttonText}>Delete Account</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionHeading}>Color Theme</Text>
-        <View style={styles.line} />
-        <TouchableOpacity style={styles.button} onPress={openColorThemeModal}>
-          <Text style={styles.buttonText}>Change Color Theme</Text>
+        <TouchableOpacity style={[styles.button, {backgroundColor: colorScheme.secondary},{borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.secondaryRich}]} onPress={openDeleteAccountModal}>
+        <Text style={[styles.buttonText,{color: colorScheme.text}]}>Delete Account</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionHeading}>Notifications</Text>
-        <View style={styles.line} />
+        <Text style={[styles.sectionHeading, {color: colorScheme.text}]}>Color Theme</Text>
+        <View style={[styles.line, {borderColor: colorScheme.text}]} />
+        <TouchableOpacity style={[styles.button, {backgroundColor: colorScheme.primary},{borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.primaryRich}]} onPress={openColorThemeModal}>
+        <Text style={[styles.buttonText,{color: colorScheme.text}]}>Change Color Theme</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={[styles.sectionHeading, {color: colorScheme.text}]}>Notifications</Text>
+        <View style={[styles.line, {borderColor: colorScheme.text}]} />
         <View style={styles.switchContainer}>
-          <Text style={styles.switchLabel}>Push Notifications</Text>
-          <Switch value={notifications} onValueChange={toggleNotifications} />
+          <Text style={[styles.switchLabel, {color: colorScheme.text}]}>Push Notifications</Text>
+          <Switch value={notifications} onValueChange={toggleNotifications}/>
         </View>
       </View>
 
@@ -309,7 +313,6 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
     padding: 20,
   },
   profileButton: {
@@ -337,7 +340,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   sectionHeading: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
   },

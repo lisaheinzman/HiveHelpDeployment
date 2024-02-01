@@ -133,36 +133,36 @@ const TasksScreen = () => {
         </View>
       )}
 
-<FlatList
-  data={showCompletedTasks ? completedTasks : tasks.filter(task => !task.completed)}
-  keyExtractor={(item, index) => index.toString()}
-  renderItem={({ item, index }) => (
-    <TouchableOpacity onPress={() => handleTaskPress(item)}>
-      <View style={styles.task}>
-        <TouchableOpacity
-          onPress={() => toggleCompletion(index)}
-          style={styles.completeButton}
-        >
-          <View style={styles.hexagonInner} />
-          <View style={styles.hexagonBefore} />
-          <View style={styles.hexagonAfter} />
-        </TouchableOpacity>
-        <View style={styles.taskDetails}>
-          <Text
-            style={[
-              styles.taskName,
-              item.completed && styles.completedTask,
-            ]}
-          >
-            {item.name}
-          </Text>
-          <Text style={styles.taskDescription}>{item.description}</Text>
-          <Text style={styles.dueDate}>Due Date: {item.dueDate}</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
-  )}
-/>
+      <FlatList
+        data={showCompletedTasks ? completedTasks : tasks.filter(task => !task.completed)}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity onPress={() => handleTaskPress(item)}>
+            <View style={styles.task}>
+              <TouchableOpacity
+                onPress={() => toggleCompletion(index)}
+                style={styles.completeButton}
+              >
+                <View style={styles.hexagonInner} />
+                <View style={styles.hexagonBefore} />
+                <View style={styles.hexagonAfter} />
+              </TouchableOpacity>
+              <View style={styles.taskDetails}>
+                <Text
+                  style={[
+                    styles.taskName,
+                    item.completed && styles.completedTask,
+                  ]}
+                >
+                  {item.name}
+                </Text>
+                <Text style={styles.taskDescription}>{item.description}</Text>
+                <Text style={styles.dueDate}>Due Date: {item.dueDate}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
 
       <TouchableOpacity
         style={styles.showCompletedButton}

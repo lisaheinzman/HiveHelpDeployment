@@ -4,8 +4,11 @@ import { Calendar } from 'react-native-calendars';
 import { AntDesign } from '@expo/vector-icons'; 
 import { Theme } from './Theme.js'; 
 import { CurrentRenderContext } from '@react-navigation/native';
+import { useTheme } from './ThemeProvider.js';
 
 const CalendarScreen = () => {
+  const { colorScheme } = useTheme();
+
   // Get the current date in the format 'YYYY-MM-DD'
   const currentDate = new Date().toISOString().split('T')[0];
 
@@ -43,7 +46,7 @@ const CalendarScreen = () => {
   // Marked dates with event details
   const markedDates = {
     [currentDate]: { selected: true, marked: true, details: eventDetailsJSON[currentDate] },
-    '2024-02-04': { marked: true, dotColor: Theme.lightA.primaryRich, details: eventDetailsJSON['2024-02-04'] },
+    '2024-02-04': { marked: true, dotColor: colorScheme.primaryRich, details: eventDetailsJSON['2024-02-04'] },
     '2024-02-06': { marked: true, dotColor: 'red', details: eventDetailsJSON['2024-02-06'] }, // Remove activeOpacity
   };  
 
@@ -61,22 +64,23 @@ const CalendarScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
+    <View style={[styles.container, {backgroundColor: colorScheme.background}]}>
+      <View style={[styles.header, {backgroundColor: colorScheme.secondary}]}>
         <Text
-          style={styles.heading}
+          style={[styles.heading, {color: colorScheme.text}]}
           marginLeft= {10}
         >Calendar</Text>
         <TouchableOpacity
           style={styles.plusButton}
-          onPress={() => setShowAddEvent(!showAddEvent)}>
-          <View style={styles.hexagonInner} />
-          <View style={styles.hexagonBefore} />
-          <View style={styles.hexagonAfter} />
+          onPress={() => setShowAddEvent(!showAddEvent)}
+        >
+          <View style={[styles.hexagonInner, {backgroundColor: colorScheme.tertiary}]} />
+          <View style={[styles.hexagonBefore, {borderBottomColor: colorScheme.tertiary}]} />
+        <View style={[styles.hexagonAfter, {borderTopColor: colorScheme.tertiary}]} />
           <AntDesign
             name="plus"
             size={24}
-            color="black"
+            color={colorScheme.text}
             style={styles.plusIcon}
           />
         </TouchableOpacity>
@@ -98,7 +102,7 @@ const CalendarScreen = () => {
       {/* Add event */}
       {showAddEvent && (
         <Modal>
-          <View style={styles.addEventSection}>
+          <View style={[styles.addEventSection, {backgroundColor: colorScheme.background}]}>
           <Text style={styles.heading}> Create Event</Text>
           <Text> Event Title</Text>
           <TextInput
@@ -124,10 +128,10 @@ const CalendarScreen = () => {
 
             {/* Use TouchableOpacity directly here */}
           <View style={styles.addEventButtons}>
-          <TouchableOpacity onPress={() => setShowAddEvent(false)} style={styles.backButton}>
+          <TouchableOpacity onPress={() => setShowAddEvent(false)} style={[styles.backButton, {backgroundColor: colorScheme.tertiary}, {borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.tertiaryRich}]}>
             <Text >Back</Text>
             </TouchableOpacity>
-          <TouchableOpacity onPress={addTask} style={styles.addButton}>
+          <TouchableOpacity onPress={addTask} style={[styles.addButton, {backgroundColor: colorScheme.tertiary}, {borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.tertiaryRich}]}>
             <Text>Add</Text>
             </TouchableOpacity>
             </View>
@@ -163,12 +167,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: Theme.lightA.background
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: Theme.lightA.secondary, 
     textAlign: 'center',
     width: '100%',
     paddingTop: 50,
@@ -188,7 +190,6 @@ const styles = StyleSheet.create({
   hexagonInner: {
     width: '100%',
     height: '100%',
-    backgroundColor: Theme.lightA.tertiary,
   },
   hexagonAfter: {
     position: 'absolute',
@@ -202,7 +203,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 25,
     borderRightColor: 'transparent',
     borderTopWidth: 13,
-    borderTopColor: Theme.lightA.tertiary,
   },
   hexagonBefore: {
     position: 'absolute',
@@ -216,7 +216,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 25,
     borderRightColor: 'transparent',
     borderBottomWidth: 13,
-    borderBottomColor: Theme.lightA.tertiary,
     
   },
   plusIcon: {
@@ -243,17 +242,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 50,
     paddingBottom: 100,
     align: 'center', 
-    backgroundColor: Theme.lightA.background,  
   },
   textInput: {
     borderWidth: 1,
     borderRadius: 8,
     marginVertical: 10, 
     backgroundColor: 'white', 
-    color: Theme.lightA.text, 
+    color: 'black', 
   }, 
   addButton: {
-    backgroundColor: Theme.lightA.tertiaryRich, // Customize the color as needed
     fontSize: 18,
     marginBottom: 10,
     padding: 10,
@@ -261,7 +258,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   backButton: {
-    backgroundColor: Theme.lightA.tertiaryRich, // Customize the color as needed
     fontSize: 18,
     marginBottom: 10,
     padding: 10,
