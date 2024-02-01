@@ -74,6 +74,7 @@ const GuidesStack = () => {
        <Stack.Screen name="School Guides" component={schoolGuides}/>
       <Stack.Screen name="Work Guides" component={workGuides}/>
       <Stack.Screen name="Personal Guides" component={personalGuides}/>
+      <Stack.Screen name="Favorited Guides" component={FavoriteGuidesScreen}/>
     </Stack.Navigator>
   );
 };
