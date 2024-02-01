@@ -42,7 +42,7 @@ const SchoolGuides = () => {
 
                 
                 <View style={styles.itemContainer}>
-                <Text style={[styles.title, { color: colorScheme.text }]}>
+                <Text style={[styles.title,{color: colorScheme.secondaryRich}]}>
                         {item.title}
                     </Text>
                     {isExpanded && (
