@@ -245,10 +245,10 @@ const SettingsScreen = () => {
         <TouchableOpacity style={[styles.button, {backgroundColor: colorScheme.primary},{borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.primaryRich}]} onPress={openUpdateEmailModal} >
           <Text style={[styles.buttonText,{color: colorScheme.text}]}>Update Email</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, {backgroundColor: colorScheme.tertiary},{borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.tertiaryRich}]} onPress={openUpdatePasswordModal}>
+        <TouchableOpacity style={[styles.button, {backgroundColor: colorScheme.secondary},{borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.secondaryRich}]} onPress={openUpdatePasswordModal}>
         <Text style={[styles.buttonText,{color: colorScheme.text}]}>Update Password</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, {backgroundColor: colorScheme.secondary},{borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.secondaryRich}]} onPress={openDeleteAccountModal}>
+        <TouchableOpacity style={[styles.button, {backgroundColor: colorScheme.tertiary},{borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.tertiaryRich}]} onPress={openDeleteAccountModal}>
         <Text style={[styles.buttonText,{color: colorScheme.text}]}>Delete Account</Text>
         </TouchableOpacity>
       </View>
