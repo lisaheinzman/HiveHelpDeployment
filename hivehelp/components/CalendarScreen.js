@@ -31,14 +31,12 @@ const CalendarScreen = () => {
     colorScheme.primaryRich,
   );
 
-  const colorOptions = [
-    '#FFD6A5',
-    '#C9E4DE', 
-    '#C6DEF1', 
-    '#DBCDF0', 
-    '#F2C6DE', 
-    '#FFADAD'
-  ];
+  const colorOptions = [ '#FFD6A5',
+  '#C9E4DE', 
+  '#C6DEF1', 
+  '#DBCDF0', 
+  '#F2C6DE', 
+  '#FFADAD'];
 
   // Event details for different dates
   const eventDetailsJSON = {
@@ -88,12 +86,17 @@ const CalendarScreen = () => {
   const addTask = () => {
     if (newEventTitle.trim() !== "") {
       const newEvent = {
-        name: newEventTitle,
+        title: newEventTitle,
         description: newEventDescription,
-        date: newEventDate, 
-        time: newEventTime
+        dateString: newEventDate, 
       };
-      setEvents([...events, newEvent]);
+  
+      const updatedEvents = {
+        ...events,
+        [newEventDate]: newEvent, 
+      };
+  
+      setEvents(updatedEvents);
       setNewEventTitle("");
       setNewEventDescription("");
       setNewEventDate("");
@@ -101,6 +104,7 @@ const CalendarScreen = () => {
       setShowAddEvent(false);
     }
   };
+  
 
   return (
     <View

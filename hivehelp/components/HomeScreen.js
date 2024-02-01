@@ -45,7 +45,7 @@ const HomeScreen = () => {
   };
 
   const goToGuidePage = () => {
-    navigation.navigate('Guides'); // 'Template' should match the name of the stack or screen you want to navigate to
+    navigation.navigate('Work Guides'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
 
   // Navigates to TaskScreen
