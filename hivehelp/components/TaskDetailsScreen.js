@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { Theme } from './Theme.js';
+import { useTheme } from './ThemeProvider.js';
 
 const TaskDetailsScreen = ({ route, navigation }) => {
   const { task } = route.params;
+  const { colorScheme } = useTheme();
 
   const [updatedTask, setUpdatedTask] = useState(task);
 
@@ -12,28 +14,28 @@ const TaskDetailsScreen = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: colorScheme.background}]}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.taskDetailsContainer}>
           <View style={styles.detail}>
-            <Text style={[styles.label, { color: Theme.lightA.text }]}>Task Name:</Text>
-            <Text style={{ color: Theme.lightA.text }}>{updatedTask.name}</Text>
+            <Text style={[styles.label, { color: colorScheme.text }]}>Task Name:</Text>
+            <Text style={{ color: colorScheme.text }}>{updatedTask.name}</Text>
           </View>
           <View style={styles.detail}>
-            <Text style={[styles.label, { color: Theme.lightA.text }]}>Description:</Text>
-            <Text style={{ color: Theme.lightA.text }}>{updatedTask.description}</Text>
+            <Text style={[styles.label, { color: colorScheme.text }]}>Description:</Text>
+            <Text style={{ color: colorScheme.text }}>{updatedTask.description}</Text>
           </View>
           <View style={styles.detail}>
-            <Text style={[styles.label, { color: Theme.lightA.text }]}>Due Date:</Text>
-            <Text style={{ color: Theme.lightA.text }}>{updatedTask.dueDate}</Text>
+            <Text style={[styles.label, { color: colorScheme.text }]}>Due Date:</Text>
+            <Text style={{ color: colorScheme.text }}>{updatedTask.dueDate}</Text>
           </View>
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.button, { backgroundColor: Theme.lightA.primary }]} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={[styles.button, { backgroundColor: colorScheme.primary }]} onPress={() => navigation.goBack()}>
           <Text style={styles.buttonText}>Back</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.editButton, { backgroundColor: Theme.lightA.secondary }]} onPress={navigateToEditScreen}>
+        <TouchableOpacity style={[styles.button, styles.editButton, { backgroundColor: colorScheme.secondary }]} onPress={navigateToEditScreen}>
           <Text style={styles.buttonText}>Edit</Text>
         </TouchableOpacity>
       </View>
@@ -44,7 +46,6 @@ const TaskDetailsScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Theme.lightA.background,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',

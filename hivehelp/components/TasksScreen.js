@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native';
-import { AntDesign } from '@expo/vector-icons'; 
-import { Theme } from './Theme.js'; 
+import { AntDesign } from '@expo/vector-icons';
+import { Theme } from './Theme.js';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from './ThemeProvider.js';
 
 const TasksScreen = () => {
-  const navigation = useNavigation(); 
+  const { colorScheme } = useTheme();
+  const navigation = useNavigation();
 
   const handleTaskPress = (task) => {
-    navigation.navigate('TaskDetails', { task }); 
+    navigation.navigate('TaskDetails', { task });
   };
-  
+
   const [tasks, setTasks] = useState([]);
   const [showAddTask, setShowAddTask] = useState(false);
   const [showCompletedTasks, setShowCompletedTasks] = useState(false);
@@ -65,7 +67,7 @@ const TasksScreen = () => {
     updatedTasks[index].completed = !updatedTasks[index].completed;
     setTasks(updatedTasks);
   };
-  
+
 
   const addTask = () => {
     if (newTaskName.trim() !== "" && newTaskDueDate.trim() !== "") {
@@ -87,20 +89,20 @@ const TasksScreen = () => {
 
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Tasks</Text>
+    <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
+      <View style={[styles.header, { backgroundColor: colorScheme.primaryRich }]}>
+        <Text style={[styles.title, { color: colorScheme.text }]}>Tasks</Text>
         <TouchableOpacity
           style={styles.plusButton}
           onPress={() => setShowAddTask(!showAddTask)}
         >
-          <View style={styles.hexagonInner} />
-          <View style={styles.hexagonBefore} />
-          <View style={styles.hexagonAfter} />
+          <View style={[styles.hexagonInner, { backgroundColor: colorScheme.tertiary }]} />
+          <View style={[styles.hexagonBefore, { borderBottomColor: colorScheme.tertiary }]} />
+          <View style={[styles.hexagonAfter, { borderTopColor: colorScheme.tertiary }]} />
           <AntDesign
             name="plus"
             size={24}
-            color="black"
+            color={colorScheme.text}
             style={styles.plusIcon}
           />
         </TouchableOpacity>
@@ -108,27 +110,27 @@ const TasksScreen = () => {
 
       {showAddTask && (
         <View style={styles.addTaskSection}>
-          <Text style={styles.sectionTitle}>Add Task</Text>
+          <Text style={[styles.sectionTitle, { color: colorScheme.text }]}>Add Task</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { color: colorScheme.text }]}
             placeholder="Task Name"
             value={newTaskName}
             onChangeText={setNewTaskName}
           />
           <TextInput
-            style={styles.input}
+            style={[styles.input, { color: colorScheme.text }]}
             placeholder="Task Description"
             value={newTaskDescription}
             onChangeText={setNewTaskDescription}
           />
           <TextInput
-            style={styles.input}
+            style={[styles.input, { color: colorScheme.text }]}
             placeholder="Due Date"
             value={newTaskDueDate}
             onChangeText={setNewTaskDueDate}
           />
-          <TouchableOpacity style={styles.addButton} onPress={addTask}>
-            <Text style={styles.addButtonText}>Add</Text>
+          <TouchableOpacity style={[styles.addButton, {backgroundColor: colorScheme.primary}, {color: colorScheme.text}, {borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.primaryRich}]} onPress={addTask}>
+            <Text style={[styles.addButtonText, {color: colorScheme.text}]}>Add</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -143,21 +145,21 @@ const TasksScreen = () => {
                 onPress={() => toggleCompletion(index)}
                 style={styles.completeButton}
               >
-                <View style={styles.hexagonInner} />
-                <View style={styles.hexagonBefore} />
-                <View style={styles.hexagonAfter} />
+                <View style={[styles.hexagonInner, { backgroundColor: colorScheme.tertiaryLite }]} />
+                <View style={[styles.hexagonBefore, { borderBottomColor: colorScheme.tertiaryLite }]} />
+                <View style={[styles.hexagonAfter, { borderTopColor: colorScheme.tertiaryLite }]} />
               </TouchableOpacity>
               <View style={styles.taskDetails}>
                 <Text
                   style={[
-                    styles.taskName,
+                    styles.taskName, {color: colorScheme.text},
                     item.completed && styles.completedTask,
                   ]}
                 >
                   {item.name}
                 </Text>
-                <Text style={styles.taskDescription}>{item.description}</Text>
-                <Text style={styles.dueDate}>Due Date: {item.dueDate}</Text>
+                <Text style={[styles.taskDescription, {color: colorScheme.text}]}>{item.description}</Text>
+                <Text style={[styles.dueDate, {color: colorScheme.text}]}>Due Date: {item.dueDate}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -165,10 +167,10 @@ const TasksScreen = () => {
       />
 
       <TouchableOpacity
-        style={styles.showCompletedButton}
+        style={[styles.showCompletedButton, {backgroundColor: colorScheme.secondary}, {borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.secondaryRich}]}
         onPress={() => setShowCompletedTasks(!showCompletedTasks)}
       >
-        <Text style={styles.showCompletedButtonText}>
+        <Text style={[styles.showCompletedButtonText, {color: colorScheme.text}]}>
           {showCompletedTasks ? "Hide Completed Tasks" : "Show Completed Tasks"}
         </Text>
       </TouchableOpacity>
@@ -179,12 +181,10 @@ const TasksScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Theme.lightA.background,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: Theme.lightA.secondaryRich , 
     textAlign: 'center',
     width: '100%',
     paddingTop: 50,
@@ -195,7 +195,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     //fontWeight: "bold",
-    color: Theme.lightA.text,
   },
   plusButton: {
     width: 50,
@@ -205,7 +204,6 @@ const styles = StyleSheet.create({
   hexagonInner: {
     width: "100%",
     height: "100%",
-    backgroundColor: Theme.lightA.tertiary,
   },
   hexagonAfter: {
     position: "absolute",
@@ -219,7 +217,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 25,
     borderRightColor: "transparent",
     borderTopWidth: 13,
-    borderTopColor: Theme.lightA.tertiary,
   },
   hexagonBefore: {
     position: "absolute",
@@ -233,8 +230,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 25,
     borderRightColor: "transparent",
     borderBottomWidth: 13,
-    borderBottomColor: Theme.lightA.tertiary,
-  },  
+  },
   plusIcon: {
     position: "absolute",
     top: 3,
@@ -242,14 +238,13 @@ const styles = StyleSheet.create({
   },
   addTaskSection: {
     marginBottom: 20,
-    marginHorizontal: 20, 
+    marginHorizontal: 20,
   },
   sectionTitle: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
-    color: Theme.lightA.text, 
-   textAlign: "center",
+    textAlign: "center",
   },
   input: {
     borderWidth: 1,
@@ -257,25 +252,24 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
-    color: Theme.lightA.text,
   },
   addButton: {
-    backgroundColor: Theme.lightA.secondaryRich,
     padding: 10,
     borderRadius: 10,
-    alignItems: "center", 
+    alignItems: "center",
+    alignSelf: 'center',
+    width: '40%',
   },
   addButtonText: {
-    color: Theme.lightA.text,
     fontWeight: "bold",
   },
   task: {
-    marginLeft: 20, 
+    marginLeft: 20,
     marginRight: 20,
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 15,
-    paddingBottom: 15, 
+    paddingBottom: 15,
     borderBottomWidth: 1,
     marginRight: 20,
     paddingBottom: 15,
@@ -286,19 +280,16 @@ const styles = StyleSheet.create({
   },
   taskName: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 5,
-    color: Theme.lightA.text, 
   },
   taskDescription: {
     fontSize: 16,
-    color: Theme.lightA.text, 
     marginBottom: 5,
   },
   dueDate: {
     fontSize: 14,
-    color: Theme.lightA.text, 
-    fontStyle: "Bold"
+    fontStyle: 'bold',
   },
   completeButton: {
     width: 50,
@@ -307,19 +298,18 @@ const styles = StyleSheet.create({
   },
   completedTask: {
     textDecorationLine: "line-through",
-    color: Theme.lightA.text,
   },
   showCompletedButton: {
-    backgroundColor: Theme.lightA.secondaryRich,
     padding: 10,
     borderRadius: 8,
-    alignItems: "center",
+    alignItems: 'center',
+    alignSelf: "center",
     marginBottom: 50,
-    marginHorizontal: 20, 
+    width: '60%',
+    marginHorizontal: 20,
   },
   showCompletedButtonText: {
-    color: Theme.lightA.text,
-    fontWeight: "bold", 
+    fontWeight: "bold",
   },
 })
 

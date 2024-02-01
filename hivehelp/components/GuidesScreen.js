@@ -2,11 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Theme } from './Theme.js'; // Importing the Theme from themes.js
-
-// Extracting the lightA theme for now
-const { lightA } = Theme;
+import { useTheme } from './ThemeProvider.js';
 
 const GuidesScreen = () => {
+  const { colorScheme } = useTheme();
 
   const navigation = useNavigation()
 
@@ -21,27 +20,27 @@ const GuidesScreen = () => {
   }
   
   return (
-    <View style={[styles.container, { backgroundColor: lightA.background }]}>
-      <Text style={[styles.title, { color: lightA.text }]}>Guide Topics</Text>
-      <Text style={[styles.text, { color: lightA.text }]}>Discover an array of guides covering everything you need. From work to school and personal life, find guidance to navigate it all.</Text>
+    <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
+      <Text style={[styles.title, { color: colorScheme.text }]}>Guide Topics</Text>
+      <Text style={[styles.text, { color: colorScheme.text }]}>Discover an array of guides covering everything you need. From work to school and personal life, find guidance to navigate it all.</Text>
 
       {guideCards.map((card, index) => (
         <TouchableOpacity 
           key={index}
-          style={[styles.card, { backgroundColor: lightA.secondary }]}
+          style={[styles.card, { backgroundColor: colorScheme.tertiaryLite }]}
           onPress={() => navigateToScreen(card.screen)}
         >
-          <Text style={[styles.guideTitle, { color: lightA.text }]}>
+          <Text style={[styles.guideTitle, { color: colorScheme.text }]}>
             {card.title}
           </Text>
-          <Text style={{ color: lightA.text }}>
+          <Text style={{ color: colorScheme.text }}>
             {card.info}
           </Text>
           <TouchableOpacity 
-            style={[styles.buttons, { backgroundColor: lightA.primary }]}
+            style={[styles.buttons, { backgroundColor: colorScheme.tertiaryRich }]}
             onPress={() => navigateToScreen(card.screen)}
           >
-            <Text style={[styles.buttonText, { color: lightA.text }]}>Go</Text>
+            <Text style={[styles.buttonText, { color: colorScheme.text }]}>Go</Text>
           </TouchableOpacity>
         </TouchableOpacity>
       ))}
@@ -80,6 +79,8 @@ const styles = StyleSheet.create ({
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
+    width: '30%',
+    alignSelf: "center"
   },
   buttonText: {
     textAlign: 'center',
