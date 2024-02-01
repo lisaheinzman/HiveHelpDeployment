@@ -88,7 +88,7 @@ const HomeScreen = () => {
         </View>
       </View>
       {/* Calendar */}
-      <View style={styles.calendarWidget}>
+      <View style={styles.container}>
         <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.tertiaryLite }, { borderColor: colorScheme.tertiaryRich }]} onPress={goToCalendar}>
           <View style={[styles.boxHeader, { backgroundColor: colorScheme.tertiary }, { borderBottomEndRadius: 0 }]}>
             <Text style={[styles.buttonText, { color: colorScheme.text }]}>This Week</Text>
