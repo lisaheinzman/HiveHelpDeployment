@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
 
 // Assume you have a data structure representing favorited guides
 const favoritedGuidesData = [
 ];
 
-const FavoriteGuidesScreen = () => {
+const FavoriteGuidesScreen = ({ route }) => {
   const navigation = useNavigation();
   const [favoritedGuides, setFavoritedGuides] = useState(favoritedGuidesData);
+
+  useEffect(() => {
+    if (route.params && route.params.title) {
+      const { title } = route.params
+      setFavoritedGuides([...favoritedGuidesData, title])
+    }
+  }, [route.params])
 
   return (
     <View style={styles.container}>

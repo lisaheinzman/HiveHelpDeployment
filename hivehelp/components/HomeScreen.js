@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { HexagonView } from 'react-native-hexagon';
 import { Theme } from './Theme';
 import * as FileSystem from 'expo-file-system';
 import TaskList from './TaskList.json'; // Import the TaskList.json file
@@ -12,6 +13,7 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   const [tasks, setTasks] = useState([]);
+
 
   useEffect(() => {
     const readJsonFile = async () => {
@@ -42,8 +44,8 @@ const HomeScreen = () => {
     setDisplayText("It's okay to make mistakes! ");
   };
 
-  const goToTemplatePage = () => {
-    navigation.navigate('SignIn'); // 'Template' should match the name of the stack or screen you want to navigate to
+  const goToGuidePage = () => {
+    navigation.navigate('Guides'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
 
   // Navigates to TaskScreen
@@ -69,16 +71,13 @@ const HomeScreen = () => {
           <Text style={[styles.buttonText, { color: colorScheme.text }]}>{'>'}</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.container}>
+      <View style={[styles.container, {marginTop: 150}]}>
         <View style={styles.column}>
-          {/* Pinned Guide */}
-          <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.primary }, { borderColor: colorScheme.primaryRich }]} onPress={goToTemplatePage}>
-            <Text style={[styles.buttonText, { color: colorScheme.text }]}>Pinned Guide</Text>
-          </TouchableOpacity>
           {/* Suggested Guide */}
-          <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.primary }, { borderColor: colorScheme.primaryRich }]} onPress={goToTemplatePage}>
-            <Text style={[styles.buttonText, { paddingTop: 10 }, { color: colorScheme.text }]}>Suggested</Text>
-            <Text style={[styles.buttonText, { color: colorScheme.text }]}>Guide</Text>
+          <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.primary }, { borderColor: colorScheme.primaryRich }, { justifyContent: 'center' }, { paddingRight: 10 }]} onPress={goToGuidePage}>
+            <Text style={[styles.buttonText, { paddingTop: 10 }, { color: colorScheme.text }, { alignSelf: 'center' }]}>Suggested</Text>
+            <Text style={[styles.buttonText, { color: colorScheme.text }, { alignSelf: 'center' }]}>Guide</Text>
+            <Text style={[styles.buttonText, { color: colorScheme.text }, { alignSelf: 'center' }]}>Page</Text>
           </TouchableOpacity>
         </View>
         {/* Tasks */}
@@ -90,7 +89,14 @@ const HomeScreen = () => {
             {/* Display tasks */}
             {tasks.map((task, index) => (
               <View key={index}>
-                <Text style={[styles.text, { color: colorScheme.text }]}>{task.name}</Text>
+                <View style={styles.taskContainer}>
+                  <TouchableOpacity style={styles.hexagonContainer}>
+                    <View style={[styles.hexagonInner, { backgroundColor: colorScheme.secondaryRich }]} />
+                    <View style={[styles.hexagonBefore, { borderBottomColor: colorScheme.secondaryRich }]} />
+                    <View style={[styles.hexagonAfter, { borderTopColor: colorScheme.secondaryRich }]} />
+                  </TouchableOpacity>
+                <Text style={[styles.text, { color: colorScheme.text }, { paddingLeft: 6 }]}>{task.name}</Text>
+                </View>
               </View>
             ))}
           </TouchableOpacity>
@@ -98,15 +104,14 @@ const HomeScreen = () => {
       </View>
       {/* Calendar */}
       <View style={styles.container}>
-        <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.tertiaryLite }, { borderColor: colorScheme.tertiaryRich }, { height: '40%' }]} onPress={goToCalendar}>
-          <View style={[styles.boxHeader, { backgroundColor: colorScheme.tertiary }, { borderBottomEndRadius: 0 }, { height: '40%' }]}>
+        <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.tertiaryLite }, { borderColor: colorScheme.tertiaryRich }, { height: '60%' }]} onPress={goToCalendar}>
+          <View style={[styles.boxHeader, { backgroundColor: colorScheme.tertiary }, { borderBottomEndRadius: 0 }, { height: '25%' }]}>
             <Text style={[styles.buttonText, { color: colorScheme.text }, {alignSelf: 'center'}]}>Today</Text>
-            {/*<Calendar/>*/}
-            <View>
-            <Text>Title: {todayEvent.title}</Text>
-            <Text>Date: {todayEvent.dateString}</Text>
-            <Text>Description: {todayEvent.description}</Text>
-             </View>
+            <View style ={[{ paddingLeft: 10 }, { paddingTop: 20 }]}>
+              <Text>Date: {todayEvent.dateString}</Text>
+              <Text>Event Title: {todayEvent.title}</Text>
+              <Text>Description: {todayEvent.description}</Text>
+            </View>
           </View>
         </TouchableOpacity>
       </View>
@@ -123,10 +128,17 @@ const styles = StyleSheet.create({
   },
   container: {
   //  flex: 1,
-    height: '40%',
+    height: '50%',
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 2,
+    borderRadius: 30
+  },
+  taskContainer: {
+   // height: '40%',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    padding: 9,
     borderRadius: 30
   },
   column: {
@@ -153,10 +165,45 @@ const styles = StyleSheet.create({
     top: 200,
     left: 0
   },
+  hexagonInner: {
+    width: "100%",
+    height: "100%",
+  },
+  hexagonAfter: {
+    position: "absolute",
+    bottom: -6.5,
+    left: 0,
+    width: 0,
+    height: 0,
+    borderStyle: "solid",
+    borderLeftWidth: 12.5,
+    borderLeftColor: "transparent",
+    borderRightWidth: 12.5,
+    borderRightColor: "transparent",
+    borderTopWidth: 6.5,
+  },
+  hexagonBefore: {
+    position: "absolute",
+    top: -6.5,
+    left: 0,
+    width: 0,
+    height: 0,
+    borderStyle: "solid",
+    borderLeftWidth: 12.5,
+    borderLeftColor: "transparent",
+    borderRightWidth: 12.5,
+    borderRightColor: "transparent",
+    borderBottomWidth: 6.5,
+  },
+  hexagonContainer: {
+    width: 25,
+    height: 14.5,
+    position: "relative",
+  },
   titleText: {
     fontSize: 40,
     position: 'absolute',
-    top: 100,
+    top: 90,
     left: 20
   },
   yellowBox: {
@@ -175,7 +222,8 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'black',
     fontSize: 30,
-    paddingLeft: 12
+    paddingLeft: 12,
+    paddingTop: 10
 
   }
 });

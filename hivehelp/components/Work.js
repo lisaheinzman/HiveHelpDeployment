@@ -3,23 +3,31 @@ import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 import { workData } from './WorkGuidesData';
 import { Theme } from './Theme';
+import { useTheme } from './ThemeProvider';
 
 const WorkGuides = () => {
+    const { colorScheme } = useTheme();
+
     const [work, setWork] = useState(workData);
     const [expandedGuide, setExpandedGuide] = useState(null);
+    const [favorite, setFavorite] = useState([]);
     const navigation = useNavigation(); // Get navigation object using useNavigation hook
 
     const handlePress = (index) => {
         setExpandedGuide(index === expandedGuide ? null : index);
     };
 
+    const handleFavorite = (title) => {
+        navigation.navigate('FavoriteGuidesScreen', { title: title })
+    }
+
     const renderSections = (sections) => {
         return sections.map((section, index) => (
             <View key={index}>
-                <Text style={[styles.sectionHeading, { color: Theme.lightA.secondaryRich }]}>
+                <Text style={[styles.sectionHeading, { color: colorScheme.secondary }]}>
                     {section.heading}
                 </Text>
-                <Text style={[styles.sectionContent, { color: Theme.lightA.text }]}>
+                <Text style={[styles.sectionContent, { color: colorScheme.text }]}>
                     {section.content}
                 </Text>
             </View>
@@ -32,12 +40,15 @@ const WorkGuides = () => {
         return (
             <TouchableOpacity onPress={() => handlePress(index)}>
                 <View style={styles.itemContainer}>
-                    <Text style={[styles.title, { color: Theme.lightA.secondaryRich }]}>
+                    <Text style={[styles.title, { color: colorScheme.text }]}>
                         {item.title}
                     </Text>
                     {isExpanded && (
                         <View style={styles.expandedContent}>
                             {renderSections(item.sections)}
+                            <TouchableOpacity onPress={() => handleFavorite(item.title)} style={styles.backButton}>
+                               <Text style={styles.backButtonText}>Would you like to favorite this guide?</Text> 
+                                </TouchableOpacity>
                         </View>
                     )}
                 </View>
@@ -46,8 +57,8 @@ const WorkGuides = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={[styles.heading, { color: Theme.lightA.primary }]}>
+        <View style={[styles.container, {backgroundColor: colorScheme.background}]}>
+            <Text style={[styles.heading, { color: colorScheme.text}]}>
                 Work Guides
             </Text>
             <FlatList
@@ -55,8 +66,8 @@ const WorkGuides = () => {
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
             />
-             <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-                <Text style={styles.backButtonText}>Back</Text>
+            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backButton, {backgroundColor: colorScheme.tertiary}]}>
+                <Text style={[styles.backButtonText, {color: colorScheme.text}]}>Back</Text>
             </TouchableOpacity>
         </View>
     );
@@ -67,7 +78,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: Theme.lightA.background,
         padding: 35,
     },
     heading: {
@@ -83,7 +93,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
         marginBottom: 5,
-        color: Theme.lightA.secondaryRich,
         textAlign: 'center',
     },
     expandedContent: {
@@ -92,7 +101,6 @@ const styles = StyleSheet.create({
     sectionHeading: {
         fontWeight: 'bold',
         marginBottom: 3,
-        color: Theme.lightA.text,
         fontSize: 20,
     },
     sectionContent: {
@@ -103,13 +111,11 @@ const styles = StyleSheet.create({
         justifyConten: 'center',
         marginBottom: 80,
         padding: 10,
-        backgroundColor: Theme.lightA.secondaryRich,
-    padding: 10,
-    borderRadius: 10, // Back button background color
+        padding: 10,
+        borderRadius: 10, // Back button background color
 
     },
     backButtonText: {
-        color: '#000', // Back button text color
         textAlign: 'center'
     },
 });
