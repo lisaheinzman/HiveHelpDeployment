@@ -114,7 +114,6 @@ const TasksScreen = () => {
         </TouchableOpacity>
       </View>
 
-    //allows user to add a new task
       {showAddTask && (
         <View style={styles.addTaskSection}>
           <Text style={[styles.sectionTitle, { color: colorScheme.text }]}>Add Task</Text>
@@ -141,8 +140,8 @@ const TasksScreen = () => {
           </TouchableOpacity>
         </View>
       )}
-    
-    //takes json data and renders it on the page, what actually shows up 
+
+
       <FlatList
         data={showCompletedTasks ? completedTasks : tasks.filter(task => !task.completed)}
         keyExtractor={(item, index) => index.toString()}
