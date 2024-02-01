@@ -192,7 +192,7 @@ const CalendarScreen = () => {
               paddingTop={5}
               paddingBottom={10}
               placeholder="MM/DD/YYYY"
-              value={newEventDescription}
+              value={newEventDate}
               onChangeText={setNewEventDate}
             />
             <Text>Time</Text>
@@ -201,10 +201,10 @@ const CalendarScreen = () => {
               paddingLeft={5}
               paddingTop={5}
               paddingBottom={10}
-              placeholder="MM/DD/YYYY"
-              value={newEventDescription}
+              placeholder="HH:mm AM/PM"
+              value={newEventTime}
               onChangeText={setNewEventTime}
-            />
+              />
             <Text>Banner Color</Text>
             <View style={styles.colorOptionsContainer}>
               {colorOptions.map((option, index) => (
