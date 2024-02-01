@@ -50,7 +50,7 @@ const Personal = () => {
 
     return (
         <View style={[styles.container, {backgroundColor: colorScheme.background}]}>
-            <Text style={[styles.heading, { color: colorScheme.text, backgroundColor: colorScheme.secondary }]}>
+            <Text style={[styles.heading, { color: colorScheme.text}]}>
                 Personal Guides
             </Text>
             <FlatList
