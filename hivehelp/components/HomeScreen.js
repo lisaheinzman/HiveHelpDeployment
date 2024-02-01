@@ -13,6 +13,7 @@ const HomeScreen = () => {
 
   const [tasks, setTasks] = useState([]);
 
+
   useEffect(() => {
     const readJsonFile = async () => {
       try {

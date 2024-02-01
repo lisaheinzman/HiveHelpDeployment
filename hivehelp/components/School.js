@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 import { schoolData } from './SchoolGuideData';
 import { Theme } from './Theme';
@@ -8,11 +7,16 @@ import { Theme } from './Theme';
 const SchoolGuides = () => {
     const [school, setSchool] = useState(schoolData);
     const [expandedGuide, setExpandedGuide] = useState(null);
+    const [favorite, setFavorite] = useState([]);
     const navigation = useNavigation(); // Get navigation object using useNavigation hook
 
     const handlePress = (index) => {
         setExpandedGuide(index === expandedGuide ? null : index);
     };
+
+    const handleFavorite = (title) => {
+        navigation.navigate('FavoriteGuidesScreen', { title: title })
+    }
 
     const renderSections = (sections) => {
         return sections.map((section, index) => (
@@ -33,8 +37,7 @@ const SchoolGuides = () => {
         return (
             <TouchableOpacity onPress={() => handlePress(index)}>
 
-                <View>
-                    <Text style={styles.title}>{item.title}</Text>
+                
                 <View style={styles.itemContainer}>
                     <Text style={[styles.title, { color: Theme.lightA.secondaryRich }]}>
                         {item.title}
@@ -42,10 +45,13 @@ const SchoolGuides = () => {
                     {isExpanded && (
                         <View style={styles.expandedContent}>
                             {renderSections(item.sections)}
+                            <TouchableOpacity onPress={() => handleFavorite(item.title)} style={styles.backButton}>
+                               <Text style={styles.backButtonText}>Would you like to favorite this guide?</Text> 
+                                </TouchableOpacity>
                         </View>
                     )}
                 </View>
-                </View>
+                
             </TouchableOpacity>
         );
     };
