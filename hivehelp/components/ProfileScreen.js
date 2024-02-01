@@ -17,10 +17,10 @@ const ProfileScreen = () => {
     navigation.navigate('FavoriteGuides');
   };
 
-  const navigateToRecentlyViewedGuides = () => {
-    console.log('Navigate to Recently Viewed Guides');
-    navigation.navigate('RecentGuides');
-  };
+  // const navigateToRecentlyViewedGuides = () => {
+  //   console.log('Navigate to Recently Viewed Guides');
+  //   navigation.navigate('RecentGuides');
+  // };
 
   const navigateToSettings = () => {
     console.log('Go to settings');
@@ -82,10 +82,10 @@ const ProfileScreen = () => {
           <Text style={[styles.buttonText, {color: colorScheme.text}]}>Favorited Guides</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonContainer} onPress={navigateToRecentlyViewedGuides}>
+        {/* <TouchableOpacity style={styles.buttonContainer} onPress={navigateToRecentlyViewedGuides}>
           <Ionicons name="time-outline" size={30} color={colorScheme.text} />
           <Text style={[styles.buttonText, {color: colorScheme.text}]}>Recently Viewed</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity style={styles.buttonContainer} onPress={navigateToSettings}>
           <Ionicons name="settings-outline" size={30} color={colorScheme.text} />
