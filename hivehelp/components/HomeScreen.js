@@ -4,10 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import { Theme } from './Theme';
 import * as FileSystem from 'expo-file-system';
 import TaskList from './TaskList.json'; // Import the TaskList.json file
+import { useTheme } from './ThemeProvider';
+
 
 import { useTheme } from './ThemeProvider';
 
 const HomeScreen = () => {
+  const { colorScheme } = useTheme();
   const { colorScheme } = useTheme();
   const navigation = useNavigation();
 
@@ -40,6 +43,13 @@ const HomeScreen = () => {
     navigation.navigate('SignIn'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
 
+  const goToTasks = () => {
+    navigation.navigate('Tasks'); // 'Template' should match the name of the stack or screen you want to navigate to
+  };
+
+  const goToCalendar = () => {
+    navigation.navigate('Calendar'); // 'Template' should match the name of the stack or screen you want to navigate to
+  };
   return (
     <View style={[styles.pageContainer, { backgroundColor: colorScheme.homeBackground}]}>
       <Text style={[styles.titleText, { color: colorScheme.text }]}>Welcome</Text>
@@ -99,31 +109,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-start', // Align to the left
-    paddingTop: 170,
+    paddingTop: 170
   },
   container: {
-    height: '30%',
+  //  flex: 1,
+    height: '40%',
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 2,
-    borderRadius: 30,
+    borderRadius: 30
   },
   column: {
     flex: 1,
     justifyContent: 'space-between',
-    margin: 8,
+    margin: 8
   },
   box: {
     flex: 1,
     borderRadius: 20,
     margin: 8,
     borderBottomWidth: 5,
-    borderRightWidth: 5,
+    borderRightWidth: 5
   },
   boxHeader: {
     height: '20%',
     borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+    borderTopLeftRadius: 20
   },
   backgroundBox: {
     borderRadius: 20,
@@ -131,13 +142,13 @@ const styles = StyleSheet.create({
     paddingVertical: 500,
     position: 'absolute',
     top: 200,
-    left: 0,
+    left: 0
   },
   titleText: {
     fontSize: 40,
     position: 'absolute',
     top: 100,
-    left: 20,
+    left: 20
   },
   yellowBox: {
     width: '90%',
@@ -150,17 +161,15 @@ const styles = StyleSheet.create({
     borderRightWidth: 5,
     position: 'absolute',
     top: 150,
-    left: 20,
+    left: 20
   },
   buttonText: {
     color: 'black',
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
-    paddingLeft: 12,
-  },
-  calendarWidget: {
-    height: '40%',
-  },
+    paddingLeft: 12
+
+  }
 });
 
 export default HomeScreen;
