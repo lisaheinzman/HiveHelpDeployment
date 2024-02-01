@@ -29,7 +29,7 @@ import RecentGuidesScreen from './components/RecentScreen';
 
 import SignInScreen from './components/SignInScreen';
 import CreateAccountScreen from './components/CreateAccountScreen';
-
+import ForgotPasswordScreen from './components/ForgotPasswordScreen'
 
 
 
@@ -180,6 +180,7 @@ const TasksStack = () => {
       <Stack.Navigator initialRouteName="SignIn" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       </Stack.Navigator>
     );
   };

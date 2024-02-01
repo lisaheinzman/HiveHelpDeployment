@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import ExampleImage from '../assets/SignInBackground.png';
+import ExampleImage from '../assets/greenBackground.png';
+import beeIcon from '../assets/icons/bee-icon.png';
 
-const SignInScreen = () => {
+const ForgotPasswordScreen = () => {
   const navigation = useNavigation();
 
   const goToHomePage = () => {
@@ -12,42 +13,35 @@ const SignInScreen = () => {
   const goToCreateAccount = () => {
     navigation.navigate('CreateAccount'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
-  const goToForgotPassword = () => {
-    navigation.navigate('ForgotPassword'); // 'Template' should match the name of the stack or screen you want to navigate to
+  const goToSignInPage = () => {
+    navigation.navigate('SignIn'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
-
-  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View style={styles.ultimatecontainer}>
     <View style={styles.pageContainer}>
         <Image source={ExampleImage} style={styles.image} />
         <View style={styles.container}>
-          <Text>Sign In</Text>
+            <View>
+                <Text>Forgot your</Text>
+                <Text>Password?</Text>
+                <Text>Email*</Text>
+            </View>
+          <Image source={beeIcon} style={styles.bee}  />
           <TextInput style={styles.input} placeholder="Enter Email"/>
-          <TextInput style={styles.input} placeholder="Password"/>
-          <View style={[styles.textContainer, {paddingTop: 15}]}>
+          <View style={[styles.textContainer, { paddingTop: 15 }]}>
               <View style={[styles.column]}>
-              <TouchableOpacity onPress={goToForgotPassword}>
-                    <Text>Forgot</Text>
-                    <Text>Password</Text>
+              <TouchableOpacity style ={styles.button} onPress={goToSignInPage}>
+                    <Text>Back</Text>
                   </TouchableOpacity>
               </View>
-              <View style={[styles.column, {alignItems: 'flex-end'}]}>
+              <View style={[styles.column]}>
                   <TouchableOpacity style ={styles.button} onPress={goToHomePage}>
-                    <Text>    Sign In</Text>
+                    <Text>Send</Text>
                   </TouchableOpacity>
               </View>
             </View>
         </View>
-        <View style= { [{alignSelf: 'flex-end'}, {paddingBottom: 8}, {paddingRight: 70}]}> 
-        <TouchableOpacity style= {styles.button} onPress={goToCreateAccount}>
-                    <Text>  Click Here</Text>
-        </TouchableOpacity>
-        </View>
-
-        
-
   </View>
 
   </View>
@@ -69,12 +63,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 170
   },
+  bee: {
+    height: 140,
+    width: 120,
+    padding: 30,
+    alignSelf: 'center'
+  },
   image: {
     flex: 1,
     width: width, // Set the width to the width of the screen
     height: height + 20, // Set the height to the height of the screen
     resizeMode: 'cover',
     position: 'absolute'
+  },
+  title: {
+    fontSize: 40,
+    alignContent: 'center'
   },
   button: {
     height: 40,
@@ -106,4 +110,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default SignInScreen;
+export default ForgotPasswordScreen;

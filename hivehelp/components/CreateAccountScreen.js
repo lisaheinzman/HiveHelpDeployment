@@ -2,7 +2,6 @@ import React from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ExampleImage from '../assets/CreateAccountBackground.png';
-
 const CreateAccountScreen = () => {
   const navigation = useNavigation();
   const goToHomePage = () => {
