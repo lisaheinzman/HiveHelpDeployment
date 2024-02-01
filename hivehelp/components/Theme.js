@@ -26,5 +26,14 @@ export const Theme = {
     background: '#F6F1E7',
     text: 'black'
 
-  }
+  },
+  darkA : {
+    primary: '#D7CCE5',
+    background: '#9888A5',
+  },
+  darkB : {
+    primary: '#2C1F10',
+    background: '#4C3313',
+
+  },
 }

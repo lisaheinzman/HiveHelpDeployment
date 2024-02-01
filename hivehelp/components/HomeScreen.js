@@ -81,7 +81,7 @@ const HomeScreen = () => {
         </View>
       </View>
       {/* Calendar */}
-      <View style={styles.calendarWidget}>
+      <View style={styles.container}>
         <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.tertiary }, { borderColor: ColorScheme.tertiaryRich }]} onPress={goToTemplatePage}>
           <View style={[styles.boxHeader, { backgroundColor: ColorScheme.tertiaryRich }, { borderBottomEndRadius: 0 }]}>
             <Text style={styles.buttonText}>This Week</Text>
@@ -99,31 +99,32 @@ const styles = StyleSheet.create({
     backgroundColor: ColorScheme.secondaryRich,
     justifyContent: 'center',
     alignItems: 'flex-start', // Align to the left
-    paddingTop: 170,
+    paddingTop: 170
   },
   container: {
-    height: '30%',
+  //  flex: 1,
+    height: '40%',
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 2,
-    borderRadius: 30,
+    borderRadius: 30
   },
   column: {
     flex: 1,
     justifyContent: 'space-between',
-    margin: 8,
+    margin: 8
   },
   box: {
     flex: 1,
     borderRadius: 20,
     margin: 8,
     borderBottomWidth: 5,
-    borderRightWidth: 5,
+    borderRightWidth: 5
   },
   boxHeader: {
     height: '20%',
     borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+    borderTopLeftRadius: 20
   },
   backgroundBox: {
     backgroundColor: ColorScheme.background,
@@ -132,13 +133,13 @@ const styles = StyleSheet.create({
     paddingVertical: 500,
     position: 'absolute',
     top: 200,
-    left: 0,
+    left: 0
   },
   titleText: {
     fontSize: 40,
     position: 'absolute',
     top: 100,
-    left: 20,
+    left: 20
   },
   yellowBox: {
     backgroundColor: ColorScheme.tertiaryLite,
@@ -152,17 +153,15 @@ const styles = StyleSheet.create({
     borderRightWidth: 5,
     position: 'absolute',
     top: 150,
-    left: 20,
+    left: 20
   },
   buttonText: {
     color: 'black',
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
-    paddingLeft: 12,
-  },
-  calendarWidget: {
-    height: '40%',
-  },
+    paddingLeft: 12
+
+  }
 });
 
 export default HomeScreen;
