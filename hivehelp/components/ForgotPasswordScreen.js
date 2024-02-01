@@ -1,18 +1,18 @@
-import React, {useState} from 'react';
-import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import ExampleImage from '../assets/greenBackground.png';
-import beeIcon from '../assets/icons/bee-icon.png';
+import React from 'react'
+import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput} from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import ExampleImage from '../assets/greenBackground.png'
+import beeIcon from '../assets/icons/bee-icon.png'
 
 const ForgotPasswordScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation()
   // Go to home page
   const goToVerifyEmail = () => {
-    navigation.navigate('VerifyEmail');
+    navigation.navigate('VerifyEmail')
   }
   // Go to sign in page
   const goToSignInPage = () => {
-    navigation.navigate('SignIn');
+    navigation.navigate('SignIn')
   }
 
   return (
@@ -26,9 +26,9 @@ const ForgotPasswordScreen = () => {
                 <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }, { paddingBottom: 30 }]}>Password?</Text>
           <Image source={beeIcon} style={styles.bee}/>
           {/* Block Text */}
-          <View style={[styles.title, {paddingTop: 30}]}>
-            <Text>Please enter your email address below</Text> 
-            <Text>to receive your verification code to</Text> 
+          <View style={[styles.title, { paddingTop: 30 }]}>
+            <Text>Please enter your email address below</Text>
+            <Text>to receive your verification code to</Text>
             <Text>reset your password.</Text>
           </View>
           <Text style={[{ paddingTop: 30 }]}>Email*</Text>
@@ -57,12 +57,12 @@ const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   imageContainer: {
-    flex: 1,
+    flex: 1
   },
   pageContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   container: {
     flex: 1,
@@ -115,4 +115,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ForgotPasswordScreen;
+export default ForgotPasswordScreen

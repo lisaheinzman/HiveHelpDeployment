@@ -1,27 +1,26 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import ExampleImage from '../assets/SignInBackground.png';
+import BackgroundImage from '../assets/SignInBackground.png';
 
 const SignInScreen = () => {
   const navigation = useNavigation();
 
+  // Navigation
   const goToHomePage = () => {
-    navigation.navigate('TabNavigator'); // 'Template' should match the name of the stack or screen you want to navigate to
-  };
+    navigation.navigate('TabNavigator')
+  }
   const goToCreateAccount = () => {
-    navigation.navigate('CreateAccount'); // 'Template' should match the name of the stack or screen you want to navigate to
-  };
+    navigation.navigate('CreateAccount')
+  }
   const goToForgotPassword = () => {
-    navigation.navigate('ForgotPassword'); // 'Template' should match the name of the stack or screen you want to navigate to
-  };
-
-  const [modalVisible, setModalVisible] = useState(false);
+    navigation.navigate('ForgotPassword')
+  }
 
   return (
-    <View style={styles.ultimatecontainer}>
+    <View style={styles.imageContainer}>
     <View style={styles.pageContainer}>
-        <Image source={ExampleImage} style={styles.image} />
+        <Image source={BackgroundImage} style={styles.image} />
         <View style={styles.container}>
           <Text>Sign In</Text>
           <TextInput style={styles.input} placeholder="Enter Email"/>
@@ -33,30 +32,29 @@ const SignInScreen = () => {
                     <Text>Password</Text>
                   </TouchableOpacity>
               </View>
-              <View style={[styles.column, {alignItems: 'flex-end'}]}>
+              <View style={[styles.column, { alignItems: 'flex-end' }]}>
                   <TouchableOpacity style ={styles.button} onPress={goToHomePage}>
                     <Text>    Sign In</Text>
                   </TouchableOpacity>
               </View>
             </View>
         </View>
-        <View style= { [{alignSelf: 'flex-end'}, {paddingBottom: 8}, {paddingRight: 70}]}> 
+        <View style= { [{ alignSelf: 'flex-end' }, { paddingBottom: 8 }, { paddingRight: 70 }]}> 
         <TouchableOpacity style= {styles.button} onPress={goToCreateAccount}>
                     <Text>  Click Here</Text>
         </TouchableOpacity>
         </View>
-
-        
-
   </View>
 
   </View>
   )
 }
+
+// Gets size of current device's scren
 const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-  ultimatecontainer: {
+  imageContainer: {
     flex: 1
   },
   pageContainer: {

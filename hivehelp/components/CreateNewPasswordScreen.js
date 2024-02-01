@@ -6,11 +6,10 @@ import beeIcon from '../assets/icons/bee-fly-icon.png';
 
 const CreateNewPasswordScreen = () => {
   const navigation = useNavigation();
-  // Go to home page
+  // Navigation
   const goToVerifyEmail = () => {
     navigation.navigate('VerifyEmail');
   }
-  // Go to sign in page
   const goToHomePage = () => {
     navigation.navigate('TabNavigator');
   }
