@@ -1,18 +1,18 @@
-import React from 'react'
-import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput} from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import ExampleImage from '../assets/greenBackground.png'
-import beeIcon from '../assets/icons/bee-icon.png'
+import React, {useState} from 'react';
+import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import ExampleImage from '../assets/greenBackground.png';
+import beeIcon from '../assets/icons/mail-icon.png';
 
-const ForgotPasswordScreen = () => {
-  const navigation = useNavigation()
+const VerifyEmailScreen = () => {
+  const navigation = useNavigation();
   // Go to home page
-  const goToVerifyEmail = () => {
-    navigation.navigate('VerifyEmail')
+  const goToForgotPassword = () => {
+    navigation.navigate('ForgotPassword');
   }
   // Go to sign in page
-  const goToSignInPage = () => {
-    navigation.navigate('SignIn')
+  const goToCreateNewPassword = () => {
+    navigation.navigate('CreateNewPassword');
   }
 
   return (
@@ -22,28 +22,33 @@ const ForgotPasswordScreen = () => {
         <Image source={ExampleImage} style={styles.image} />
         <View style={styles.container}>
                 {/* Title */}
-                <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }]}>Forgot your</Text>
-                <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }, { paddingBottom: 30 }]}>Password?</Text>
+                <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }]}>Verify Your</Text>
+                <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }, { paddingBottom: 30 }]}>Email</Text>
           <Image source={beeIcon} style={styles.bee}/>
           {/* Block Text */}
-          <View style={[styles.title, { paddingTop: 30 }]}>
-            <Text>Please enter your email address below</Text>
-            <Text>to receive your verification code to</Text>
-            <Text>reset your password.</Text>
+          <View style={[styles.title, {paddingTop: 30}]}>
+            <Text>Please enter the 4-digit</Text> 
+            <Text>code sent to</Text> 
+            <Text styles={[{ fontWeight: 'bold' }]}>email@address.com</Text>
           </View>
-          <Text style={[{ paddingTop: 30 }]}>Email*</Text>
-          <TextInput style={styles.input} placeholder="Enter Email"/>
+          {/* 4 Boxes */}
+          <View style={[styles.textContainer, { paddingTop: 15 }]}>
+    
+                  <View styles={styles.box}></View>
+                  <View styles={styles.box}></View>
+                  <View styles={styles.box}></View>
+            </View>
           <View style={[styles.textContainer, { paddingTop: 15 }]}>
               <View style={[styles.column]}>
                 {/* Back Button */}
-                    <TouchableOpacity style ={styles.button} onPress={goToSignInPage}>
+                    <TouchableOpacity style ={styles.button} onPress={goToForgotPassword}>
                             <Text>Back</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.column]}>
                     {/* Send Button */}
-                    <TouchableOpacity style ={styles.button} onPress={goToVerifyEmail}>
-                        <Text>Send</Text>
+                    <TouchableOpacity style ={styles.button} onPress={goToCreateNewPassword}>
+                        <Text>Verify</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -57,17 +62,22 @@ const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   imageContainer: {
-    flex: 1
+    flex: 1,
   },
   pageContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     paddingTop: 170
+  },
+  box: {
+    width: 50,
+    height: 50,
+    backgroundColor: 'blue', // Example background color
   },
   bee: {
     height: 140,
@@ -105,8 +115,7 @@ const styles = StyleSheet.create({
     height: '40%',
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 2,
-    borderRadius: 30
+    padding: 2
   },
   column: {
     flex: 1,
@@ -115,4 +124,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ForgotPasswordScreen
+export default VerifyEmailScreen;

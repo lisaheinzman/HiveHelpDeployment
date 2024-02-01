@@ -2,11 +2,14 @@ import React from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ExampleImage from '../assets/CreateAccountBackground.png';
+
+// Navigation
 const CreateAccountScreen = () => {
   const navigation = useNavigation();
   const goToHomePage = () => {
-    navigation.navigate('TabNavigator'); // 'Template' should match the name of the stack or screen you want to navigate to
-  };
+    navigation.navigate('TabNavigator')
+  }
+
   return (
     <View style={styles.ultimatecontainer}>
     <View style={styles.pageContainer}>
@@ -42,6 +45,8 @@ const CreateAccountScreen = () => {
     </View>
   )
 }
+
+// Gets size of current device's scren
 const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({

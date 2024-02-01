@@ -29,9 +29,9 @@ import RecentGuidesScreen from './components/RecentScreen';
 
 import SignInScreen from './components/SignInScreen';
 import CreateAccountScreen from './components/CreateAccountScreen';
-import ForgotPasswordScreen from './components/ForgotPasswordScreen'
-
-
+import ForgotPasswordScreen from './components/ForgotPasswordScreen';
+import VerifyEmailScreen from './components/VerifyEmailScreen'
+import CreateNewPasswordScreen from './components/CreateNewPasswordScreen';
 
 import homeIcon from './assets/icons/home-icon.png';
 import guidesIcon from './assets/icons/guides-icon.png';
@@ -181,6 +181,8 @@ const TasksStack = () => {
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+        <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen} />
+        <Stack.Screen name="CreateNewPassword" component={CreateNewPasswordScreen} />
       </Stack.Navigator>
     );
   };
