@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { HexagonView } from 'react-native-hexagon';
 import { Theme } from './Theme';
 import * as FileSystem from 'expo-file-system';
 import TaskList from './TaskList.json'; // Import the TaskList.json file
@@ -91,7 +92,14 @@ const HomeScreen = () => {
             {/* Display tasks */}
             {tasks.map((task, index) => (
               <View key={index}>
-                <Text style={[styles.text, { color: colorScheme.text }]}>{task.name}</Text>
+                <View style={styles.taskContainer}>
+                  <TouchableOpacity style={styles.hexagonContainer}>
+                    <View style={[styles.hexagonInner, { backgroundColor: colorScheme.secondaryRich }]} />
+                    <View style={[styles.hexagonBefore, { borderBottomColor: colorScheme.secondaryRich }]} />
+                    <View style={[styles.hexagonAfter, { borderTopColor: colorScheme.secondaryRich }]} />
+                  </TouchableOpacity>
+                <Text style={[styles.text, { color: colorScheme.text }, { paddingLeft: 6 }]}>{task.name}</Text>
+                </View>
               </View>
             ))}
           </TouchableOpacity>
@@ -130,6 +138,13 @@ const styles = StyleSheet.create({
     padding: 2,
     borderRadius: 30
   },
+  taskContainer: {
+   // height: '40%',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    padding: 9,
+    borderRadius: 30
+  },
   column: {
     flex: 1,
     justifyContent: 'space-between',
@@ -153,6 +168,41 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 200,
     left: 0
+  },
+  hexagonInner: {
+    width: "100%",
+    height: "100%",
+  },
+  hexagonAfter: {
+    position: "absolute",
+    bottom: -6.5,
+    left: 0,
+    width: 0,
+    height: 0,
+    borderStyle: "solid",
+    borderLeftWidth: 12.5,
+    borderLeftColor: "transparent",
+    borderRightWidth: 12.5,
+    borderRightColor: "transparent",
+    borderTopWidth: 6.5,
+  },
+  hexagonBefore: {
+    position: "absolute",
+    top: -6.5,
+    left: 0,
+    width: 0,
+    height: 0,
+    borderStyle: "solid",
+    borderLeftWidth: 12.5,
+    borderLeftColor: "transparent",
+    borderRightWidth: 12.5,
+    borderRightColor: "transparent",
+    borderBottomWidth: 6.5,
+  },
+  hexagonContainer: {
+    width: 25,
+    height: 14.5,
+    position: "relative",
   },
   titleText: {
     fontSize: 40,
