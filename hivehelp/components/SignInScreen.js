@@ -12,6 +12,9 @@ const SignInScreen = () => {
   const goToCreateAccount = () => {
     navigation.navigate('CreateAccount'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
+  const goToForgotPassword = () => {
+    navigation.navigate('ForgotPassword'); // 'Template' should match the name of the stack or screen you want to navigate to
+  };
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -25,7 +28,7 @@ const SignInScreen = () => {
           <TextInput style={styles.input} placeholder="Password"/>
           <View style={[styles.textContainer, {paddingTop: 15}]}>
               <View style={[styles.column]}>
-              <TouchableOpacity onPress={goToHomePage}>
+              <TouchableOpacity onPress={goToForgotPassword}>
                     <Text>Forgot</Text>
                     <Text>Password</Text>
                   </TouchableOpacity>

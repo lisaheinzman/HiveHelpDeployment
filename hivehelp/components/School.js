@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'; // Import useNavigatio
 import { schoolData } from './SchoolGuideData';
 import { Theme } from './Theme';
 
-const School = () => {
+const SchoolGuides = () => {
     const [school, setSchool] = useState(schoolData);
     const [expandedGuide, setExpandedGuide] = useState(null);
     const navigation = useNavigation(); // Get navigation object using useNavigation hook
@@ -31,6 +31,9 @@ const School = () => {
 
         return (
             <TouchableOpacity onPress={() => handlePress(index)}>
+
+                <View>
+                    <Text style={styles.title}>{item.title}</Text>
                 <View style={styles.itemContainer}>
                     <Text style={[styles.title, { color: Theme.lightA.secondaryRich }]}>
                         {item.title}
@@ -41,9 +44,12 @@ const School = () => {
                         </View>
                     )}
                 </View>
+                </View>
             </TouchableOpacity>
         );
     };
+
+
 
     return (
         <View style={styles.container}>
@@ -54,6 +60,7 @@ const School = () => {
                 data={school}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
+
             />
             <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
                 <Text style={styles.backButtonText}>Back</Text>
@@ -116,4 +123,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default School;
+export default SchoolGuides;
