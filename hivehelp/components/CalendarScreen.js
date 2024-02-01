@@ -31,7 +31,14 @@ const CalendarScreen = () => {
     colorScheme.primaryRich,
   );
 
-  const colorOptions = ["#FF5733", "#33FF57", "#5733FF", "#FFFF33"];
+  const colorOptions = [
+    '#FFD6A5',
+    '#C9E4DE', 
+    '#C6DEF1', 
+    '#DBCDF0', 
+    '#F2C6DE', 
+    '#FFADAD'
+  ];
 
   // Event details for different dates
   const eventDetailsJSON = {
@@ -83,6 +90,8 @@ const CalendarScreen = () => {
       const newEvent = {
         name: newEventTitle,
         description: newEventDescription,
+        date: newEventDate, 
+        time: newEventTime
       };
       setEvents([...events, newEvent]);
       setNewEventTitle("");
@@ -246,7 +255,7 @@ const CalendarScreen = () => {
                   { borderColor: colorScheme.tertiaryRich },
                 ]}
               >
-                <Text>Add</Text>
+                <Text>Create</Text>
               </TouchableOpacity>
             </View>
           </View>
