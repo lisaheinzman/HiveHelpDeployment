@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Theme } from './Theme.js';
+import { useTheme } from './ThemeProvider.js';
 
 const EditTask = ({ route, navigation }) => {
+  const { colorScheme } = useTheme();
   // Retrieve the task details passed from the TaskDetailsScreen
   const { task } = route.params;
 
@@ -24,31 +26,31 @@ const EditTask = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={[styles.label, { color: Theme.lightA.text }]}>Task Name:</Text>
+    <View style={[styles.container, {backgroundColor: colorScheme.background}]}>
+      <Text style={[styles.label, { color: colorScheme.text }]}>Task Name:</Text>
       <TextInput
-        style={[styles.input, { borderColor: Theme.lightA.secondary }]}
+        style={[styles.input, { borderColor: colorScheme.secondary }, {color: colorScheme.text}]}
         value={name}
         onChangeText={setName}
         placeholder="Enter task name"
       />
-      <Text style={[styles.label, { color: Theme.lightA.text }]}>Description:</Text>
+      <Text style={[styles.label, { color: colorScheme.text }]}>Description:</Text>
       <TextInput
-        style={[styles.input, { height: 100, borderColor: Theme.lightA.secondary }]} 
+        style={[styles.input, { height: 100, borderColor: colorScheme.secondary }, {color: colorScheme.text}]} 
         value={description}
         onChangeText={setDescription}
         placeholder="Enter task description"
         multiline={true}
       />
-      <Text style={[styles.label, { color: Theme.lightA.text }]}>Due Date:</Text>
+      <Text style={[styles.label, { color: colorScheme.text }]}>Due Date:</Text>
       <TextInput
-        style={[styles.input, { borderColor: Theme.lightA.secondary }]}
+        style={[styles.input, { borderColor: colorScheme.secondary }, {color: colorScheme.text}]}
         value={dueDate}
         onChangeText={setDueDate}
         placeholder="Enter due date"
       />
-      <TouchableOpacity style={[styles.button, { backgroundColor: Theme.lightA.primary }]} onPress={handleUpdate}>
-        <Text style={[styles.buttonText, { color: Theme.lightA.text }]}>Update Task</Text>
+      <TouchableOpacity style={[styles.button, { backgroundColor: colorScheme.primary }]} onPress={handleUpdate}>
+        <Text style={[styles.buttonText, { color: colorScheme.text }]}>Update Task</Text>
       </TouchableOpacity>
     </View>
   );
@@ -58,7 +60,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 50, // Adjust padding as needed to lower content
-    backgroundColor: Theme.lightA.background,
   },
   label: {
     fontWeight: 'bold',
@@ -74,7 +75,6 @@ const styles = StyleSheet.create({
     marginTop:20,
   },
   button: {
-    backgroundColor: Theme.lightA.primary,
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',
