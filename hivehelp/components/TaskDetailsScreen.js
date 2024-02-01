@@ -9,8 +9,7 @@ const TaskDetailsScreen = ({ route, navigation }) => {
   const { colorScheme } = useTheme();
 
   const [updatedTask, setUpdatedTask] = useState(task);
-
-  //handles navigation to the edit screen
+  
   const navigateToEditScreen = () => {
     navigation.navigate('EditTask', { task: updatedTask });
   };

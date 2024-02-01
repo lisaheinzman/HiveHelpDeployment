@@ -5,15 +5,13 @@ import { useTheme } from './ThemeProvider.js';
 
 const EditTask = ({ route, navigation }) => {
   const { colorScheme } = useTheme();
-  //retrieves task details from 'TaskDetailsScreen.js'
+  
   const { task } = route.params;
 
-  //state variables for the updated task details
   const [name, setName] = useState(task.name);
   const [description, setDescription] = useState(task.description);
   const [dueDate, setDueDate] = useState(task.dueDate);
 
-  //will handle task update - fixing in backend
   const handleUpdate = () => {
     const updatedTask = {
       name: name,
@@ -21,7 +19,7 @@ const EditTask = ({ route, navigation }) => {
       dueDate: dueDate,
     };
     console.log('Updated task:', updatedTask);
-    //navigation for going to the previous page
+   
     navigation.goBack(); 
   };
 
