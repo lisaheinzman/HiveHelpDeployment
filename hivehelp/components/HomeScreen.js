@@ -6,11 +6,7 @@ import * as FileSystem from 'expo-file-system';
 import TaskList from './TaskList.json'; // Import the TaskList.json file
 import { useTheme } from './ThemeProvider';
 
-
-import { useTheme } from './ThemeProvider';
-
 const HomeScreen = () => {
-  const { colorScheme } = useTheme();
   const { colorScheme } = useTheme();
   const navigation = useNavigation();
 
@@ -78,7 +74,7 @@ const HomeScreen = () => {
         </View>
         {/* Tasks */}
         <View style={[styles.column]}>
-          <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.secondaryLite }, { borderColor: colorScheme.secondaryRich }]} onPress={goToTemplatePage}>
+          <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.secondaryLite }, { borderColor: colorScheme.secondaryRich }]} onPress={goToTasks}>
             <View style={[styles.boxHeader, { backgroundColor: colorScheme.secondary }, { borderBottomEndRadius: 0 }]}>
               <Text style={[styles.buttonText, { color: colorScheme.text }]}>Tasks</Text>
             </View>
@@ -93,7 +89,7 @@ const HomeScreen = () => {
       </View>
       {/* Calendar */}
       <View style={styles.calendarWidget}>
-        <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.tertiaryLite }, { borderColor: colorScheme.tertiaryRich }]} onPress={goToTemplatePage}>
+        <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.tertiaryLite }, { borderColor: colorScheme.tertiaryRich }]} onPress={goToCalendar}>
           <View style={[styles.boxHeader, { backgroundColor: colorScheme.tertiary }, { borderBottomEndRadius: 0 }]}>
             <Text style={[styles.buttonText, { color: colorScheme.text }]}>This Week</Text>
             {/*<Calendar/>*/}
