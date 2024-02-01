@@ -5,6 +5,7 @@ import { Theme } from './Theme';
 import * as FileSystem from 'expo-file-system';
 import TaskList from './TaskList.json'; // Import the TaskList.json file
 import { useTheme } from './ThemeProvider';
+import { eventDetailsJSON } from './eventDetailsJSON'
 
 const HomeScreen = () => {
   const { colorScheme } = useTheme();
@@ -25,6 +26,14 @@ const HomeScreen = () => {
     readJsonFile();
   }, []);
 
+  const currentDate = new Date().toISOString().split('T')[0];
+  const todayEvent = eventDetailsJSON[currentDate];
+
+  console.log(eventDetailsJSON[currentDate])
+
+
+
+
   const [displayText, setDisplayText] = useState('Remember to always do what you love!');
 
   const changeTextL = () => {
@@ -32,7 +41,7 @@ const HomeScreen = () => {
   };
 
   const changeTextR = () => {
-    setDisplayText("It's okay to make mistakes! Your mistakes don't define you.");
+    setDisplayText("It's okay to make mistakes! ");
   };
 
   const goToTemplatePage = () => {
@@ -75,7 +84,7 @@ const HomeScreen = () => {
         {/* Tasks */}
         <View style={[styles.column]}>
           <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.secondaryLite }, { borderColor: colorScheme.secondaryRich }]} onPress={goToTasks}>
-            <View style={[styles.boxHeader, { backgroundColor: colorScheme.secondary }, { borderBottomEndRadius: 0 }]}>
+            <View style={[styles.boxHeader, { backgroundColor: colorScheme.secondary }, { borderBottomEndRadius: 0 }, { height: '20%' }]}>
               <Text style={[styles.buttonText, { color: colorScheme.text }]}>Tasks</Text>
             </View>
             {/* Display tasks */}
@@ -89,10 +98,15 @@ const HomeScreen = () => {
       </View>
       {/* Calendar */}
       <View style={styles.container}>
-        <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.tertiaryLite }, { borderColor: colorScheme.tertiaryRich }]} onPress={goToCalendar}>
-          <View style={[styles.boxHeader, { backgroundColor: colorScheme.tertiary }, { borderBottomEndRadius: 0 }]}>
-            <Text style={[styles.buttonText, { color: colorScheme.text }]}>This Week</Text>
+        <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.tertiaryLite }, { borderColor: colorScheme.tertiaryRich }, { height: '40%' }]} onPress={goToCalendar}>
+          <View style={[styles.boxHeader, { backgroundColor: colorScheme.tertiary }, { borderBottomEndRadius: 0 }, { height: '40%' }]}>
+            <Text style={[styles.buttonText, { color: colorScheme.text }, {alignSelf: 'center'}]}>Today</Text>
             {/*<Calendar/>*/}
+            <View>
+            <Text>Title: {todayEvent.title}</Text>
+            <Text>Date: {todayEvent.dateString}</Text>
+            <Text>Description: {todayEvent.description}</Text>
+             </View>
           </View>
         </TouchableOpacity>
       </View>
@@ -128,7 +142,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 5
   },
   boxHeader: {
-    height: '20%',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20
   },
