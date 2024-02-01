@@ -5,17 +5,16 @@ import { Theme } from './Theme.js';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from './ThemeProvider.js';
 
-//main 'TasksScreen' component that holds all other fun stuff
-const TasksScreen = () => {
-  const { colorScheme } = useTheme(); //uses theme
-  const navigation = useNavigation(); //navigation to 'TaskDetailsScreen'
 
-  //handles actual pressing of specific task to details page
+const TasksScreen = () => {
+  const { colorScheme } = useTheme(); 
+  const navigation = useNavigation(); 
+
+
   const handleTaskPress = (task) => {
     navigation.navigate('TaskDetails', { task });
   };
 
-  //state management
   const [tasks, setTasks] = useState([]);
   const [showAddTask, setShowAddTask] = useState(false);
   const [showCompletedTasks, setShowCompletedTasks] = useState(false);
@@ -23,7 +22,7 @@ const TasksScreen = () => {
   const [newTaskDescription, setNewTaskDescription] = useState("");
   const [newTaskDueDate, setNewTaskDueDate] = useState("");
 
-  //sends json data to be displayed
+  
   useEffect(() => {
     const jsonData = [
       {
@@ -72,7 +71,6 @@ const TasksScreen = () => {
     setTasks(updatedTasks);
   };
 
-//component for adding a new task to the bottom of the task list
   const addTask = () => {
     if (newTaskName.trim() !== "" && newTaskDueDate.trim() !== "") {
       const newTask = {
@@ -89,11 +87,8 @@ const TasksScreen = () => {
     }
   }
 
-  //filters - separates the completed tasks from uncompleted
   const completedTasks = tasks.filter((task) => task.completed);
 
-
-  //header displays on page
   return (
     <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
       <View style={[styles.header, { backgroundColor: colorScheme.primaryRich }]}>
