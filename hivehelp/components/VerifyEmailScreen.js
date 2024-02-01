@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ExampleImage from '../assets/greenBackground.png';
-import beeIcon from '../assets/icons/bee-icon.png';
+import beeIcon from '../assets/icons/mail-icon.png';
 
-const ForgotPasswordScreen = () => {
+const VerifyEmailScreen = () => {
   const navigation = useNavigation();
   // Go to home page
-  const goToVerifyEmail = () => {
-    navigation.navigate('VerifyEmail');
+  const goToHomePage = () => {
+    navigation.navigate('TabNavigator');
   }
   // Go to sign in page
   const goToSignInPage = () => {
@@ -22,17 +22,23 @@ const ForgotPasswordScreen = () => {
         <Image source={ExampleImage} style={styles.image} />
         <View style={styles.container}>
                 {/* Title */}
-                <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }]}>Forgot your</Text>
-                <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }, { paddingBottom: 30 }]}>Password?</Text>
+                <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }]}>Verify Your</Text>
+                <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }, { paddingBottom: 30 }]}>Email</Text>
           <Image source={beeIcon} style={styles.bee}/>
           {/* Block Text */}
           <View style={[styles.title, {paddingTop: 30}]}>
-            <Text>Please enter your email address below</Text> 
-            <Text>to receive your verification code to</Text> 
-            <Text>reset your password.</Text>
+            <Text>Please enter the 4-digit</Text> 
+            <Text>code sent to</Text> 
+            <Text styles={[{ fontWeight: 'bold' }]}>email@address.com</Text>
           </View>
-          <Text style={[{ paddingTop: 30 }]}>Email*</Text>
-          <TextInput style={styles.input} placeholder="Enter Email"/>
+          {/* 4 Boxes */}
+          <View style={[styles.textContainer, { paddingTop: 15 }]}>
+    
+                  <View styles={styles.box}></View>
+                  <View styles={styles.box}></View>
+                  <View styles={styles.box}></View>
+             
+            </View>
           <View style={[styles.textContainer, { paddingTop: 15 }]}>
               <View style={[styles.column]}>
                 {/* Back Button */}
@@ -42,7 +48,7 @@ const ForgotPasswordScreen = () => {
                 </View>
                 <View style={[styles.column]}>
                     {/* Send Button */}
-                    <TouchableOpacity style ={styles.button} onPress={goToVerifyEmail}>
+                    <TouchableOpacity style ={styles.button} onPress={goToHomePage}>
                         <Text>Send</Text>
                     </TouchableOpacity>
                 </View>
@@ -68,6 +74,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingTop: 170
+  },
+  box: {
+    width: 30,
+    height: 30,
+    borderBottomWidth: 5,
+    borderRightWidth: 5,
+    backgroundColor: 'white'
   },
   bee: {
     height: 140,
@@ -115,4 +128,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ForgotPasswordScreen;
+export default VerifyEmailScreen;
