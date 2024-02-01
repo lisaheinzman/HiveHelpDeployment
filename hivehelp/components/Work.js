@@ -10,11 +10,16 @@ const WorkGuides = () => {
 
     const [work, setWork] = useState(workData);
     const [expandedGuide, setExpandedGuide] = useState(null);
+    const [favorite, setFavorite] = useState([]);
     const navigation = useNavigation(); // Get navigation object using useNavigation hook
 
     const handlePress = (index) => {
         setExpandedGuide(index === expandedGuide ? null : index);
     };
+
+    const handleFavorite = (title) => {
+        navigation.navigate('FavoriteGuidesScreen', { title: title })
+    }
 
     const renderSections = (sections) => {
         return sections.map((section, index) => (
@@ -41,6 +46,9 @@ const WorkGuides = () => {
                     {isExpanded && (
                         <View style={styles.expandedContent}>
                             {renderSections(item.sections)}
+                            <TouchableOpacity onPress={() => handleFavorite(item.title)} style={styles.backButton}>
+                               <Text style={styles.backButtonText}>Would you like to favorite this guide?</Text> 
+                                </TouchableOpacity>
                         </View>
                     )}
                 </View>
