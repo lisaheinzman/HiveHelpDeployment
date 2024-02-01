@@ -46,7 +46,7 @@ const CalendarScreen = () => {
   // Marked dates with event details
   const markedDates = {
     [currentDate]: { selected: true, marked: true, details: eventDetailsJSON[currentDate] },
-    '2024-02-04': { marked: true, dotColor: Theme.lightA.primaryRich, details: eventDetailsJSON['2024-02-04'] },
+    '2024-02-04': { marked: true, dotColor: colorScheme.primaryRich, details: eventDetailsJSON['2024-02-04'] },
     '2024-02-06': { marked: true, dotColor: 'red', details: eventDetailsJSON['2024-02-06'] }, // Remove activeOpacity
   };  
 
