@@ -5,15 +5,15 @@ import { useTheme } from './ThemeProvider.js';
 
 const EditTask = ({ route, navigation }) => {
   const { colorScheme } = useTheme();
-  // Retrieve the task details passed from the TaskDetailsScreen
+  //retrieves task details from 'TaskDetailsScreen.js'
   const { task } = route.params;
 
-  // State variables to hold the updated task details
+  //state variables for the updated task details
   const [name, setName] = useState(task.name);
   const [description, setDescription] = useState(task.description);
   const [dueDate, setDueDate] = useState(task.dueDate);
 
-  // Function to handle the task update
+  //will handle task update - fixing in backend
   const handleUpdate = () => {
     const updatedTask = {
       name: name,
@@ -21,7 +21,7 @@ const EditTask = ({ route, navigation }) => {
       dueDate: dueDate,
     };
     console.log('Updated task:', updatedTask);
-
+    //navigation for going to the previous page
     navigation.goBack(); 
   };
 
@@ -59,7 +59,7 @@ const EditTask = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 50, // Adjust padding as needed to lower content
+    padding: 50,
   },
   label: {
     fontWeight: 'bold',

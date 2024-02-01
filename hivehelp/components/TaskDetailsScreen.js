@@ -3,12 +3,14 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-nati
 import { Theme } from './Theme.js';
 import { useTheme } from './ThemeProvider.js';
 
+
 const TaskDetailsScreen = ({ route, navigation }) => {
   const { task } = route.params;
   const { colorScheme } = useTheme();
 
   const [updatedTask, setUpdatedTask] = useState(task);
 
+  //handles navigation to the edit screen
   const navigateToEditScreen = () => {
     navigation.navigate('EditTask', { task: updatedTask });
   };
