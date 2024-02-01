@@ -4,10 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 import { Theme } from './Theme';
 import * as FileSystem from 'expo-file-system';
 import TaskList from './TaskList.json'; // Import the TaskList.json file
-
-const ColorScheme = Theme.lightA;
+import { useTheme } from './ThemeProvider';
+import { eventDetailsJSON } from './eventDetailsJSON'
 
 const HomeScreen = () => {
+  const { colorScheme } = useTheme();
   const navigation = useNavigation();
 
   const [tasks, setTasks] = useState([]);
@@ -25,6 +26,12 @@ const HomeScreen = () => {
     readJsonFile();
   }, []);
 
+  // Sets today's date to currentDate
+  const currentDate = new Date().toISOString().split('T')[0];
+  const todayEvent = eventDetailsJSON[currentDate];
+
+
+  // Set default text
   const [displayText, setDisplayText] = useState('Remember to always do what you love!');
 
   const changeTextL = () => {
@@ -32,49 +39,58 @@ const HomeScreen = () => {
   };
 
   const changeTextR = () => {
-    setDisplayText("It's okay to make mistakes! Your mistakes don't define you.");
+    setDisplayText("It's okay to make mistakes! ");
   };
 
   const goToTemplatePage = () => {
     navigation.navigate('SignIn'); // 'Template' should match the name of the stack or screen you want to navigate to
   };
 
+  // Navigates to TaskScreen
+  const goToTasks = () => {
+    navigation.navigate('Tasks'); // 'Template' should match the name of the stack or screen you want to navigate to
+  };
+
+  // Navigates to Calendar
+  const goToCalendar = () => {
+    navigation.navigate('Calendar'); // 'Template' should match the name of the stack or screen you want to navigate to
+  };
   return (
-    <View style={styles.pageContainer}>
-      <Text style={styles.titleText}>Welcome</Text>
-      <View style={styles.backgroundBox}></View>
-      <View style={[styles.yellowBox, { borderColor: ColorScheme.tertiaryRich }]}>
+    <View style={[styles.pageContainer, { backgroundColor: colorScheme.homeBackground}]}>
+      <Text style={[styles.titleText, { color: colorScheme.text }]}>Welcome</Text>
+      <View style={[styles.backgroundBox, { backgroundColor: colorScheme.background}]}></View>
+      <View style={[styles.yellowBox, { backgroundColor: colorScheme.tertiary, borderColor: colorScheme.tertiaryRich }]}>
         <TouchableOpacity style={styles.button} onPress={changeTextL}>
-          <Text style={styles.buttonText}>{'<'}</Text>
+          <Text style={[styles.buttonText, { color: colorScheme.text }]}>{'<'}</Text>
         </TouchableOpacity>
-        <Text style={styles.text}>{displayText}</Text>
+        <Text style={[styles.text, { color: colorScheme.text }]}>{displayText}</Text>
         {/* Button on the right side */}
         <TouchableOpacity style={styles.button} onPress={changeTextR}>
-          <Text style={styles.buttonText}>{'>'}</Text>
+          <Text style={[styles.buttonText, { color: colorScheme.text }]}>{'>'}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
         <View style={styles.column}>
           {/* Pinned Guide */}
-          <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.primary }, { borderColor: ColorScheme.primaryRich }]} onPress={goToTemplatePage}>
-            <Text style={styles.buttonText}>Pinned Guide</Text>
+          <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.primary }, { borderColor: colorScheme.primaryRich }]} onPress={goToTemplatePage}>
+            <Text style={[styles.buttonText, { color: colorScheme.text }]}>Pinned Guide</Text>
           </TouchableOpacity>
           {/* Suggested Guide */}
-          <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.primary }, { borderColor: ColorScheme.primaryRich }]} onPress={goToTemplatePage}>
-            <Text style={[styles.buttonText, { paddingTop: 10 }]}>Suggested</Text>
-            <Text style={styles.buttonText}>Guide</Text>
+          <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.primary }, { borderColor: colorScheme.primaryRich }]} onPress={goToTemplatePage}>
+            <Text style={[styles.buttonText, { paddingTop: 10 }, { color: colorScheme.text }]}>Suggested</Text>
+            <Text style={[styles.buttonText, { color: colorScheme.text }]}>Guide</Text>
           </TouchableOpacity>
         </View>
         {/* Tasks */}
         <View style={[styles.column]}>
-          <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.secondaryLite }, { borderColor: ColorScheme.secondaryRich }]} onPress={goToTemplatePage}>
-            <View style={[styles.boxHeader, { backgroundColor: ColorScheme.secondary }, { borderBottomEndRadius: 0 }]}>
-              <Text style={styles.buttonText}>Tasks</Text>
+          <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.secondaryLite }, { borderColor: colorScheme.secondaryRich }]} onPress={goToTasks}>
+            <View style={[styles.boxHeader, { backgroundColor: colorScheme.secondary }, { borderBottomEndRadius: 0 }, { height: '20%' }]}>
+              <Text style={[styles.buttonText, { color: colorScheme.text }]}>Tasks</Text>
             </View>
             {/* Display tasks */}
             {tasks.map((task, index) => (
               <View key={index}>
-                <Text>{task.name}</Text>
+                <Text style={[styles.text, { color: colorScheme.text }]}>{task.name}</Text>
               </View>
             ))}
           </TouchableOpacity>
@@ -82,10 +98,15 @@ const HomeScreen = () => {
       </View>
       {/* Calendar */}
       <View style={styles.container}>
-        <TouchableOpacity style={[styles.box, { backgroundColor: ColorScheme.tertiary }, { borderColor: ColorScheme.tertiaryRich }]} onPress={goToTemplatePage}>
-          <View style={[styles.boxHeader, { backgroundColor: ColorScheme.tertiaryRich }, { borderBottomEndRadius: 0 }]}>
-            <Text style={styles.buttonText}>This Week</Text>
+        <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.tertiaryLite }, { borderColor: colorScheme.tertiaryRich }, { height: '40%' }]} onPress={goToCalendar}>
+          <View style={[styles.boxHeader, { backgroundColor: colorScheme.tertiary }, { borderBottomEndRadius: 0 }, { height: '40%' }]}>
+            <Text style={[styles.buttonText, { color: colorScheme.text }, {alignSelf: 'center'}]}>Today</Text>
             {/*<Calendar/>*/}
+            <View>
+            <Text>Title: {todayEvent.title}</Text>
+            <Text>Date: {todayEvent.dateString}</Text>
+            <Text>Description: {todayEvent.description}</Text>
+             </View>
           </View>
         </TouchableOpacity>
       </View>
@@ -96,7 +117,6 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
-    backgroundColor: ColorScheme.secondaryRich,
     justifyContent: 'center',
     alignItems: 'flex-start', // Align to the left
     paddingTop: 170
@@ -122,12 +142,10 @@ const styles = StyleSheet.create({
     borderRightWidth: 5
   },
   boxHeader: {
-    height: '20%',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20
   },
   backgroundBox: {
-    backgroundColor: ColorScheme.background,
     borderRadius: 20,
     paddingHorizontal: 215,
     paddingVertical: 500,
@@ -142,7 +160,6 @@ const styles = StyleSheet.create({
     left: 20
   },
   yellowBox: {
-    backgroundColor: ColorScheme.tertiaryLite,
     width: '90%',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -158,7 +175,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'black',
     fontSize: 30,
-    fontWeight: 'bold',
     paddingLeft: 12
 
   }

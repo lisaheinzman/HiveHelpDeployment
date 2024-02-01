@@ -6,6 +6,7 @@ import { Image } from 'react-native';
 import HexagonIcon from './assets/hexagonicon';
 
 import ThemeProvider from './components/ThemeProvider';
+import { useTheme } from './components/ThemeProvider';
 
 
 import GuidesScreen from './components/GuidesScreen';
@@ -28,7 +29,7 @@ import RecentGuidesScreen from './components/RecentScreen';
 
 import SignInScreen from './components/SignInScreen';
 import CreateAccountScreen from './components/CreateAccountScreen';
-
+import ForgotPasswordScreen from './components/ForgotPasswordScreen'
 
 
 
@@ -39,7 +40,7 @@ import calendarIcon from './assets/icons/calendar-icon.png';
 import profileIcon from './assets/icons/profile-icon.png';
 
 const App = () => {
-
+  
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
 
@@ -91,6 +92,7 @@ const TasksStack = () => {
     return (
       <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Tasks" component={TasksScreen} />
       </Stack.Navigator>
     );
   };
@@ -116,6 +118,7 @@ const TasksStack = () => {
   };
 
   const TabNavigator = () => {
+    const { colorScheme } = useTheme();
     return (
       <Tab.Navigator
         initialRouteName='Home'
@@ -129,8 +132,8 @@ const TasksStack = () => {
               iconComponent = (
                 <React.Fragment>
                   {/* Display Home icon on top of HexagonIcon */}
-                  <HexagonIcon size={size} color={color} style={{ position: 'absolute', top: 10, alignSelf: 'center' }} />
-                  <Image source={homeIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, position: 'absolute', top: -10, alignSelf: 'center' }} />
+                  <HexagonIcon size={size} style={{ position: 'absolute', top: 10, alignSelf: 'center', color: colorScheme.homeButton}} />
+                  <Image source={homeIcon} style={{ width: iconSize.width, height: iconSize.height, tintColor: color, position: 'absolute', top: -10, alignSelf: 'center' , zIndex: 2}} />
                 </React.Fragment>
               );
             } else if (route.name === 'Guides') {
@@ -151,14 +154,16 @@ const TasksStack = () => {
           labelStyle: {
             display: 'none',
           },
-          style: {
-            height: 90,
-            paddingTop: 20,
-          },
           tabStyle: {
             flexDirection: 'column',
             justifyContent: 'flex-end',
+            height: 80,
+            paddingBottom: 20,
+            zIndex: 0,
+            backgroundColor: colorScheme.navigationBar,
           },
+          activeTintColor: colorScheme.selectedTab,
+          inactiveTintColor: colorScheme.highlight,
         }}
       >
         <Tab.Screen name="Guides" component={GuidesStack} options={{ headerShown: false }} />
@@ -175,6 +180,7 @@ const TasksStack = () => {
       <Stack.Navigator initialRouteName="SignIn" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       </Stack.Navigator>
     );
   };

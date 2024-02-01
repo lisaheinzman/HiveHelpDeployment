@@ -1,12 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useTheme } from '../components/ThemeProvider';
 
 const HexagonIcon = () => {
+  const { colorScheme } = useTheme();
     return (
       <View style={styles.hexagon}>
-        <View style={styles.hexagonInner} />
-        <View style={styles.hexagonBefore} />
-        <View style={styles.hexagonAfter} />
+        <View style={[styles.hexagonInner, {backgroundColor: colorScheme.homeButton}]} />
+        <View style={[styles.hexagonBefore, {borderBottomColor: colorScheme.homeButton}]} />
+        <View style={[styles.hexagonAfter, {borderTopColor: colorScheme.homeButton}]} />
       </View>
     );
   };
@@ -15,11 +17,11 @@ const HexagonIcon = () => {
     hexagon: {
       width: 100,
       height: 55,
+      zIndex: 1
     },
     hexagonInner: {
       width: 100,
       height: 55,
-      backgroundColor: "#f7f7f7",
     },
     hexagonAfter: {
       position: "absolute",
@@ -33,7 +35,6 @@ const HexagonIcon = () => {
       borderRightWidth: 50,
       borderRightColor: "transparent",
       borderTopWidth: 25,
-      borderTopColor: "#f7f7f7",
     },
     hexagonBefore: {
       position: "absolute",
@@ -47,7 +48,6 @@ const HexagonIcon = () => {
       borderRightWidth: 50,
       borderRightColor: "transparent",
       borderBottomWidth: 25,
-      borderBottomColor: "#f7f7f7",
     },
   });
 

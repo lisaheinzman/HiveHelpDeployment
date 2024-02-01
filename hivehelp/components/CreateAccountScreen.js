@@ -1,8 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import ExampleImage from '../assets/createAccount.png';
-
+import ExampleImage from '../assets/CreateAccountBackground.png';
 const CreateAccountScreen = () => {
   const navigation = useNavigation();
   const goToHomePage = () => {
@@ -15,11 +14,11 @@ const CreateAccountScreen = () => {
         <View style={styles.container}>
           <Text style= {styles.text}>Name*</Text>
           <View style={styles.textContainer}>
-              <View style={[styles.column, {alignItems: 'center'}]}>
+              <View style={[styles.column, { alignItems: 'center' }]}>
               <TextInput style={[styles.input, {width: 95}]}/>
               </View>
-              <View style={[styles.column, {alignItems: 'center'}]}>
-              <TextInput style ={[styles.input, {width: 95}]}/>
+              <View style={[styles.column, { alignItems: 'center' }]}>
+              <TextInput style ={[styles.input, { width: 95 }]}/>
               </View>
             </View>
             <Text style= {styles.text}>Email*</Text>
@@ -30,14 +29,16 @@ const CreateAccountScreen = () => {
             <TextInput style={styles.input}/>
             <Text style= {styles.text}>Confirm Password*</Text>
             <TextInput style={styles.input}/>
-            <TouchableOpacity style = {{alignItems: 'center'}} onPress={goToHomePage}>
-                    <Text>Sign In</Text>
+            <TouchableOpacity style = {[styles.button, { alignSelf: 'center' }, { paddingTop: 10 }]} onPress={goToHomePage}>
+                    <Text>    Sign In</Text>
                   </TouchableOpacity>
         </View>
+        <View style= { [{ alignSelf: 'flex-start' }, { paddingBottom: 8 }, { paddingLeft: 70 }]}>
+        <TouchableOpacity style= {styles.button} onPress={goToHomePage}>
+                    <Text>  Click Here</Text>
+        </TouchableOpacity>
+        </View>
     </View>
-    <TouchableOpacity style= {{alignItems: 'flex-start'}}>
-                    <Text>Click Here</Text>
-  </TouchableOpacity>
     </View>
   )
 }
@@ -55,7 +56,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-  
     paddingTop: 80
   },
   image: {
@@ -78,6 +78,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 2,
     borderRadius: 30
+  },
+  button: {
+    height: 40,
+    width: 100,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    padding: 10
   },
   text: {
     alignItems: 'flex-start' // Align text to the left

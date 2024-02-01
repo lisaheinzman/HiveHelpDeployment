@@ -49,8 +49,8 @@ const ProfileScreen = () => {
 
   return (
     <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
-      <View style={styles.profileSection}>
-      <View style={styles.imageBox}>
+      <View style={[styles.profileSection, {backgroundColor: colorScheme.tertiaryLite}]}>
+      <View style={[styles.imageBox, {borderColor: colorScheme.tertiary}]}>
         <Image source={profilePicture} style={styles.image} />
       </View>
         {editing ? (
@@ -67,34 +67,34 @@ const ProfileScreen = () => {
           </View>
         </View>
         ) : (
-          <Text style={styles.userName}>{newName}</Text>
+          <Text style={[styles.userName, {color: colorScheme.text}]}>{newName}</Text>
         )}
         {!editing && (
           <TouchableOpacity onPress={handleEditPress} style={styles.editButton}>
-            <Ionicons name="create-outline" size={30} color="black" />
+            <Ionicons name="create-outline" size={30} color={colorScheme.text} />
           </TouchableOpacity>
         )}
       </View>
 
       <View style={styles.buttonSection}>
         <TouchableOpacity style={styles.buttonContainer} onPress={navigateToFavoritedGuides}>
-          <Ionicons name="star-outline" size={24} color="black" />
-          <Text style={styles.buttonText}>Favorited Guides</Text>
+          <Ionicons name="star-outline" size={30} color={colorScheme.text} />
+          <Text style={[styles.buttonText, {color: colorScheme.text}]}>Favorited Guides</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.buttonContainer} onPress={navigateToRecentlyViewedGuides}>
-          <Ionicons name="time-outline" size={24} color="black" />
-          <Text style={styles.buttonText}>Recently Viewed</Text>
+          <Ionicons name="time-outline" size={30} color={colorScheme.text} />
+          <Text style={[styles.buttonText, {color: colorScheme.text}]}>Recently Viewed</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.buttonContainer} onPress={navigateToSettings}>
-          <Ionicons name="settings-outline" size={24} color="black" />
-          <Text style={styles.buttonText}>Settings</Text>
+          <Ionicons name="settings-outline" size={30} color={colorScheme.text} />
+          <Text style={[styles.buttonText, {color: colorScheme.text}]}>Settings</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.buttonContainer} onPress={handleLogout}>
-          <Ionicons name="log-out-outline" size={24} color="black" />
-          <Text style={styles.buttonText}>Logout</Text>
+          <Ionicons name="log-out-outline" size={30} color={colorScheme.text} />
+          <Text style={[styles.buttonText, {color: colorScheme.text}]}>Logout</Text>
         </TouchableOpacity>
       </View>
 
@@ -165,7 +165,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 5,
     borderRightWidth: 5,
     borderRadius: 50,
-    borderColor: 'yellow',
     right: 10
   }
 });
