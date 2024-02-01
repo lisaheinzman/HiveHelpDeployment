@@ -18,16 +18,20 @@ const ForgotPasswordScreen = () => {
   };
 
   return (
-    <View style={styles.ultimatecontainer}>
+    <View style={styles.imageContainer}>
     <View style={styles.pageContainer}>
         <Image source={ExampleImage} style={styles.image} />
         <View style={styles.container}>
-            <View>
-                <Text>Forgot your</Text>
-                <Text>Password?</Text>
-                <Text>Email*</Text>
-            </View>
-          <Image source={beeIcon} style={styles.bee}  />
+                <Text style={[styles.title, { fontSize: 40 }]}>Forgot your</Text>
+                <Text style={[styles.title, { fontSize: 40 }]}>Password?</Text>
+          <Image source={beeIcon} style={styles.bee}/>
+          <View style={[styles.title, {paddingBottom: 10}]}>
+            <Text>Please enter your email</Text> 
+            <Text>address below to receive</Text> 
+            <Text>your verification code to</Text> 
+            <Text>reset your password.</Text>
+          </View>
+          <Text style={[{ paddingTop: 30 }]}>Email*</Text>
           <TextInput style={styles.input} placeholder="Enter Email"/>
           <View style={[styles.textContainer, { paddingTop: 15 }]}>
               <View style={[styles.column]}>
@@ -50,13 +54,13 @@ const ForgotPasswordScreen = () => {
 const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-  ultimatecontainer: {
-    flex: 1
+  imageContainer: {
+    flex: 1,
   },
   pageContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   container: {
     flex: 1,
@@ -77,8 +81,7 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   title: {
-    fontSize: 40,
-    alignContent: 'center'
+    alignSelf: 'center'
   },
   button: {
     height: 40,
