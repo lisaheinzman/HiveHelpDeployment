@@ -21,7 +21,7 @@ const GuidesScreen = () => {
   
   return (
     
-    <View style={[styles.container, { backgroundColor: colorScheme.backgroundColor}]}>
+    <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
       <View style={[styles.heading, { borderRadius: 8 }, {backgroundColor: colorScheme.tertiary}]}>
       <Text style={[styles.title, { color: colorScheme.text }]}>Guide Topics</Text>
       <Text style={[styles.text, { color: colorScheme.text }]}>Discover an array of guides covering everything you need. From work to school and personal life, find guidance to navigate it all.</Text>
