@@ -28,13 +28,15 @@ const HomeScreen = () => {
   const currentDate = new Date().toISOString().split('T')[0];
   const todayEvent = eventDetailsJSON[currentDate];
 
-  // Set default text
+  // Set default display text
   const [displayText, setDisplayText] = useState('Remember to always do what you love!');
 
+  // Sets display text
   const changeTextL = () => {
     setDisplayText('Remember to always do what you love!');
   };
 
+  // Sets display text
   const changeTextR = () => {
     setDisplayText("It's okay to make mistakes! ");
   };
@@ -104,9 +106,9 @@ const HomeScreen = () => {
           <View style={[styles.boxHeader, { backgroundColor: colorScheme.tertiary }, { borderBottomEndRadius: 0 }, { height: '25%' }]}>
             <Text style={[styles.buttonText, { color: colorScheme.text }, {alignSelf: 'center'}]}>Today</Text>
             <View style ={[{ paddingLeft: 10 }, { paddingTop: 20 }]}>
-              <Text>Date: {todayEvent.dateString}</Text>
-              <Text>Event Title: {todayEvent.title}</Text>
-              <Text>Description: {todayEvent.description}</Text>
+              <Text style={[{ color: colorScheme.text }]}>Date: {todayEvent.dateString}</Text>
+              <Text style={[{ color: colorScheme.text }]}>Event Title: {todayEvent.title}</Text>
+              <Text style={[{ color: colorScheme.text }]}>Description: {todayEvent.description}</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -123,7 +125,6 @@ const styles = StyleSheet.create({
     paddingTop: 170
   },
   container: {
-  //  flex: 1,
     height: '50%',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -131,7 +132,6 @@ const styles = StyleSheet.create({
     borderRadius: 30
   },
   taskContainer: {
-    // height: '40%',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     padding: 9,
@@ -216,7 +216,6 @@ const styles = StyleSheet.create({
     left: 20
   },
   buttonText: {
-    color: 'black',
     fontSize: 30,
     paddingLeft: 12,
     paddingTop: 10
