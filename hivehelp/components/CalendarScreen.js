@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { AntDesign } from "@expo/vector-icons";
-import { CurrentRenderContext } from "@react-navigation/native";
 import { useTheme } from "./ThemeProvider.js";
 
 const CalendarScreen = () => {
