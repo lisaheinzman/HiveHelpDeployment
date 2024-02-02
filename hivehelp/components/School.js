@@ -24,7 +24,7 @@ const SchoolGuides = () => {
     const renderSections = (sections) => {
         return sections.map((section, index) => (
             <View key={index}>
-                <Text style={[styles.sectionHeading, { color: colorScheme.secondary }]}>
+                <Text style={[styles.sectionHeading, { color: colorScheme.secondary}]}>
                     {section.heading}
                 </Text>
                 <Text style={[styles.sectionContent, { color: colorScheme.text }]}>
