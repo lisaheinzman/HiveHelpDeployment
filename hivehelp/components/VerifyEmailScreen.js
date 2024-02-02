@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import ExampleImage from '../assets/greenBackground.png';
+import BackgroundImage from '../assets/greenBackground.png';
 import beeIcon from '../assets/icons/mail-icon.png';
 
 const VerifyEmailScreen = () => {
   const navigation = useNavigation();
-  // Go to home page
+  // Navigate to home page
   const goToForgotPassword = () => {
     navigation.navigate('ForgotPassword');
   }
-  // Go to sign in page
+  // Navigate to sign in page
   const goToCreateNewPassword = () => {
     navigation.navigate('CreateNewPassword');
   }
@@ -19,7 +19,7 @@ const VerifyEmailScreen = () => {
     <View style={styles.imageContainer}>
     <View style={styles.pageContainer}>
         {/* Background Image */}
-        <Image source={ExampleImage} style={styles.image} />
+        <Image source={BackgroundImage} style={styles.image} />
         <View style={styles.container}>
                 {/* Title */}
                 <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }]}>Verify Your</Text>

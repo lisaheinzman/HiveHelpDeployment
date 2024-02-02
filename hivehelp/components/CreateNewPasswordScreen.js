@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import backgroundImage from '../assets/greenBackground.png';
@@ -10,8 +10,8 @@ const CreateNewPasswordScreen = () => {
   const goToVerifyEmail = () => {
     navigation.navigate('VerifyEmail');
   }
-  const goToHomePage = () => {
-    navigation.navigate('TabNavigator');
+  const goToSignInPage = () => {
+    navigation.navigate('SignIn');
   }
 
   return (
@@ -42,7 +42,7 @@ const CreateNewPasswordScreen = () => {
                 </View>
                 <View style={[styles.column]}>
                     {/* Send Button */}
-                    <TouchableOpacity style ={styles.button} onPress={goToHomePage}>
+                    <TouchableOpacity style ={styles.button} onPress={goToSignInPage}>
                         <Text>     Send</Text>
                     </TouchableOpacity>
                 </View>
