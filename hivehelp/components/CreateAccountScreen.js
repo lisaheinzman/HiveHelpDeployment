@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import ExampleImage from '../assets/CreateAccountBackground.png';
+import BackgroundImage from '../assets/CreateAccountBackground.png';
 
 // Navigation
 const CreateAccountScreen = () => {
@@ -13,7 +13,7 @@ const CreateAccountScreen = () => {
   return (
     <View style={styles.ultimatecontainer}>
     <View style={styles.pageContainer}>
-    <Image source={ExampleImage} style={styles.image} />
+    <Image source={BackgroundImage} style={styles.image} />
         <View style={styles.container}>
           <Text style= {styles.text}>Name*</Text>
           <View style={styles.textContainer}>

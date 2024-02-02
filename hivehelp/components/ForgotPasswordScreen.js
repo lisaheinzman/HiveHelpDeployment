@@ -6,11 +6,11 @@ import beeIcon from '../assets/icons/bee-icon.png'
 
 const ForgotPasswordScreen = () => {
   const navigation = useNavigation()
-  // Go to home page
+  // Navigate to home page
   const goToVerifyEmail = () => {
     navigation.navigate('VerifyEmail')
   }
-  // Go to sign in page
+  // Navigate to sign in page
   const goToSignInPage = () => {
     navigation.navigate('SignIn')
   }

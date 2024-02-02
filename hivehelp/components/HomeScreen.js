@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { HexagonView } from 'react-native-hexagon';
-import { Theme } from './Theme';
-import * as FileSystem from 'expo-file-system';
-import TaskList from './TaskList.json'; // Import the TaskList.json file
+import TaskList from './TaskList.json';
 import { useTheme } from './ThemeProvider';
 import { eventDetailsJSON } from './eventDetailsJSON'
 
@@ -13,7 +10,6 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   const [tasks, setTasks] = useState([]);
-
 
   useEffect(() => {
     const readJsonFile = async () => {
@@ -32,7 +28,6 @@ const HomeScreen = () => {
   const currentDate = new Date().toISOString().split('T')[0];
   const todayEvent = eventDetailsJSON[currentDate];
 
-
   // Set default text
   const [displayText, setDisplayText] = useState('Remember to always do what you love!');
 
@@ -44,18 +39,19 @@ const HomeScreen = () => {
     setDisplayText("It's okay to make mistakes! ");
   };
 
+  // Navigates to Work Guides
   const goToGuidePage = () => {
-    navigation.navigate('Work Guides'); // 'Template' should match the name of the stack or screen you want to navigate to
+    navigation.navigate('Work Guides');
   };
 
   // Navigates to TaskScreen
   const goToTasks = () => {
-    navigation.navigate('Tasks'); // 'Template' should match the name of the stack or screen you want to navigate to
+    navigation.navigate('Tasks');
   };
 
   // Navigates to Calendar
   const goToCalendar = () => {
-    navigation.navigate('Calendar'); // 'Template' should match the name of the stack or screen you want to navigate to
+    navigation.navigate('Calendar');
   };
   return (
     <View style={[styles.pageContainer, { backgroundColor: colorScheme.homeBackground}]}>
@@ -86,7 +82,7 @@ const HomeScreen = () => {
             <View style={[styles.boxHeader, { backgroundColor: colorScheme.secondary }, { borderBottomEndRadius: 0 }, { height: '20%' }]}>
               <Text style={[styles.buttonText, { color: colorScheme.text }]}>Tasks</Text>
             </View>
-            {/* Display tasks */}
+            {/* Display tasks with hexagons */}
             {tasks.map((task, index) => (
               <View key={index}>
                 <View style={styles.taskContainer}>
@@ -135,7 +131,7 @@ const styles = StyleSheet.create({
     borderRadius: 30
   },
   taskContainer: {
-   // height: '40%',
+    // height: '40%',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     padding: 9,
@@ -166,39 +162,39 @@ const styles = StyleSheet.create({
     left: 0
   },
   hexagonInner: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%'
   },
   hexagonAfter: {
-    position: "absolute",
+    position: 'absolute',
     bottom: -6.5,
     left: 0,
     width: 0,
     height: 0,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderLeftWidth: 12.5,
-    borderLeftColor: "transparent",
+    borderLeftColor: 'transparent',
     borderRightWidth: 12.5,
-    borderRightColor: "transparent",
-    borderTopWidth: 6.5,
+    borderRightColor: 'transparent',
+    borderTopWidth: 6.5
   },
   hexagonBefore: {
-    position: "absolute",
+    position: 'absolute',
     top: -6.5,
     left: 0,
     width: 0,
     height: 0,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderLeftWidth: 12.5,
-    borderLeftColor: "transparent",
+    borderLeftColor: 'transparent',
     borderRightWidth: 12.5,
-    borderRightColor: "transparent",
-    borderBottomWidth: 6.5,
+    borderRightColor: 'transparent',
+    borderBottomWidth: 6.5
   },
   hexagonContainer: {
     width: 25,
     height: 14.5,
-    position: "relative",
+    position: 'relative'
   },
   titleText: {
     fontSize: 40,
