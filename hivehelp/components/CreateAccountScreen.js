@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput  } from 'react-native';
+import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackgroundImage from '../assets/CreateAccountBackground.png';
 import { useState } from 'react';
@@ -18,7 +18,84 @@ const CreateAccountScreen = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const [emailError, setEmailError] = useState('');
+  const [confirmEmailError, setConfirmEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+  const validateEmail = (email) => {
+    // Perform email validation here
+    // For example, check if it's a valid email format
+    return /\S+@\S+\.\S+/.test(email);
+  };
+
+  const validatePassword = (password) => {
+    // Perform password validation here
+    // For example, check if it meets certain criteria
+    return password.length >= 6;
+  };
+
+  const handleBlurEmail = () => {
+    if (!validateEmail(email)) {
+      setEmailError('Invalid email format');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const handleBlurConfirmEmail = () => {
+    if (email !== confirmEmail) {
+      setConfirmEmailError('Emails do not match');
+    } else {
+      setConfirmEmailError('');
+    }
+  };
+
+  const handleBlurPassword = () => {
+    if (!validatePassword(password)) {
+      setPasswordError('Password must be at least 6 characters');
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  const handleBlurConfirmPassword = () => {
+    if (password !== confirmPassword) {
+      setConfirmPasswordError('Passwords do not match');
+    } else {
+      setConfirmPasswordError('');
+    }
+  };
+
   const handleSubmit = () => {
+    if (!validateEmail(email)) {
+      setEmailError('Invalid email format');
+      return;
+    } else {
+      setEmailError('');
+    }
+  
+    if (email !== confirmEmail) {
+      setConfirmEmailError('Emails do not match');
+      return;
+    } else {
+      setConfirmEmailError('');
+    }
+  
+    if (!validatePassword(password)) {
+      setPasswordError('Password must be at least 6 characters');
+      return;
+    } else {
+      setPasswordError('');
+    }
+  
+    if (password !== confirmPassword) {
+      setConfirmPasswordError('Passwords do not match');
+      return;
+    } else {
+      setConfirmPasswordError('');
+    }
+    
     const id = uuid();
     // Send data to server
     console.log("fetching server data");
@@ -29,56 +106,61 @@ const CreateAccountScreen = () => {
       },
       body: JSON.stringify({ id, name, email, password }),
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Success:', data);
-      // Handle success (e.g., navigate to home screen)
-      goToHomePage();
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      // Handle error
-    });
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Success:', data);
+        // Handle success (e.g., navigate to home screen)
+        goToHomePage();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Handle error
+      });
   }
 
 
 
   return (
     <View style={styles.ultimatecontainer}>
-    <View style={styles.pageContainer}>
-    <Image source={BackgroundImage} style={styles.image} />
+      <View style={styles.pageContainer}>
+        <Image source={BackgroundImage} style={styles.image} />
         <View style={styles.container}>
-          <Text style= {styles.text}>Name*</Text>
+          <Text style={styles.text}>Name*</Text>
           <View style={styles.textContainer}>
-              <View style={[styles.column, { alignItems: 'center' }]}>
-              <TextInput style={[styles.input, {width: 95}]}
-              value={name}
-              onChangeText={setName}/>
-              </View>
+            <View style={[styles.column, { alignItems: 'center' }]}>
+              <TextInput style={[styles.input, { width: 95 }]}
+                value={name}
+                onChangeText={setName} />
+                
             </View>
-            <Text style= {styles.text}>Email*</Text>
-            <TextInput style={styles.input}  onChangeText={setEmail}/>
-            <Text style= {styles.text}>Confirm Email*</Text>
-            <TextInput style={styles.input} onChangeText={setConfirmEmail}/>
-            <Text style= {styles.text}>Create Password*</Text>
-            <TextInput style={styles.input} onChangeText={setPassword}/>
-            <Text style= {styles.text}>Confirm Password*</Text>
-            <TextInput style={styles.input} onChangeText={setConfirmPassword}/>
-            <TouchableOpacity style = {[styles.button, { alignSelf: 'center' }, { paddingTop: 10 }]} onPress={handleSubmit}>
-                    <Text>    Sign In</Text>
-                  </TouchableOpacity>
+          </View>
+          <Text style={styles.text}>Email*</Text>
+          <TextInput style={styles.input} onChangeText={setEmail} onBlur={handleBlurEmail} />
+          {emailError ? <Text style={{ color: 'red' }}>{emailError}</Text> : null}
+          <Text style={styles.text}>Confirm Email*</Text>
+          <TextInput style={styles.input} onChangeText={setConfirmEmail} onBlur={handleBlurConfirmEmail}/>
+          {confirmEmailError ? <Text style={{ color: 'red' }}>{confirmEmailError}</Text> : null}
+          <Text style={styles.text}>Create Password*</Text>
+          <TextInput style={styles.input} onChangeText={setPassword} onBlur={handleBlurPassword}/>
+          {passwordError ? <Text style={{ color: 'red' }}>{passwordError}</Text> : null}
+          <Text style={styles.text}>Confirm Password*</Text>
+          <TextInput style={styles.input} onChangeText={setConfirmPassword} onBlur={handleBlurConfirmPassword}/>
+          {confirmPasswordError ? <Text style={{ color: 'red' }}>{confirmPasswordError}</Text> : null}
+          <TouchableOpacity style={[styles.button, { alignSelf: 'center' }, { paddingTop: 10 }]} onPress={handleSubmit}>
+            <Text>    Sign In</Text>
+          </TouchableOpacity>
         </View>
-        <View style= { [{ alignSelf: 'flex-start' }, { paddingBottom: 8 }, { paddingLeft: 70 }]}>
-        <TouchableOpacity style= {styles.button} onPress={goToHomePage}>
-                    <Text>  Click Here</Text>
-        </TouchableOpacity>
+        <View style={[{ alignSelf: 'flex-start' }, { paddingBottom: 8 }, { paddingLeft: 70 }]}>
+          <TouchableOpacity style={styles.button} onPress={goToHomePage}>
+            <Text>  Click Here</Text>
+          </TouchableOpacity>
         </View>
-    </View>
+      </View>
     </View>
   )
 }
@@ -115,7 +197,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   textContainer: {
-   // height: '40%',
+    // height: '40%',
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 2,

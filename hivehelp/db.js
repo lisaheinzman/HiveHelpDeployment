@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2/promise');
-const cors = require('cors');
+var cors = require('cors');
 
 const app = express();
 
@@ -71,7 +71,7 @@ pool.getConnection()
   
       // Authentication successful, return a token or session information
       // For demonstration purposes, let's assume the user ID is used as the token
-      res.status(200).json({ message: 'Login successful', userId: user.id });
+      res.status(200).json({ message: 'Login successful', name: user.name });
     } catch (error) {
       console.error('Error querying database:', error);
       res.status(500).json({ message: 'Internal server error' });
