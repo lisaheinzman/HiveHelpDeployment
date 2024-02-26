@@ -2,6 +2,8 @@ import React from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackgroundImage from '../assets/CreateAccountBackground.png';
+import { useState } from 'react';
+import uuid from 'uuid-random'
 
 // Navigation
 const CreateAccountScreen = () => {
@@ -9,6 +11,42 @@ const CreateAccountScreen = () => {
   const goToHomePage = () => {
     navigation.navigate('TabNavigator')
   }
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [confirmEmail, setConfirmEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleSubmit = () => {
+    const id = uuid();
+    // Send data to server
+    console.log("fetching server data");
+    fetch('http://172.26.160.1:3000/items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id, name, email, password }),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Success:', data);
+      // Handle success (e.g., navigate to home screen)
+      goToHomePage();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      // Handle error
+    });
+  }
+
+
 
   return (
     <View style={styles.ultimatecontainer}>
@@ -18,21 +56,20 @@ const CreateAccountScreen = () => {
           <Text style= {styles.text}>Name*</Text>
           <View style={styles.textContainer}>
               <View style={[styles.column, { alignItems: 'center' }]}>
-              <TextInput style={[styles.input, {width: 95}]}/>
-              </View>
-              <View style={[styles.column, { alignItems: 'center' }]}>
-              <TextInput style ={[styles.input, { width: 95 }]}/>
+              <TextInput style={[styles.input, {width: 95}]}
+              value={name}
+              onChangeText={setName}/>
               </View>
             </View>
             <Text style= {styles.text}>Email*</Text>
-            <TextInput style={styles.input}/>
+            <TextInput style={styles.input}  onChangeText={setEmail}/>
             <Text style= {styles.text}>Confirm Email*</Text>
-            <TextInput style={styles.input}/>
+            <TextInput style={styles.input} onChangeText={setConfirmEmail}/>
             <Text style= {styles.text}>Create Password*</Text>
-            <TextInput style={styles.input}/>
+            <TextInput style={styles.input} onChangeText={setPassword}/>
             <Text style= {styles.text}>Confirm Password*</Text>
-            <TextInput style={styles.input}/>
-            <TouchableOpacity style = {[styles.button, { alignSelf: 'center' }, { paddingTop: 10 }]} onPress={goToHomePage}>
+            <TextInput style={styles.input} onChangeText={setConfirmPassword}/>
+            <TouchableOpacity style = {[styles.button, { alignSelf: 'center' }, { paddingTop: 10 }]} onPress={handleSubmit}>
                     <Text>    Sign In</Text>
                   </TouchableOpacity>
         </View>

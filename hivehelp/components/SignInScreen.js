@@ -2,9 +2,37 @@ import React from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackgroundImage from '../assets/SignInBackground.png';
+import { useState } from 'react';
 
 const SignInScreen = () => {
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = () => {
+    console.log('Submitting login form with email:', email, 'and password:', password);
+    fetch('http://172.26.160.1:3000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Success:', data);
+      goToHomePage();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      // Handle error
+    });
+  }
 
   // Navigation
   const goToHomePage = () => {
@@ -23,8 +51,8 @@ const SignInScreen = () => {
         <Image source={BackgroundImage} style={styles.image} />
         <View style={styles.container}>
           <Text>Sign In</Text>
-          <TextInput style={styles.input} placeholder="Enter Email"/>
-          <TextInput style={styles.input} placeholder="Password"/>
+          <TextInput style={styles.input} placeholder="Enter Email" onChangeText={setEmail} value={email}/>
+          <TextInput style={styles.input} placeholder="Password" onChangeText={setPassword} value={password}/>
           <View style={[styles.textContainer, {paddingTop: 15}]}>
               <View style={[styles.column]}>
               <TouchableOpacity onPress={goToForgotPassword}>
@@ -33,7 +61,7 @@ const SignInScreen = () => {
                   </TouchableOpacity>
               </View>
               <View style={[styles.column, { alignItems: 'flex-end' }]}>
-                  <TouchableOpacity style ={styles.button} onPress={goToHomePage}>
+                  <TouchableOpacity style ={styles.button} onPress={handleSubmit}>
                     <Text>    Sign In</Text>
                   </TouchableOpacity>
               </View>
