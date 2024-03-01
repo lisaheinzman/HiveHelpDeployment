@@ -36,7 +36,7 @@ pool.getConnection()
       const connection = await pool.getConnection();
   
       // Insert data into the database
-      const [result] = await connection.query('INSERT INTO userinfo (id, name, email, password) VALUES (?, ?, ?, ?)', [id, name, email, password]);
+      const [result] = await connection.query('INSERT INTO userdata (id, name, email, password) VALUES (?, ?, ?, ?)', [id, name, email, password]);
   
       connection.release();
   
@@ -54,7 +54,7 @@ pool.getConnection()
       const connection = await pool.getConnection();
   
       // Query the database for the user based on the email
-      const [results] = await connection.query('SELECT * FROM userinfo WHERE email = ?', [email]);
+      const [results] = await connection.query('SELECT * FROM userdata WHERE email = ?', [email]);
   
       connection.release();
   

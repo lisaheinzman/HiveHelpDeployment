@@ -4,34 +4,28 @@ import { useNavigation } from '@react-navigation/native';
 import BackgroundImage from '../assets/SignInBackground.png';
 import { useState } from 'react';
 
+import { Alert } from 'react-native';
+
+import { supabase } from '../supabase';
+
 const SignInScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = () => {
-    console.log('Submitting login form with email:', email, 'and password:', password);
-    fetch('http://172.26.160.1:3000/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
+  async function handleSubmit() {
+    setLoading(true)
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Success:', data);
-      goToHomePage();
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      // Handle error
-    });
+    if (error) Alert.alert(error.message, error.status)
+    if (error) console.log(error.message, error.status)
+    setLoading(false)
+  if (!error){
+    goToHomePage();
+  }
   }
 
   // Navigation

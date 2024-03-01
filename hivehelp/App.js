@@ -39,8 +39,10 @@ import tasksIcon from './assets/icons/tasks-icon.png';
 import calendarIcon from './assets/icons/calendar-icon.png';
 import profileIcon from './assets/icons/profile-icon.png';
 
+
 const App = () => {
   
+
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
 

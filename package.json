@@ -8,5 +8,8 @@
     "react-native-paper": "^5.12.3",
     "react-native-week-view": "^0.30.0",
     "ssh2": "^1.15.0"
+  },
+  "devDependencies": {
+    "supabase": "^1.145.4"
   }
 }
