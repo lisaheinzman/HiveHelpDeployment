@@ -5,9 +5,36 @@ import TaskList from './TaskList.json';
 import { useTheme } from './ThemeProvider';
 import { eventDetailsJSON } from './eventDetailsJSON'
 
+import { supabase } from '../supabase';
+
 const HomeScreen = () => {
   const { colorScheme } = useTheme();
   const navigation = useNavigation();
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+
+      const { data: { user } } = await supabase.auth.getUser()
+
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('name')
+        .eq('id', user.id)
+        .single();
+
+      if (profileError) {
+        console.error('Error fetching user profile:', profileError.message);
+        return;
+      }
+
+      setUser(profile);
+    };
+
+
+    fetchUser();
+  })
 
   const [tasks, setTasks] = useState([]);
 
@@ -56,9 +83,9 @@ const HomeScreen = () => {
     navigation.navigate('Calendar');
   };
   return (
-    <View style={[styles.pageContainer, { backgroundColor: colorScheme.homeBackground}]}>
-      <Text style={[styles.titleText, { color: colorScheme.text }]}>Welcome</Text>
-      <View style={[styles.backgroundBox, { backgroundColor: colorScheme.background}]}></View>
+    <View style={[styles.pageContainer, { backgroundColor: colorScheme.homeBackground }]}>
+      <Text style={[styles.titleText, { color: colorScheme.text }]}>Welcome: {user ? user.name : 'Guest'}</Text>
+      <View style={[styles.backgroundBox, { backgroundColor: colorScheme.background }]}></View>
       <View style={[styles.yellowBox, { backgroundColor: colorScheme.tertiary, borderColor: colorScheme.tertiaryRich }]}>
         <TouchableOpacity style={styles.button} onPress={changeTextL}>
           <Text style={[styles.buttonText, { color: colorScheme.text }]}>{'<'}</Text>
@@ -69,7 +96,7 @@ const HomeScreen = () => {
           <Text style={[styles.buttonText, { color: colorScheme.text }]}>{'>'}</Text>
         </TouchableOpacity>
       </View>
-      <View style={[styles.container, {marginTop: 150}]}>
+      <View style={[styles.container, { marginTop: 150 }]}>
         <View style={styles.column}>
           {/* Suggested Guide */}
           <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.primary }, { borderColor: colorScheme.primaryRich }, { justifyContent: 'center' }, { paddingRight: 10 }]} onPress={goToGuidePage}>
@@ -93,7 +120,7 @@ const HomeScreen = () => {
                     <View style={[styles.hexagonBefore, { borderBottomColor: colorScheme.secondaryRich }]} />
                     <View style={[styles.hexagonAfter, { borderTopColor: colorScheme.secondaryRich }]} />
                   </TouchableOpacity>
-                <Text style={[styles.text, { color: colorScheme.text }, { paddingLeft: 6 }]}>{task.name}</Text>
+                  <Text style={[styles.text, { color: colorScheme.text }, { paddingLeft: 6 }]}>{task.name}</Text>
                 </View>
               </View>
             ))}
@@ -104,8 +131,8 @@ const HomeScreen = () => {
       <View style={styles.container}>
         <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.tertiaryLite }, { borderColor: colorScheme.tertiaryRich }, { height: '60%' }]} onPress={goToCalendar}>
           <View style={[styles.boxHeader, { backgroundColor: colorScheme.tertiary }, { borderBottomEndRadius: 0 }, { height: '25%' }]}>
-            <Text style={[styles.buttonText, { color: colorScheme.text }, {alignSelf: 'center'}]}>Today</Text>
-            <View style ={[{ paddingLeft: 10 }, { paddingTop: 20 }]}>
+            <Text style={[styles.buttonText, { color: colorScheme.text }, { alignSelf: 'center' }]}>Today</Text>
+            <View style={[{ paddingLeft: 10 }, { paddingTop: 20 }]}>
               <Text style={[{ color: colorScheme.text }]}>Date: {todayEvent.dateString}</Text>
               <Text style={[{ color: colorScheme.text }]}>Event Title: {todayEvent.title}</Text>
               <Text style={[{ color: colorScheme.text }]}>Description: {todayEvent.description}</Text>
