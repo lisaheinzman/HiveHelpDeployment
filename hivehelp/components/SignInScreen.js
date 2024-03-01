@@ -20,8 +20,10 @@ const SignInScreen = () => {
       email: email,
       password: password,
     })
-    if (error) Alert.alert(error.message, error.status)
-    if (error) console.log(error.message, error.status)
+    if (error){
+      alert(error.message, error.status)
+      console.log(error.message, error.status)
+    }
     setLoading(false)
   if (!error){
     goToHomePage();

@@ -111,10 +111,12 @@ const CreateAccountScreen = () => {
       password: password,
     })
 
-    if (error) Alert.alert(error.message, error.status)
-    if (error) console.log(error.message, error.status)
-    if (!session) Alert.alert('Please check your inbox for email verification!')
-    if (!session) console.log('Please check your inbox for email verification!')
+    if (error){
+      alert(error.message, error.status)
+      console.log(error.message, error.status)
+    } else {
+      alert("Account created!")
+    }
     setLoading(false)
   if (!error){
     goToHomePage();
