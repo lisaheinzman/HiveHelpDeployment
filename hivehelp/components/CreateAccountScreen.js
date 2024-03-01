@@ -139,23 +139,31 @@ const CreateAccountScreen = () => {
           <Text style={styles.text}>Name*</Text>
           <View style={styles.textContainer}>
             <View style={[styles.column, { alignItems: 'center' }]}>
-              <TextInput style={[styles.input, { width: 95 }]}
+              <TextInput style={styles.input}
                 value={name}
-                onChangeText={setName} />
+                onChangeText={setName} 
+                placeholder='Enter Name'
+                placeholderTextColor='grey'/>
 
             </View>
           </View>
           <Text style={styles.text}>Email*</Text>
-          <TextInput style={styles.input} onChangeText={setEmail} onBlur={handleBlurEmail} />
+          <TextInput style={styles.input} onChangeText={setEmail} onBlur={handleBlurEmail} placeholder="Enter Email"
+          autoCapitalize={'none'} placeholderTextColor='grey'/>
           {emailError ? <Text style={{ color: 'red' }}>{emailError}</Text> : null}
           <Text style={styles.text}>Confirm Email*</Text>
-          <TextInput style={styles.input} onChangeText={setConfirmEmail} onBlur={handleBlurConfirmEmail} />
+          <TextInput style={styles.input} onChangeText={setConfirmEmail} onBlur={handleBlurConfirmEmail} placeholder="Confirm Email"
+          autoCapitalize={'none'} placeholderTextColor='grey'/>
           {confirmEmailError ? <Text style={{ color: 'red' }}>{confirmEmailError}</Text> : null}
           <Text style={styles.text}>Create Password*</Text>
-          <TextInput style={styles.input} onChangeText={setPassword} onBlur={handleBlurPassword} />
+          <TextInput style={styles.input} onChangeText={setPassword} onBlur={handleBlurPassword} secureTextEntry={true}
+          placeholder="Enter Password"
+          autoCapitalize={'none'} placeholderTextColor='grey'/>
           {passwordError ? <Text style={{ color: 'red' }}>{passwordError}</Text> : null}
           <Text style={styles.text}>Confirm Password*</Text>
-          <TextInput style={styles.input} onChangeText={setConfirmPassword} onBlur={handleBlurConfirmPassword} />
+          <TextInput style={styles.input} onChangeText={setConfirmPassword} onBlur={handleBlurConfirmPassword} secureTextEntry={true}
+          placeholder="Confirm Password"
+          autoCapitalize={'none'} placeholderTextColor='grey'/>
           {confirmPasswordError ? <Text style={{ color: 'red' }}>{confirmPasswordError}</Text> : null}
           <TouchableOpacity style={[styles.button, { alignSelf: 'center' }, { paddingTop: 10 }]} disabled={loading} onPress={handleSubmit}>
             <Text>    Sign In</Text>
