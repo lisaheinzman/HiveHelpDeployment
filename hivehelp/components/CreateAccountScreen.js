@@ -28,6 +28,8 @@ const CreateAccountScreen = () => {
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
+  let isValid = true;
+
   const validateEmail = (email) => {
     // Perform email validation here
     // For example, check if it's a valid email format
@@ -71,38 +73,39 @@ const CreateAccountScreen = () => {
       setConfirmPasswordError('');
     }
   };
-
-  // const handleSubmit = () => {
-  // if (!validateEmail(email)) {
-  //   setEmailError('Invalid email format');
-  //   return;
-  // } else {
-  //   setEmailError('');
-  // }
-
-  // if (email !== confirmEmail) {
-  //   setConfirmEmailError('Emails do not match');
-  //   return;
-  // } else {
-  //   setConfirmEmailError('');
-  // }
-
-  // if (!validatePassword(password)) {
-  //   setPasswordError('Password must be at least 6 characters');
-  //   return;
-  // } else {
-  //   setPasswordError('');
-  // }
-
-  // if (password !== confirmPassword) {
-  //   setConfirmPasswordError('Passwords do not match');
-  //   return;
-  // } else {
-  //   setConfirmPasswordError('');
-  // }
-
+  
   async function handleSubmit() {
     setLoading(true)
+
+    if (!validateEmail(email)) {
+      setEmailError('Invalid email format');
+      isValid = false;
+    } else {
+      setEmailError('');
+    }
+  
+    if (email !== confirmEmail) {
+      setConfirmEmailError('Emails do not match');
+      isValid = false;
+    } else {
+      setConfirmEmailError('');
+    }
+  
+    if (!validatePassword(password)) {
+      setPasswordError('Password must be at least 6 characters');
+      isValid = false;
+    } else {
+      setPasswordError('');
+    }
+  
+    if (password !== confirmPassword) {
+      setConfirmPasswordError('Passwords do not match');
+      isValid = false;
+    } else {
+      setConfirmPasswordError('');
+    }
+  
+
     const {
       data: { session },
       error,
@@ -114,11 +117,13 @@ const CreateAccountScreen = () => {
     if (error){
       alert(error.message, error.status)
       console.log(error.message, error.status)
-    } else {
+    } if (isValid){
       alert("Account created!")
+    } else {
+      alert("Please correct the form mistakes.")
     }
     setLoading(false)
-  if (!error){
+  if (!error && isValid){
     goToHomePage();
   }
   }
