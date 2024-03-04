@@ -10,7 +10,6 @@ const TasksScreen = () => {
   const { colorScheme } = useTheme(); 
   const navigation = useNavigation(); 
 
-
   const handleTaskPress = (task) => {
     navigation.navigate('TaskDetails', { task });
   };

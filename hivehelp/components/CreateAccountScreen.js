@@ -3,7 +3,10 @@ import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput 
 import { useNavigation } from '@react-navigation/native';
 import BackgroundImage from '../assets/CreateAccountBackground.png';
 import { useState } from 'react';
-import uuid from 'uuid-random'
+
+import { Alert } from 'react-native';
+
+import { supabase } from '../supabase';
 
 // Navigation
 const CreateAccountScreen = () => {
@@ -18,10 +21,14 @@ const CreateAccountScreen = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const [emailError, setEmailError] = useState('');
   const [confirmEmailError, setConfirmEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+  let isValid = true;
 
   const validateEmail = (email) => {
     // Perform email validation here
@@ -66,62 +73,66 @@ const CreateAccountScreen = () => {
       setConfirmPasswordError('');
     }
   };
+  
+  async function handleSubmit() {
+    setLoading(true)
 
-  const handleSubmit = () => {
     if (!validateEmail(email)) {
       setEmailError('Invalid email format');
-      return;
+      isValid = false;
     } else {
       setEmailError('');
     }
   
     if (email !== confirmEmail) {
       setConfirmEmailError('Emails do not match');
-      return;
+      isValid = false;
     } else {
       setConfirmEmailError('');
     }
   
     if (!validatePassword(password)) {
       setPasswordError('Password must be at least 6 characters');
-      return;
+      isValid = false;
     } else {
       setPasswordError('');
     }
   
     if (password !== confirmPassword) {
       setConfirmPasswordError('Passwords do not match');
-      return;
+      isValid = false;
     } else {
       setConfirmPasswordError('');
     }
-    
-    const id = uuid();
-    // Send data to server
-    console.log("fetching server data");
-    fetch('http://172.26.160.1:3000/items', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+  
+
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          name: name
+        },
       },
-      body: JSON.stringify({ id, name, email, password }),
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Success:', data);
-        // Handle success (e.g., navigate to home screen)
-        goToHomePage();
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        // Handle error
-      });
+
+    if (error){
+      alert(error.message, error.status)
+      console.log(error.message, error.status)
+    } if (isValid){
+      alert("Account created!")
+    } else {
+      alert("Please correct the form mistakes.")
+    }
+    setLoading(false)
+  if (!error && isValid){
+    goToHomePage();
   }
+  }
+
 
 
 
@@ -133,25 +144,33 @@ const CreateAccountScreen = () => {
           <Text style={styles.text}>Name*</Text>
           <View style={styles.textContainer}>
             <View style={[styles.column, { alignItems: 'center' }]}>
-              <TextInput style={[styles.input, { width: 95 }]}
+              <TextInput style={styles.input}
                 value={name}
-                onChangeText={setName} />
-                
+                onChangeText={setName} 
+                placeholder='Enter Name'
+                placeholderTextColor='grey'/>
+
             </View>
           </View>
           <Text style={styles.text}>Email*</Text>
-          <TextInput style={styles.input} onChangeText={setEmail} onBlur={handleBlurEmail} />
+          <TextInput style={styles.input} onChangeText={setEmail} onBlur={handleBlurEmail} placeholder="Enter Email"
+          autoCapitalize={'none'} placeholderTextColor='grey'/>
           {emailError ? <Text style={{ color: 'red' }}>{emailError}</Text> : null}
           <Text style={styles.text}>Confirm Email*</Text>
-          <TextInput style={styles.input} onChangeText={setConfirmEmail} onBlur={handleBlurConfirmEmail}/>
+          <TextInput style={styles.input} onChangeText={setConfirmEmail} onBlur={handleBlurConfirmEmail} placeholder="Confirm Email"
+          autoCapitalize={'none'} placeholderTextColor='grey'/>
           {confirmEmailError ? <Text style={{ color: 'red' }}>{confirmEmailError}</Text> : null}
           <Text style={styles.text}>Create Password*</Text>
-          <TextInput style={styles.input} onChangeText={setPassword} onBlur={handleBlurPassword}/>
+          <TextInput style={styles.input} onChangeText={setPassword} onBlur={handleBlurPassword} secureTextEntry={true}
+          placeholder="Enter Password"
+          autoCapitalize={'none'} placeholderTextColor='grey'/>
           {passwordError ? <Text style={{ color: 'red' }}>{passwordError}</Text> : null}
           <Text style={styles.text}>Confirm Password*</Text>
-          <TextInput style={styles.input} onChangeText={setConfirmPassword} onBlur={handleBlurConfirmPassword}/>
+          <TextInput style={styles.input} onChangeText={setConfirmPassword} onBlur={handleBlurConfirmPassword} secureTextEntry={true}
+          placeholder="Confirm Password"
+          autoCapitalize={'none'} placeholderTextColor='grey'/>
           {confirmPasswordError ? <Text style={{ color: 'red' }}>{confirmPasswordError}</Text> : null}
-          <TouchableOpacity style={[styles.button, { alignSelf: 'center' }, { paddingTop: 10 }]} onPress={handleSubmit}>
+          <TouchableOpacity style={[styles.button, { alignSelf: 'center' }, { paddingTop: 10 }]} disabled={loading} onPress={handleSubmit}>
             <Text>    Sign In</Text>
           </TouchableOpacity>
         </View>
