@@ -1,16 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import profilePicture from '../assets/bee_icon.jpg';
 import { useTheme } from './ThemeProvider';
 
+import { supabase } from '../supabase';
+
 const ProfileScreen = () => {
   const { colorScheme } = useTheme();
   const navigation = useNavigation();
 
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+
+      const { data: { user } } = await supabase.auth.getUser()
+
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('name')
+        .eq('id', user.id)
+        .single();
+
+      if (profileError) {
+        console.error('Error fetching user profile:', profileError.message);
+        return;
+      }
+
+      setUser(profile);
+    };
+
+
+    fetchUser();
+  })
+
   const [editing, setEditing] = useState(false);
-  const [newName, setNewName] = useState('New User'); // Default name
+  const [newName, setNewName] = useState(user ? user.name : ''); // Default name
 
   const navigateToFavoritedGuides = () => {
     console.log('Navigate to Favorited Guides');
@@ -42,32 +69,33 @@ const ProfileScreen = () => {
     setNewName('New User');
   };
 
-  const handleSaveEdit = () => {
-    // Implement logic to save changes (e.g., update profile picture and name)
+  const handleSaveEdit = async () => {
+    await supabase.from('profiles').update({ name: newName }).eq('id', user.id);
     setEditing(false);
   };
+  
 
   return (
     <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
-      <View style={[styles.profileSection, {backgroundColor: colorScheme.tertiaryLite}]}>
-      <View style={[styles.imageBox, {borderColor: colorScheme.tertiary}]}>
-        <Image source={profilePicture} style={styles.image} />
-      </View>
+      <View style={[styles.profileSection, { backgroundColor: colorScheme.tertiaryLite }]}>
+        <View style={[styles.imageBox, { borderColor: colorScheme.tertiary }]}>
+          <Image source={profilePicture} style={styles.image} />
+        </View>
         {editing ? (
           <View>
-          <TextInput
-            placeholder="Enter new name"
-            style={styles.editingName}
-            value={newName}
-            onChangeText={(text) => setNewName(text)}
-          />
-          <View style={styles.editButtonsContainer}>
-            <Button title="Cancel" onPress={handleCancelEdit} />
-            <Button title="Save" onPress={handleSaveEdit} />
+            <TextInput
+              placeholder="Enter new name"
+              style={styles.editingName}
+              value={newName}
+              onChangeText={(text) => setNewName(text)}
+            />
+            <View style={styles.editButtonsContainer}>
+              <Button title="Cancel" onPress={handleCancelEdit} />
+              <Button title="Save" onPress={handleSaveEdit} />
+            </View>
           </View>
-        </View>
         ) : (
-          <Text style={[styles.userName, {color: colorScheme.text}]}>{newName}</Text>
+          <Text style={[styles.userName, { color: colorScheme.text }]}>{newName}</Text>
         )}
         {!editing && (
           <TouchableOpacity onPress={handleEditPress} style={styles.editButton}>
@@ -79,7 +107,7 @@ const ProfileScreen = () => {
       <View style={styles.buttonSection}>
         <TouchableOpacity style={styles.buttonContainer} onPress={navigateToFavoritedGuides}>
           <Ionicons name="star-outline" size={30} color={colorScheme.text} />
-          <Text style={[styles.buttonText, {color: colorScheme.text}]}>Favorited Guides</Text>
+          <Text style={[styles.buttonText, { color: colorScheme.text }]}>Favorited Guides</Text>
         </TouchableOpacity>
 
         {/* <TouchableOpacity style={styles.buttonContainer} onPress={navigateToRecentlyViewedGuides}>
@@ -89,12 +117,12 @@ const ProfileScreen = () => {
 
         <TouchableOpacity style={styles.buttonContainer} onPress={navigateToSettings}>
           <Ionicons name="settings-outline" size={30} color={colorScheme.text} />
-          <Text style={[styles.buttonText, {color: colorScheme.text}]}>Settings</Text>
+          <Text style={[styles.buttonText, { color: colorScheme.text }]}>Settings</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.buttonContainer} onPress={handleLogout}>
           <Ionicons name="log-out-outline" size={30} color={colorScheme.text} />
-          <Text style={[styles.buttonText, {color: colorScheme.text}]}>Logout</Text>
+          <Text style={[styles.buttonText, { color: colorScheme.text }]}>Logout</Text>
         </TouchableOpacity>
       </View>
 
@@ -159,7 +187,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     position: 'relative',
-    borderRadius:50,
+    borderRadius: 50,
   },
   imageBox: {
     borderBottomWidth: 5,
