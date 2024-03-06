@@ -2,26 +2,35 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Theme } from './Theme.js';
 import { useTheme } from './ThemeProvider.js';
+import { supabase } from '../supabase'; 
 
 const EditTask = ({ route, navigation }) => {
   const { colorScheme } = useTheme();
-  
   const { task } = route.params;
 
   const [name, setName] = useState(task.name);
   const [description, setDescription] = useState(task.description);
   const [dueDate, setDueDate] = useState(task.dueDate);
 
-  const handleUpdate = () => {
-    const updatedTask = {
-      name: name,
-      description: description,
-      dueDate: dueDate,
-    };
-    console.log('Updated task:', updatedTask);
-   
-    navigation.goBack(); 
-  };
+  const handleUpdate = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('tasks')
+        .update({ name, description, dueDate })
+        .eq('id', task.id);
+
+      if (error) {
+        throw error;
+      }
+
+      console.log('Task updated successfully:', data);
+
+      // Navigate back after successful update
+      navigation.goBack();
+    } catch (error) {
+      console.error('Error updating task:', error.message);
+      // Handle error (e.g., show an error message to the user)
+    }}
 
   return (
     <View style={[styles.container, {backgroundColor: colorScheme.background}]}>
