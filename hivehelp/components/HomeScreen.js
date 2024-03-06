@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, FlatList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import TaskList from './TaskList.json';
 import { useTheme } from './ThemeProvider';
 import { eventDetailsJSON } from './eventDetailsJSON'
+import { TasksScreen } from './TasksScreen';
 
 import { supabase } from '../supabase';
 
@@ -37,6 +38,48 @@ const HomeScreen = () => {
   })
 
   const [tasks, setTasks] = useState([]);
+  const [showCompletedTasks, setShowCompletedTasks] = useState(false);
+  
+ 
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const fetchTasks = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      const currentID = user.id
+      const { data, error } = await supabase.from('tasks').select('*').eq('user_id', currentID);
+      if (error) {
+        throw error;
+      }
+      setTasks(data);
+    } catch (error) {
+      console.error('Error fetching tasks:', error.message);
+    }
+  };
+
+  const toggleCompletion = async (index) => {
+    try {
+      const updatedTasks = [...tasks];
+      updatedTasks[index].completed = !updatedTasks[index].completed;
+      setTasks(updatedTasks);
+
+      const { error } = await supabase
+        .from('tasks')
+        .update({ completed: updatedTasks[index].completed })
+        .eq('id', updatedTasks[index].id);
+      
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error('Error updating task:', error.message);
+    }
+  };
+
+  const completedTasks = tasks.filter((task) => task.completed);
 
   useEffect(() => {
     const readJsonFile = async () => {
@@ -111,20 +154,29 @@ const HomeScreen = () => {
             <View style={[styles.boxHeader, { backgroundColor: colorScheme.secondary }, { borderBottomEndRadius: 0 }, { height: '20%' }]}>
               <Text style={[styles.buttonText, { color: colorScheme.text }]}>Tasks</Text>
             </View>
-            {/* Display tasks with hexagons */}
-            {tasks.map((task, index) => (
-              <View key={index}>
-                <View style={styles.taskContainer}>
-                  <TouchableOpacity style={styles.hexagonContainer}>
+            <FlatList
+        data={showCompletedTasks ? completedTasks : tasks.filter(task => !task.completed)}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity>
+            <View>
+              <View style={styles.taskContainer}>
+              <TouchableOpacity style={styles.hexagonContainer}>
                     <View style={[styles.hexagonInner, { backgroundColor: colorScheme.secondaryRich }]} />
                     <View style={[styles.hexagonBefore, { borderBottomColor: colorScheme.secondaryRich }]} />
                     <View style={[styles.hexagonAfter, { borderTopColor: colorScheme.secondaryRich }]} />
-                  </TouchableOpacity>
-                  <Text style={[styles.text, { color: colorScheme.text }, { paddingLeft: 6 }]}>{task.name}</Text>
-                </View>
+                </TouchableOpacity>
+                <Text>
+                  {item.name}
+                </Text>
               </View>
-            ))}
+            </View>
           </TouchableOpacity>
+        )}
+      />
+            {/* Display tasks with hexagons */}
+          </TouchableOpacity>
+         
         </View>
       </View>
       {/* Calendar */}

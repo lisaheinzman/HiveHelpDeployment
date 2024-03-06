@@ -8,11 +8,12 @@ import {
   TextInput,
 } from "react-native";
 import { Calendar } from "react-native-calendars";
+import { supabase } from '../supabase'; 
 import { AntDesign } from "@expo/vector-icons";
 import { useTheme } from "./ThemeProvider.js";
 
-const CalendarScreen = () => {
-  const { colorScheme } = useTheme();
+  const CalendarScreen = ({ user_id }) => { // Accept user_id as a prop
+    const { colorScheme } = useTheme();
 
   // Get the current date in the format 'YYYY-MM-DD'
   const currentDate = new Date().toISOString().split("T")[0];
@@ -53,7 +54,7 @@ const CalendarScreen = () => {
     },
     "2024-02-06": {
       title: "Sister's Birthday",
-      dateString: "2024-02-04",
+      dateString: "2024-02-06",
       description: "Bring cake and flowers",
       time: "4:00 PM",
     },
@@ -64,7 +65,7 @@ const CalendarScreen = () => {
   }, [currentDate]);
 
   // Marked dates with event details
-  const markedDates = {
+  const [markedDates, setMarkedDates] = useState({
     [currentDate]: {
       selected: true,
       marked: true,
@@ -80,44 +81,80 @@ const CalendarScreen = () => {
       dotColor: colorScheme.secondaryRich,
       details: eventDetailsJSON["2024-02-06"],
     },
-  };
-
-  const addEvent = () => {
-    if (newEventTitle.trim() !== "" && newEventDate.trim() !== "" && newEventTime.trim() !== "") {
-      const newEvent = {
-        title: newEventTitle,
-        description: newEventDescription,
-        dateString: formatDate(newEventDate),
-        time: formatTime(newEventTime)
-      };
+  });
   
-      const updatedEvents = {
-        ...events,
-        [newEvent.dateString]: newEvent,
-      };
-  
-      setEvents(updatedEvents);
-      setNewEventTitle("");
-      setNewEventDescription("");
-      setNewEventDate("");
-      setNewEventTime("");
-      setShowAddEvent(false);
+  const addEventToDatabase = async (event) => {
+    try {
+      const { data, error } = await supabase
+        .from('events')
+        .insert([{ 
+          title: event.title,
+          description: event.description,
+          date: event.date,
+          time: event.time,
+          dotColor: event.dotColor,
+          user_id: user_id, // Link event to the user's UUID
+        }]);
+      
+      if (error) {
+        throw error;
+      }
+      console.log('Event added to Supabase:', data);
+      // Optionally, update the local state or perform any other action after adding the event
+    } catch (error) {
+      console.error('Error adding event to Supabase:', error.message);
     }
   };
   
-  // Helper function to format date as MM/DD/YYYY
-  const formatDate = (dateString) => {
-    const [month, day, year] = dateString.split('/');
-    return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`;
-  };
   
-  // Helper function to format time as HH:MM
-  const formatTime = (timeString) => {
-    const [hour, minute] = timeString.split(':');
-    return `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`;
-  };
-  
-  
+  const addEvent = () => {
+  if (newEventTitle.trim() !== "" && newEventDate.trim() !== "" && newEventTime.trim() !== "") {
+    const newEvent = {
+      title: newEventTitle,
+      description: newEventDescription,
+      date: formatDate(newEventDate), // Updated format
+      time: formatTime(newEventTime),
+      dotColor: newEventDotColor,
+    };
+
+    // Call function to add event to Supabase
+    addEventToDatabase(newEvent);
+
+    // Update markedDates to include the newly created event
+    const updatedMarkedDates = {
+      ...markedDates,
+      [newEvent.date]: {
+        marked: true,
+        dotColor: newEventDotColor,
+        details: newEvent,
+      },
+    };
+
+    setMarkedDates(updatedMarkedDates);
+    setNewEventTitle("");
+    setNewEventDescription("");
+    setNewEventDate("");
+    setNewEventTime("");
+    setShowAddEvent(false);
+  }
+};
+
+
+// Helper function to format date as MM/DD/YYYY
+const formatDate = (dateString) => {
+  if (!dateString) return ''; // Handle null or undefined dateString
+  const [month, year, day] = dateString.split('/'); // Adjusted splitting logic
+  return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`;
+};
+
+
+// Helper function to format time as HH:MM
+const formatTime = (timeString) => {
+  if (!timeString) return ''; // Handle null or undefined timeString
+  const [hour, minute] = timeString.split(':');
+  return `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`;
+};
+
 
   return (
     <View
@@ -162,17 +199,18 @@ const CalendarScreen = () => {
       </View>
       {/* Calendar component with marked dates and onDayPress handler */}
       <Calendar
-        markedDates={markedDates}
-        style={styles.Calendar}
-        onDayPress={(day) => {
-          const selectedDateDetails = markedDates[day.dateString]?.details;
-          if (selectedDateDetails) {
-            console.log("Selected date details:", selectedDateDetails);
-            setSelectedDate(day.dateString); // Set the selected date
-            setShowModal(true);
-          }
-        }}
-      />
+  markedDates={markedDates}
+  style={styles.Calendar}
+  onDayPress={(day) => {
+    const selectedDateDetails = markedDates[day.dateString]?.details;
+    if (selectedDateDetails) {
+      console.log("Selected date details:", selectedDateDetails);
+      setSelectedDate(day.dateString); // Set the selected date
+      setShowModal(true);
+    }
+  }}
+/>
+
 
       {/* Add event */}
       {showAddEvent && (
@@ -214,7 +252,7 @@ const CalendarScreen = () => {
             <Text>Date</Text>
             <TextInput
               style={styles.textInput}
-              placeholder="MM/DD/YYYY"
+              placeholder="YYYY/MM/DD"
               value={newEventDate}
               onChangeText={(text) => setNewEventDate(text)}
             />
