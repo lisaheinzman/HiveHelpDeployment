@@ -8,11 +8,12 @@ import {
   TextInput,
 } from "react-native";
 import { Calendar } from "react-native-calendars";
+import { supabase } from '../supabase'; 
 import { AntDesign } from "@expo/vector-icons";
 import { useTheme } from "./ThemeProvider.js";
 
-const CalendarScreen = () => {
-  const { colorScheme } = useTheme();
+  const CalendarScreen = ({ user_id }) => { // Accept user_id as a prop
+    const { colorScheme } = useTheme();
 
   // Get the current date in the format 'YYYY-MM-DD'
   const currentDate = new Date().toISOString().split("T")[0];
@@ -53,7 +54,7 @@ const CalendarScreen = () => {
     },
     "2024-02-06": {
       title: "Sister's Birthday",
-      dateString: "2024-02-04",
+      dateString: "2024-02-06",
       description: "Bring cake and flowers",
       time: "4:00 PM",
     },
@@ -82,18 +83,46 @@ const CalendarScreen = () => {
     },
   };
 
+  const addEventToDatabase = async (event) => {
+    try {
+      const { data, error } = await supabase
+        .from('events')
+        .insert([{ 
+          title: event.title,
+          description: event.description,
+          date: event.date,
+          time: event.time,
+          dotColor: event.dotColor,
+          
+          user_id: user_id,
+        }]);
+      
+      if (error) {
+        throw error;
+      }
+      console.log('Event added to Supabase:', data);
+      // Optionally, update the local state or perform any other action after adding the event
+    } catch (error) {
+      console.error('Error adding event to Supabase:', error.message);
+    }
+  };
+  
   const addEvent = () => {
     if (newEventTitle.trim() !== "" && newEventDate.trim() !== "" && newEventTime.trim() !== "") {
       const newEvent = {
         title: newEventTitle,
         description: newEventDescription,
-        dateString: formatDate(newEventDate),
-        time: formatTime(newEventTime)
+        date: formatDate(newEventDate), // Updated format
+        time: formatTime(newEventTime),
+        dotColor: newEventDotColor,
       };
+  
+      // Call function to add event to Supabase
+      addEventToDatabase(newEvent);
   
       const updatedEvents = {
         ...events,
-        [newEvent.dateString]: newEvent,
+        [newEvent.date]: newEvent,
       };
   
       setEvents(updatedEvents);
@@ -104,20 +133,19 @@ const CalendarScreen = () => {
       setShowAddEvent(false);
     }
   };
-  
-  // Helper function to format date as MM/DD/YYYY
-  const formatDate = (dateString) => {
-    const [month, day, year] = dateString.split('/');
-    return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`;
-  };
-  
-  // Helper function to format time as HH:MM
-  const formatTime = (timeString) => {
-    const [hour, minute] = timeString.split(':');
-    return `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`;
-  };
-  
-  
+
+
+// Helper function to format date as YYYY/MM/DD
+const formatDate = (dateString) => {
+  const [month, day, year] = dateString.split('/');
+  return `${year}/${month.padStart(2, '0')}/${day.padStart(2, '0')}`;
+};
+
+// Helper function to format time as HH:MM
+const formatTime = (timeString) => {
+  const [hour, minute] = timeString.split(':');
+  return `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`;
+};
 
   return (
     <View
@@ -214,7 +242,7 @@ const CalendarScreen = () => {
             <Text>Date</Text>
             <TextInput
               style={styles.textInput}
-              placeholder="MM/DD/YYYY"
+              placeholder="YYYY/MM/DD"
               value={newEventDate}
               onChangeText={(text) => setNewEventDate(text)}
             />
