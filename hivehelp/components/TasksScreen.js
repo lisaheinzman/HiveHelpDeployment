@@ -4,7 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { supabase } from '../supabase'; // Import supabase client
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from './ThemeProvider.js';
-import uuid from 'uuid-js';
+
 
 const TasksScreen = () => {
   const { colorScheme } = useTheme(); 
@@ -59,32 +59,31 @@ const TasksScreen = () => {
   };
 
   const addTask = async () => {
-  try {
-    if (newTaskName.trim() !== "" && newTaskDueDate.trim() !== "") {
-      const newTaskId = uuid.create().toString(); // Generate a UUID
-      const { data, error } = await supabase
-        .from('tasks')
-        .insert([{ 
-          id: newTaskId,
-          name: newTaskName,
-          description: newTaskDescription,
-          dueDate: newTaskDueDate,
-          completed: false,
-        }]);
-      
-      if (error) {
-        throw error;
+    try {
+      if (newTaskName.trim() !== "" && newTaskDueDate.trim() !== "") {
+        const { data, error } = await supabase
+          .from('tasks')
+          .insert([{ 
+            name: newTaskName,
+            description: newTaskDescription,
+            dueDate: newTaskDueDate,
+            completed: false,
+          }]);
+        
+        if (error) {
+          throw error;
+        }
+        setTasks([...tasks, ...data]);
+        setNewTaskName("");
+        setNewTaskDescription("");
+        setNewTaskDueDate("");
+        setShowAddTask(false);
       }
-      setTasks([...tasks, ...data]);
-      setNewTaskName("");
-      setNewTaskDescription("");
-      setNewTaskDueDate("");
-      setShowAddTask(false);
+    } catch (error) {
+      console.error('Error adding task:', error.message);
     }
-  } catch (error) {
-    console.error('Error adding task:', error.message);
-  }
-};
+  };
+
   const completedTasks = tasks.filter((task) => task.completed);
 
   return (
@@ -313,4 +312,3 @@ const styles = StyleSheet.create({
 })
 
 export default TasksScreen
-
