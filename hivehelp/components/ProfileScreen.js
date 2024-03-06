@@ -35,9 +35,11 @@ const ProfileScreen = () => {
 
     fetchUser();
   })
+  
+  
 
   const [editing, setEditing] = useState(false);
-  const [newName, setNewName] = useState(user ? user.name : ''); // Default name
+  const [newName, setNewName] = useState('Guest'); // Default name
 
   const navigateToFavoritedGuides = () => {
     console.log('Navigate to Favorited Guides');
@@ -70,9 +72,33 @@ const ProfileScreen = () => {
   };
 
   const handleSaveEdit = async () => {
-    await supabase.from('profiles').update({ name: newName }).eq('id', user.id);
-    setEditing(false);
+    try {
+      if (!user || !user.id) {
+        console.error('User ID is missing');
+        return;
+      }
+  
+      const { data, error } = await supabase
+        .from('profiles')
+        .update({ name: newName })
+        .eq('id', user.id);
+    
+      if (error) {
+        console.error('Error updating user profile:', error.message);
+        return;
+      }
+    
+      console.log('Profile updated successfully:', data);
+    
+      // Update the user state with the new name
+      setUser({ ...user, name: newName });
+    
+      setEditing(false);
+    } catch (error) {
+      console.error('Error updating user profile:', error.message);
+    }
   };
+  
   
 
   return (
@@ -95,7 +121,7 @@ const ProfileScreen = () => {
             </View>
           </View>
         ) : (
-          <Text style={[styles.userName, { color: colorScheme.text }]}>{newName}</Text>
+          <Text style={[styles.userName, { color: colorScheme.text }]}>{user ? user.name : 'Guest'}</Text>
         )}
         {!editing && (
           <TouchableOpacity onPress={handleEditPress} style={styles.editButton}>
