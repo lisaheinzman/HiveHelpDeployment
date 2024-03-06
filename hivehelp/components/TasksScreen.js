@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import { Theme } from './Theme.js';
+import { supabase } from '../supabase'; // Import supabase client
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from './ThemeProvider.js';
-
 
 const TasksScreen = () => {
   const { colorScheme } = useTheme(); 
@@ -21,70 +20,66 @@ const TasksScreen = () => {
   const [newTaskDescription, setNewTaskDescription] = useState("");
   const [newTaskDueDate, setNewTaskDueDate] = useState("");
 
-  
   useEffect(() => {
-    const jsonData = [
-      {
-        name: "Walk Dog",
-        description: "Walk my neighbors dog on 1/5.",
-        dueDate: "01/05/2024",
-        completed: false,
-      },
-      {
-        name: "Finish Research Project",
-        description: "Complete performing research and finish paper.",
-        dueDate: "01/15/2024",
-        completed: false,
-      },
-      {
-        name: "Grocery Shop",
-        description: "Weekly grocery shopping at Trader Joes and Aldis.",
-        dueDate: "02/05/2024",
-        completed: false,
-      },
-      {
-        name: "Car Wash",
-        description: "Take car to car wash.",
-        dueDate: "01/29/2024",
-        completed: false,
-      },
-      {
-        name: "Fold Clothes",
-        description: "Finished laundry, just have to fold clothes and put them away.",
-        dueDate: "01/28/2023",
-        completed: true,
-      },
-      {
-        name: "Call Mom",
-        description: "Mom wanted me to call her about Dad's birthday after she gets back from the trip.",
-        dueDate: "01/30/2024",
-        completed: true,
-      },
-    ];
-    setTasks(jsonData);
+    fetchTasks();
   }, []);
 
-  const toggleCompletion = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index].completed = !updatedTasks[index].completed;
-    setTasks(updatedTasks);
+  const fetchTasks = async () => {
+    try {
+      const { data, error } = await supabase.from('tasks').select('*');
+      if (error) {
+        throw error;
+      }
+      setTasks(data);
+    } catch (error) {
+      console.error('Error fetching tasks:', error.message);
+    }
   };
 
-  const addTask = () => {
-    if (newTaskName.trim() !== "" && newTaskDueDate.trim() !== "") {
-      const newTask = {
-        name: newTaskName,
-        description: newTaskDescription,
-        dueDate: newTaskDueDate,
-        completed: false,
-      };
-      setTasks([...tasks, newTask]);
-      setNewTaskName("");
-      setNewTaskDescription("");
-      setNewTaskDueDate("");
-      setShowAddTask(false);
+  const toggleCompletion = async (index) => {
+    try {
+      const updatedTasks = [...tasks];
+      updatedTasks[index].completed = !updatedTasks[index].completed;
+      setTasks(updatedTasks);
+
+      const { error } = await supabase
+        .from('tasks')
+        .update({ completed: updatedTasks[index].completed })
+        .eq('id', updatedTasks[index].id);
+      
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error('Error updating task:', error.message);
     }
-  }
+  };
+
+  const addTask = async () => {
+    try {
+      if (newTaskName.trim() !== "" && newTaskDueDate.trim() !== "") {
+        const { data, error } = await supabase
+          .from('tasks')
+          .insert([{ 
+            name: newTaskName,
+            description: newTaskDescription,
+            dueDate: newTaskDueDate,
+            completed: false,
+          }]);
+        
+        if (error) {
+          throw error;
+        }
+        setTasks([...tasks, ...data]);
+        setNewTaskName("");
+        setNewTaskDescription("");
+        setNewTaskDueDate("");
+        setShowAddTask(false);
+      }
+    } catch (error) {
+      console.error('Error adding task:', error.message);
+    }
+  };
 
   const completedTasks = tasks.filter((task) => task.completed);
 
