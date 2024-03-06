@@ -4,6 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { supabase } from '../supabase'; // Import supabase client
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from './ThemeProvider.js';
+import uuid from 'uuid-js';
 
 const TasksScreen = () => {
   const { colorScheme } = useTheme(); 
@@ -60,9 +61,11 @@ const TasksScreen = () => {
   const addTask = async () => {
     try {
       if (newTaskName.trim() !== "" && newTaskDueDate.trim() !== "") {
+        const newTaskId = uuid.create().toString(); // Generate a UUID
         const { data, error } = await supabase
           .from('tasks')
           .insert([{ 
+            id: newTaskId,
             name: newTaskName,
             description: newTaskDescription,
             dueDate: newTaskDueDate,
@@ -82,7 +85,7 @@ const TasksScreen = () => {
       console.error('Error adding task:', error.message);
     }
   };
-
+  
   const completedTasks = tasks.filter((task) => task.completed);
 
   return (
