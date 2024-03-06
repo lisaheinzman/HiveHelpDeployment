@@ -47,6 +47,7 @@
     "supabase": "^1.145.4",
     "typescript": "^5.3.0",
     "uuid": "^9.0.1",
+    "uuid-js": "^0.7.5",
     "uuid-random": "^1.3.2"
   },
   "devDependencies": {

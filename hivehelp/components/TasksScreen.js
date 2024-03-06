@@ -5,6 +5,7 @@ import { supabase } from '../supabase'; // Import supabase client
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from './ThemeProvider.js';
 
+
 const TasksScreen = () => {
   const { colorScheme } = useTheme(); 
   const navigation = useNavigation(); 
@@ -311,4 +312,3 @@ const styles = StyleSheet.create({
 })
 
 export default TasksScreen
-

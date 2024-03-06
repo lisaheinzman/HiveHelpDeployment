@@ -82,17 +82,18 @@ const CalendarScreen = () => {
     },
   };
 
-  const addTask = () => {
-    if (newEventTitle.trim() !== "") {
+  const addEvent = () => {
+    if (newEventTitle.trim() !== "" && newEventDate.trim() !== "" && newEventTime.trim() !== "") {
       const newEvent = {
         title: newEventTitle,
         description: newEventDescription,
-        dateString: newEventDate, 
+        dateString: formatDate(newEventDate),
+        time: formatTime(newEventTime)
       };
   
       const updatedEvents = {
         ...events,
-        [newEventDate]: newEvent, 
+        [newEvent.dateString]: newEvent,
       };
   
       setEvents(updatedEvents);
@@ -103,6 +104,19 @@ const CalendarScreen = () => {
       setShowAddEvent(false);
     }
   };
+  
+  // Helper function to format date as MM/DD/YYYY
+  const formatDate = (dateString) => {
+    const [month, day, year] = dateString.split('/');
+    return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`;
+  };
+  
+  // Helper function to format time as HH:MM
+  const formatTime = (timeString) => {
+    const [hour, minute] = timeString.split(':');
+    return `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`;
+  };
+  
   
 
   return (
@@ -200,23 +214,17 @@ const CalendarScreen = () => {
             <Text>Date</Text>
             <TextInput
               style={styles.textInput}
-              paddingLeft={5}
-              paddingTop={5}
-              paddingBottom={10}
               placeholder="MM/DD/YYYY"
               value={newEventDate}
-              onChangeText={setNewEventDate}
+              onChangeText={(text) => setNewEventDate(text)}
             />
-            <Text>Time</Text>
             <TextInput
               style={styles.textInput}
-              paddingLeft={5}
-              paddingTop={5}
-              paddingBottom={10}
-              placeholder="HH:mm AM/PM"
+              placeholder="HH:mm"
               value={newEventTime}
-              onChangeText={setNewEventTime}
-              />
+              onChangeText={(text) => setNewEventTime(text)}
+            />
+
             <Text>Banner Color</Text>
             <View style={styles.colorOptionsContainer}>
               {colorOptions.map((option, index) => (
@@ -249,7 +257,7 @@ const CalendarScreen = () => {
                 <Text>Back</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={addTask}
+                onPress={addEvent}
                 style={[
                   styles.addButton,
                   { backgroundColor: colorScheme.tertiary },
@@ -427,12 +435,13 @@ const styles = StyleSheet.create({
   },
   eventDetails: {
     flex: 1,
-    marginTop: "80%",
+    marginTop: "100%",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 1,
   },
   eventHeading: {
+    marginTop: 10, 
     marginBottom: 10,
     padding: 15,
     fontSize: 30,
