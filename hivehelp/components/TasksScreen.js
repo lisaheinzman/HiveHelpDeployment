@@ -26,7 +26,9 @@ const TasksScreen = () => {
 
   const fetchTasks = async () => {
     try {
-      const { data, error } = await supabase.from('tasks').select('*');
+      const { data: { user } } = await supabase.auth.getUser()
+      const currentID = user.id
+      const { data, error } = await supabase.from('tasks').select('*').eq('id', currentID);
       if (error) {
         throw error;
       }
