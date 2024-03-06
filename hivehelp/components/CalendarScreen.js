@@ -65,7 +65,7 @@ import { useTheme } from "./ThemeProvider.js";
   }, [currentDate]);
 
   // Marked dates with event details
-  const markedDates = {
+  const [markedDates, setMarkedDates] = useState({
     [currentDate]: {
       selected: true,
       marked: true,
@@ -81,8 +81,8 @@ import { useTheme } from "./ThemeProvider.js";
       dotColor: colorScheme.secondaryRich,
       details: eventDetailsJSON["2024-02-06"],
     },
-  };
-
+  });
+  
   const addEventToDatabase = async (event) => {
     try {
       const { data, error } = await supabase
@@ -93,8 +93,7 @@ import { useTheme } from "./ThemeProvider.js";
           date: event.date,
           time: event.time,
           dotColor: event.dotColor,
-          
-          user_id: user_id,
+          user_id: user_id, // Link event to the user's UUID
         }]);
       
       if (error) {
@@ -107,45 +106,55 @@ import { useTheme } from "./ThemeProvider.js";
     }
   };
   
+  
   const addEvent = () => {
-    if (newEventTitle.trim() !== "" && newEventDate.trim() !== "" && newEventTime.trim() !== "") {
-      const newEvent = {
-        title: newEventTitle,
-        description: newEventDescription,
-        date: formatDate(newEventDate), // Updated format
-        time: formatTime(newEventTime),
+  if (newEventTitle.trim() !== "" && newEventDate.trim() !== "" && newEventTime.trim() !== "") {
+    const newEvent = {
+      title: newEventTitle,
+      description: newEventDescription,
+      date: formatDate(newEventDate), // Updated format
+      time: formatTime(newEventTime),
+      dotColor: newEventDotColor,
+    };
+
+    // Call function to add event to Supabase
+    addEventToDatabase(newEvent);
+
+    // Update markedDates to include the newly created event
+    const updatedMarkedDates = {
+      ...markedDates,
+      [newEvent.date]: {
+        marked: true,
         dotColor: newEventDotColor,
-      };
-  
-      // Call function to add event to Supabase
-      addEventToDatabase(newEvent);
-  
-      const updatedEvents = {
-        ...events,
-        [newEvent.date]: newEvent,
-      };
-  
-      setEvents(updatedEvents);
-      setNewEventTitle("");
-      setNewEventDescription("");
-      setNewEventDate("");
-      setNewEventTime("");
-      setShowAddEvent(false);
-    }
-  };
+        details: newEvent,
+      },
+    };
 
-
-// Helper function to format date as YYYY/MM/DD
-const formatDate = (dateString) => {
-  const [month, day, year] = dateString.split('/');
-  return `${year}/${month.padStart(2, '0')}/${day.padStart(2, '0')}`;
+    setMarkedDates(updatedMarkedDates);
+    setNewEventTitle("");
+    setNewEventDescription("");
+    setNewEventDate("");
+    setNewEventTime("");
+    setShowAddEvent(false);
+  }
 };
+
+
+// Helper function to format date as MM/DD/YYYY
+const formatDate = (dateString) => {
+  if (!dateString) return ''; // Handle null or undefined dateString
+  const [month, year, day] = dateString.split('/'); // Adjusted splitting logic
+  return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`;
+};
+
 
 // Helper function to format time as HH:MM
 const formatTime = (timeString) => {
+  if (!timeString) return ''; // Handle null or undefined timeString
   const [hour, minute] = timeString.split(':');
   return `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`;
 };
+
 
   return (
     <View
@@ -190,17 +199,18 @@ const formatTime = (timeString) => {
       </View>
       {/* Calendar component with marked dates and onDayPress handler */}
       <Calendar
-        markedDates={markedDates}
-        style={styles.Calendar}
-        onDayPress={(day) => {
-          const selectedDateDetails = markedDates[day.dateString]?.details;
-          if (selectedDateDetails) {
-            console.log("Selected date details:", selectedDateDetails);
-            setSelectedDate(day.dateString); // Set the selected date
-            setShowModal(true);
-          }
-        }}
-      />
+  markedDates={markedDates}
+  style={styles.Calendar}
+  onDayPress={(day) => {
+    const selectedDateDetails = markedDates[day.dateString]?.details;
+    if (selectedDateDetails) {
+      console.log("Selected date details:", selectedDateDetails);
+      setSelectedDate(day.dateString); // Set the selected date
+      setShowModal(true);
+    }
+  }}
+/>
+
 
       {/* Add event */}
       {showAddEvent && (
