@@ -24,7 +24,7 @@ const Personal = () => {
     const renderSections = (sections) => {
         return sections.map((section, index) => (
             <View key={index}>
-                <Text style={[styles.sectionHeading, { color: colorScheme.secondary }]}>
+                <Text style={[styles.sectionHeading, {color: colorScheme.text}]}>
                     {section.heading}
                 </Text>
                 <Text style={[styles.sectionContent, { color: colorScheme.text }]}>
@@ -40,7 +40,7 @@ const Personal = () => {
         return (
             <TouchableOpacity onPress={() => handlePress(index)}>
                 <View style={styles.itemContainer}>
-                    <Text style={[styles.title, { color: colorScheme.text }]}>
+                    <Text style={[styles.title, { color: colorScheme.text }, {color: colorScheme.secondaryRich}]}>
                         {item.title}
                     </Text>
                     {isExpanded && (

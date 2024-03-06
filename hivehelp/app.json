@@ -18,7 +18,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSExceptionDomains": {
+            "http://172.26.160.1:3000/": {
+              "NSIncludesSubdomains": true,
+              "NSTemporaryExceptionAllowsInsecureHTTPLoads": true,
+              "NSTemporaryExceptionMinimumTLSVersion": "TLSv1.1"
+            }
+          }
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {

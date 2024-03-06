@@ -2,9 +2,33 @@ import React from 'react';
 import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackgroundImage from '../assets/SignInBackground.png';
+import { useState } from 'react';
+
+import { Alert } from 'react-native';
+
+import { supabase } from '../supabase';
 
 const SignInScreen = () => {
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit() {
+    setLoading(true)
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    })
+    if (error){
+      alert(error.message, error.status)
+      console.log(error.message, error.status)
+    }
+    setLoading(false)
+  if (!error){
+    goToHomePage();
+  }
+  }
 
   // Navigation
   const goToHomePage = () => {
@@ -23,8 +47,8 @@ const SignInScreen = () => {
         <Image source={BackgroundImage} style={styles.image} />
         <View style={styles.container}>
           <Text>Sign In</Text>
-          <TextInput style={styles.input} placeholder="Enter Email"/>
-          <TextInput style={styles.input} placeholder="Password"/>
+          <TextInput style={styles.input} placeholderTextColor='grey' autoCapitalize={'none'} placeholder="Enter Email" onChangeText={setEmail} value={email}/>
+          <TextInput style={styles.input} placeholderTextColor='grey' secureTextEntry={true} autoCapitalize={'none'} placeholder="Password" onChangeText={setPassword} value={password}/>
           <View style={[styles.textContainer, {paddingTop: 15}]}>
               <View style={[styles.column]}>
               <TouchableOpacity onPress={goToForgotPassword}>
@@ -33,7 +57,7 @@ const SignInScreen = () => {
                   </TouchableOpacity>
               </View>
               <View style={[styles.column, { alignItems: 'flex-end' }]}>
-                  <TouchableOpacity style ={styles.button} onPress={goToHomePage}>
+                  <TouchableOpacity style ={styles.button} onPress={handleSubmit}>
                     <Text>    Sign In</Text>
                   </TouchableOpacity>
               </View>

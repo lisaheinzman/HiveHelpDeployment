@@ -39,8 +39,10 @@ import tasksIcon from './assets/icons/tasks-icon.png';
 import calendarIcon from './assets/icons/calendar-icon.png';
 import profileIcon from './assets/icons/profile-icon.png';
 
+
 const App = () => {
   
+
   const Stack = createStackNavigator();
   const Tab = createBottomTabNavigator();
 
@@ -94,6 +96,7 @@ const TasksStack = () => {
       <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Tasks" component={TasksScreen} />
+        <Stack.Screen name="Work Guides" component={workGuides}/>
       </Stack.Navigator>
     );
   };
