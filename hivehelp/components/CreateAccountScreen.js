@@ -12,7 +12,7 @@ import { supabase } from '../supabase';
 const CreateAccountScreen = () => {
   const navigation = useNavigation();
   const goToHomePage = () => {
-    navigation.navigate('TabNavigator')
+    navigation.navigate('SignIn')
   }
 
   const [name, setName] = useState('');
@@ -123,14 +123,14 @@ const CreateAccountScreen = () => {
       alert(error.message, error.status)
       console.log(error.message, error.status)
     } if (isValid){
-      alert("Account created!")
+      alert("Account created! Please check your email for a verification email.")
     } else {
       alert("Please correct the form mistakes.")
     }
     setLoading(false)
-  if (!error && isValid){
-    goToHomePage();
-  }
+  // if (!error && isValid){
+  //   goToHomePage();
+  // }
   }
 
 
