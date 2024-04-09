@@ -8,7 +8,7 @@ const CreateNewPasswordScreen = () => {
   const navigation = useNavigation();
   // Navigation
   const goToVerifyEmail = () => {
-    navigation.navigate('ForgotPassword');
+    navigation.navigate('VerifyEmail');
   }
   const goToSignInPage = () => {
     navigation.navigate('SignIn');

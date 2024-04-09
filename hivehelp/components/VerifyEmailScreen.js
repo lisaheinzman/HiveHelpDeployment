@@ -27,14 +27,33 @@ const VerifyEmailScreen = () => {
           <Image source={beeIcon} style={styles.bee}/>
           {/* Block Text */}
           <View style={[styles.title, {paddingTop: 30}]}>
-            <Text>Please click the link in your email</Text> 
-            <Text>to verify the email address.</Text> 
+            <Text>Please enter the 4-digit</Text> 
+            <Text>code sent to</Text> 
+            <Text styles={[{ fontWeight: 'bold' }]}>email@address.com</Text>
           </View>
           {/* 4 Boxes */}
-          {/* <View style={[styles.textContainer, { paddingTop: 15 }]}>
-          
+          <View style={[styles.textContainer, { paddingTop: 15 }]}>
+          <View style={[styles.column]}>
+              <View>
+                <Text>7</Text>
+              </View>
           </View>
-            </View> */}
+          <View style={[styles.column]}>
+              <View>
+                <Text>5</Text>
+              </View>
+          </View>
+          <View style={[styles.column]}>
+              <View>
+                <Text>9</Text>
+              </View>
+          </View>
+          <View style={[styles.column]}>
+              <View>
+                <Text>1</Text>
+              </View>
+          </View>
+            </View>
           <View style={[styles.textContainer, { paddingTop: 15 }]}>
               <View style={[styles.column]}>
                 {/* Back Button */}

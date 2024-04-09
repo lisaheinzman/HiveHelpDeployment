@@ -1,81 +1,58 @@
-import React, { useState } from 'react';
-import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import ExampleImage from '../assets/greenBackground.png';
-import beeIcon from '../assets/icons/bee-icon.png';
-import { supabase } from '../supabase';
+import React from 'react'
+import { TouchableOpacity, View, Image, Text, StyleSheet, Dimensions, TextInput} from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import ExampleImage from '../assets/greenBackground.png'
+import beeIcon from '../assets/icons/bee-icon.png'
 
 const ForgotPasswordScreen = () => {
-  const navigation = useNavigation();
-  const [email, setEmail] = useState('');
-
-  const checkEmailExists = async () => {
-    const { error } = await supabase.auth.signInWithEmail({email});
-    if (error) {
-      console.error('Error checking email:', error.message);
-      return false;
-    }
-    return !!data; // Returns true if user exists, false otherwise
-  };
-
-  // Navigate to create new password page if email exists
-  const goToVerifyEmail = async () => {
-    const emailExists = await checkEmailExists();
-    if (emailExists) {
-      navigation.navigate('CreateNewPassword', { email });
-    } else {
-      Alert.alert('Email Not Found', 'The email you entered does not exist in our system. Please try again.');
-    }
-  };
-
+  const navigation = useNavigation()
+  // Navigate to home page
+  const goToVerifyEmail = () => {
+    navigation.navigate('VerifyEmail')
+  }
   // Navigate to sign in page
   const goToSignInPage = () => {
-    navigation.navigate('SignIn');
-  };
+    navigation.navigate('SignIn')
+  }
 
   return (
     <View style={styles.imageContainer}>
-      <View style={styles.pageContainer}>
+    <View style={styles.pageContainer}>
         {/* Background Image */}
         <Image source={ExampleImage} style={styles.image} />
         <View style={styles.container}>
-          {/* Title */}
-          <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }]}>Forgot your</Text>
-          <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }, { paddingBottom: 30 }]}>Password?</Text>
+                {/* Title */}
+                <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }]}>Forgot your</Text>
+                <Text style={[styles.title, { fontSize: 40 }, { color: '#F6BD60' }, { paddingBottom: 30 }]}>Password?</Text>
           <Image source={beeIcon} style={styles.bee}/>
           {/* Block Text */}
           <View style={[styles.title, { paddingTop: 30 }]}>
             <Text>Please enter your email address below</Text>
-            <Text>to receive a confirmation email to</Text>
+            <Text>to receive your verification code to</Text>
             <Text>reset your password.</Text>
           </View>
           <Text style={[{ paddingTop: 30 }]}>Email*</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Email"
-            value={email}
-            onChangeText={setEmail} // Update the email state on text change
-          />
+          <TextInput style={styles.input} placeholder="Enter Email"/>
           <View style={[styles.textContainer, { paddingTop: 15 }]}>
-            <View style={[styles.column]}>
-              {/* Back Button */}
-              <TouchableOpacity style={styles.button} onPress={goToSignInPage}>
-                <Text>Back</Text>
-              </TouchableOpacity>
+              <View style={[styles.column]}>
+                {/* Back Button */}
+                    <TouchableOpacity style ={styles.button} onPress={goToSignInPage}>
+                            <Text>Back</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={[styles.column]}>
+                    {/* Send Button */}
+                    <TouchableOpacity style ={styles.button} onPress={goToVerifyEmail}>
+                        <Text>Send</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View style={[styles.column]}>
-              {/* Send Button */}
-              <TouchableOpacity style={styles.button} onPress={goToVerifyEmail}>
-                <Text>Send</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
         </View>
-      </View>
-    </View>
-  );
-};
+  </View>
 
+  </View>
+  )
+}
 const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -100,8 +77,8 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    width: width,
-    height: height + 20,
+    width: width, // Set the width to the width of the screen
+    height: height + 20, // Set the height to the height of the screen
     resizeMode: 'cover',
     position: 'absolute'
   },
@@ -136,6 +113,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     margin: 1
   }
-});
+})
 
-export default ForgotPasswordScreen;
+export default ForgotPasswordScreen
