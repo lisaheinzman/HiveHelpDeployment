@@ -16,19 +16,25 @@ const SignInScreen = () => {
 
   async function handleSubmit() {
     setLoading(true)
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    })
-    if (error){
+    const { data: users, error } = await supabase
+      .from('auth.users')
+      .select('id')
+      .eq('email', email)
+      .single()
+    if (error) {
       alert(error.message, error.status)
       console.log(error.message, error.status)
     }
     setLoading(false)
-  if (!error){
-    goToHomePage();
+    if (users) {
+      // User with the entered email exists, proceed to next page
+      goToCreateAccount();
+    } else {
+      // No user found with the entered email
+      Alert.alert('Email not found', 'Please enter a valid email.')
+    }
   }
-  }
+  
 
   // Navigation
   const goToHomePage = () => {
@@ -65,7 +71,7 @@ const SignInScreen = () => {
         </View>
         <View style= { [{ alignSelf: 'flex-end' }, { paddingBottom: 8 }, { paddingRight: 70 }]}> 
         <TouchableOpacity style= {styles.button} onPress={goToCreateAccount}>
-                    <Text>  Click Here</Text>
+                    <Text>Create Account</Text>
         </TouchableOpacity>
         </View>
   </View>
@@ -100,7 +106,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 40,
-    width: 100,
+    width: '80%',
     borderRadius: 10,
     backgroundColor: 'white',
     borderWidth: 1,
