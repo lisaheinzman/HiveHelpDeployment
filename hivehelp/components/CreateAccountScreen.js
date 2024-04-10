@@ -39,7 +39,7 @@ const CreateAccountScreen = () => {
   const validatePassword = (password) => {
     // Perform password validation here
     // For example, check if it meets certain criteria
-    return password.length >= 6;
+    return password.length >= 8;
   };
 
   const handleBlurEmail = () => {
@@ -176,7 +176,7 @@ const CreateAccountScreen = () => {
         </View>
         <View style={[{ alignSelf: 'flex-start' }, { paddingBottom: 8 }, { paddingLeft: 70 }]}>
           <TouchableOpacity style={styles.button} onPress={goToHomePage}>
-            <Text>  Click Here</Text>
+            <Text>Existing Account</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 40,
-    width: 100,
+    width: '80%',
     borderRadius: 10,
     backgroundColor: 'white',
     borderWidth: 1,
