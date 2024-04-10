@@ -10,9 +10,11 @@ const TasksScreen = () => {
   const { colorScheme } = useTheme(); 
   const navigation = useNavigation(); 
 
+
   const handleTaskPress = (task) => {
     navigation.navigate('TaskDetails', { task });
   };
+
 
   const [tasks, setTasks] = useState([]);
   const [showAddTask, setShowAddTask] = useState(false);
@@ -27,9 +29,13 @@ const TasksScreen = () => {
 
   const fetchTasks = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser()
-      const currentID = user.id
-      const { data, error } = await supabase.from('tasks').select('*').eq('user_id', currentID);
+      const { data: { user } } = await supabase.auth.getUser();
+      const currentID = user.id;
+      const { data, error } = await supabase
+        .from('tasks')
+        .select('*')
+        .eq('user_id', currentID)
+        .order('dueDate', { ascending: true }); // Sort by dueDate in ascending order
       if (error) {
         throw error;
       }
@@ -38,6 +44,7 @@ const TasksScreen = () => {
       console.error('Error fetching tasks:', error.message);
     }
   };
+  
 
   const toggleCompletion = async (index) => {
     try {
@@ -59,31 +66,43 @@ const TasksScreen = () => {
   };
 
   const addTask = async () => {
-    try {
-      if (newTaskName.trim() !== "" && newTaskDueDate.trim() !== "") {
+    if (newTaskName.trim() !== "" && newTaskDueDate.trim() !== "") {
+      const newTask = {
+        name: newTaskName,
+        description: newTaskDescription,
+        dueDate: newTaskDueDate,
+        completed: false,
+      };
+  
+      // Optimistically update UI
+      setTasks([...tasks, newTask]);
+  
+      try {
         const { data, error } = await supabase
           .from('tasks')
-          .insert([{ 
-            name: newTaskName,
-            description: newTaskDescription,
-            dueDate: newTaskDueDate,
-            completed: false,
-          }]);
+          .insert([newTask]);
         
         if (error) {
+          // Rollback if error
+          setTasks(tasks); // This resets to the previous state
           throw error;
         }
+  
+        // Update state with data from the server if needed
+        // This step is optional if your server adds any default values you want reflected in the UI
         setTasks([...tasks, ...data]);
+  
+        // Reset form fields
         setNewTaskName("");
         setNewTaskDescription("");
         setNewTaskDueDate("");
         setShowAddTask(false);
+      } catch (error) {
+        console.error('Error adding task:', error.message);
       }
-    } catch (error) {
-      console.error('Error adding task:', error.message);
     }
   };
-
+  
   const completedTasks = tasks.filter((task) => task.completed);
 
   return (
@@ -123,7 +142,7 @@ const TasksScreen = () => {
           />
           <TextInput
             style={[styles.input, { color: colorScheme.text }]}
-            placeholder="Due Date"
+            placeholder="Due Date (YYYY-MM-DD)"
             value={newTaskDueDate}
             onChangeText={setNewTaskDueDate}
           />
