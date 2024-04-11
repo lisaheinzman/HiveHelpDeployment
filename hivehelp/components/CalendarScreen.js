@@ -12,9 +12,11 @@ import { supabase } from '../supabase';
 import { AntDesign } from "@expo/vector-icons";
 import { useTheme } from "./ThemeProvider.js";
 
+
   const CalendarScreen = ({ user_id }) => { // Accept user_id as a prop
     const { colorScheme } = useTheme();
 
+    
   // Get the current date in the format 'YYYY-MM-DD'
   const currentDate = new Date().toISOString().split("T")[0];
 
@@ -44,7 +46,7 @@ import { useTheme } from "./ThemeProvider.js";
       title: "Today",
       dateString: [currentDate],
       description: "Have a wonderful day!!",
-      time: "12:00 AM",
+      time: '12:00 AM',
     },
     "2024-02-04": {
       title: "Special Event",
@@ -85,6 +87,8 @@ import { useTheme } from "./ThemeProvider.js";
   
   const addEventToDatabase = async (event) => {
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      const user_id = user.id; // Fetch the user ID
       const { data, error } = await supabase
         .from('events')
         .insert([{ 
