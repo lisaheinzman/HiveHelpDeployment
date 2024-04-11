@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import { supabase } from '../supabase'; // Import supabase client
+import { supabase } from '../supabase';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from './ThemeProvider.js';
 
-
 const TasksScreen = () => {
-  const { colorScheme } = useTheme(); 
-  const navigation = useNavigation(); 
-
-  const handleTaskPress = (task) => {
-    navigation.navigate('TaskDetails', { task });
-  };
+  const { colorScheme } = useTheme();
+  const navigation = useNavigation();
 
   const [tasks, setTasks] = useState([]);
   const [showAddTask, setShowAddTask] = useState(false);
@@ -21,70 +16,101 @@ const TasksScreen = () => {
   const [newTaskDescription, setNewTaskDescription] = useState("");
   const [newTaskDueDate, setNewTaskDueDate] = useState("");
 
+  
   useEffect(() => {
     fetchTasks();
   }, []);
 
   const fetchTasks = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser()
-      const currentID = user.id
-      const { data, error } = await supabase.from('tasks').select('*').eq('user_id', currentID);
-      if (error) {
-        throw error;
-      }
+      const { data: { user } } = await supabase.auth.getUser();
+      const currentID = user.id;
+      const { data, error } = await supabase
+        .from('tasks')
+        .select('*')
+        .eq('user_id', currentID)
+        .order('dueDate', { ascending: true });
+      if (error) throw error;
       setTasks(data);
     } catch (error) {
-      console.error('Error fetching tasks:', error.message);
+      Alert.alert('Error', error.message);
     }
   };
 
-  const toggleCompletion = async (index) => {
+  const toggleCompletion = async (task) => {
+    const updatedCompletionStatus = !task.completed;
     try {
-      const updatedTasks = [...tasks];
-      updatedTasks[index].completed = !updatedTasks[index].completed;
-      setTasks(updatedTasks);
-
       const { error } = await supabase
         .from('tasks')
-        .update({ completed: updatedTasks[index].completed })
-        .eq('id', updatedTasks[index].id);
-      
+        .update({ completed: updatedCompletionStatus })
+        .eq('id', task.id);
+
+      if (error) throw error;
+
+      const updatedTasks = tasks.map(t =>
+        t.id === task.id ? { ...t, completed: updatedCompletionStatus } : t
+      );
+      setTasks(updatedTasks);
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    }
+  };
+
+const addTask = async () => {
+  if (newTaskName.trim() !== "" && newTaskDueDate.trim() !== "") {
+    const tempNewTask = {
+      name: newTaskName,
+      description: newTaskDescription,
+      dueDate: newTaskDueDate,
+      completed: false,
+      // Temporarily use a unique identifier (like timestamp or generate a UUID for better practice)
+      // Here using Date.now() for simplicity, but consider uuid for production code
+      id: `temp-${Date.now()}`, 
+    };
+
+    // Optimistically add the task to the UI
+    setTasks(currentTasks => [...currentTasks, tempNewTask]);
+
+    try {
+      const { data, error } = await supabase
+        .from('tasks')
+        .insert([{
+          name: newTaskName,
+          description: newTaskDescription,
+          dueDate: newTaskDueDate,
+          completed: false,
+        }]);
+
       if (error) {
+        // If there's an error, remove the optimistically added task
+        setTasks(currentTasks => currentTasks.filter(task => task.id !== tempNewTask.id));
         throw error;
       }
-    } catch (error) {
-      console.error('Error updating task:', error.message);
-    }
-  };
 
-  const addTask = async () => {
-    try {
-      if (newTaskName.trim() !== "" && newTaskDueDate.trim() !== "") {
-        const { data, error } = await supabase
-          .from('tasks')
-          .insert([{ 
-            name: newTaskName,
-            description: newTaskDescription,
-            dueDate: newTaskDueDate,
-            completed: false,
-          }]);
-        
-        if (error) {
-          throw error;
-        }
-        setTasks([...tasks, ...data]);
-        setNewTaskName("");
-        setNewTaskDescription("");
-        setNewTaskDueDate("");
-        setShowAddTask(false);
+      // On successful insert, replace the temporary task with the actual one from the database
+      // Assuming the database returns an array with the inserted task
+      if(data && data.length > 0) {
+        setTasks(currentTasks => {
+          // Remove the temporary task and add the real one
+          return [...currentTasks.filter(task => task.id !== tempNewTask.id), ...data];
+        });
       }
-    } catch (error) {
-      console.error('Error adding task:', error.message);
-    }
-  };
 
-  const completedTasks = tasks.filter((task) => task.completed);
+      // Reset form fields
+      setNewTaskName("");
+      setNewTaskDescription("");
+      setNewTaskDueDate("");
+      setShowAddTask(false);
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    }
+  }
+};
+
+
+  const handleTaskPress = (task) => {
+    navigation.navigate('TaskDetails', { task });
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
@@ -123,7 +149,7 @@ const TasksScreen = () => {
           />
           <TextInput
             style={[styles.input, { color: colorScheme.text }]}
-            placeholder="Due Date"
+            placeholder="Due Date (YYYY-MM-DD)"
             value={newTaskDueDate}
             onChangeText={setNewTaskDueDate}
           />
@@ -132,39 +158,44 @@ const TasksScreen = () => {
           </TouchableOpacity>
         </View>
       )}
-
-
+      
       <FlatList
-        data={showCompletedTasks ? completedTasks : tasks.filter(task => !task.completed)}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item, index }) => (
+        data={showCompletedTasks ? tasks.filter(task => task.completed) : tasks.filter(task => !task.completed)}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handleTaskPress(item)}>
             <View style={styles.task}>
               <TouchableOpacity
-                onPress={() => toggleCompletion(index)}
+                onPress={() => toggleCompletion(item)}
                 style={styles.completeButton}
               >
                 <View style={[styles.hexagonInner, { backgroundColor: colorScheme.tertiaryLite }]} />
                 <View style={[styles.hexagonBefore, { borderBottomColor: colorScheme.tertiaryLite }]} />
                 <View style={[styles.hexagonAfter, { borderTopColor: colorScheme.tertiaryLite }]} />
+                {/* Hexagon shapes unchanged */}
               </TouchableOpacity>
               <View style={styles.taskDetails}>
                 <Text
                   style={[
-                    styles.taskName, {color: colorScheme.text},
+                    styles.taskName,
+                    { color: colorScheme.text },
                     item.completed && styles.completedTask,
                   ]}
                 >
                   {item.name}
                 </Text>
-                <Text style={[styles.taskDescription, {color: colorScheme.text}]}>{item.description}</Text>
-                <Text style={[styles.dueDate, {color: colorScheme.text}]}>Due Date: {item.dueDate}</Text>
+                <Text style={[styles.taskDescription, { color: colorScheme.text }]}>
+                  {item.description}
+                </Text>
+                <Text style={[styles.dueDate, { color: colorScheme.text }]}>
+                  Due Date: {item.dueDate}
+                </Text>
               </View>
             </View>
           </TouchableOpacity>
         )}
       />
-
+    
       <TouchableOpacity
         style={[styles.showCompletedButton, {backgroundColor: colorScheme.secondary}, {borderBottomWidth: 5},{borderRightWidth: 5}, {borderColor: colorScheme.secondaryRich}]}
         onPress={() => setShowCompletedTasks(!showCompletedTasks)}

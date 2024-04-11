@@ -12,7 +12,7 @@ import { supabase } from '../supabase';
 const CreateAccountScreen = () => {
   const navigation = useNavigation();
   const goToHomePage = () => {
-    navigation.navigate('TabNavigator')
+    navigation.navigate('SignIn')
   }
 
   const [name, setName] = useState('');
@@ -39,7 +39,7 @@ const CreateAccountScreen = () => {
   const validatePassword = (password) => {
     // Perform password validation here
     // For example, check if it meets certain criteria
-    return password.length >= 6;
+    return password.length >= 8;
   };
 
   const handleBlurEmail = () => {
@@ -123,14 +123,14 @@ const CreateAccountScreen = () => {
       alert(error.message, error.status)
       console.log(error.message, error.status)
     } if (isValid){
-      alert("Account created!")
+      alert("Account created! Please check your email for a verification email.")
     } else {
       alert("Please correct the form mistakes.")
     }
     setLoading(false)
-  if (!error && isValid){
-    goToHomePage();
-  }
+  // if (!error && isValid){
+  //   goToHomePage();
+  // }
   }
 
 
@@ -176,7 +176,7 @@ const CreateAccountScreen = () => {
         </View>
         <View style={[{ alignSelf: 'flex-start' }, { paddingBottom: 8 }, { paddingLeft: 70 }]}>
           <TouchableOpacity style={styles.button} onPress={goToHomePage}>
-            <Text>  Click Here</Text>
+            <Text>Existing Account</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 40,
-    width: 100,
+    width: '80%',
     borderRadius: 10,
     backgroundColor: 'white',
     borderWidth: 1,

@@ -6,31 +6,38 @@ import { supabase } from '../supabase';
 
 const EditTask = ({ route, navigation }) => {
   const { colorScheme } = useTheme();
-  const { task } = route.params;
+  const { task, updateTaskInList } = route.params;
 
   const [name, setName] = useState(task.name);
   const [description, setDescription] = useState(task.description);
   const [dueDate, setDueDate] = useState(task.dueDate);
 
   const handleUpdate = async () => {
+    const updatedTask = { name, description, dueDate };
+
     try {
       const { data, error } = await supabase
         .from('tasks')
-        .update({ name, description, dueDate })
+        .update(updatedTask)
         .eq('id', task.id);
 
       if (error) {
         throw error;
       }
 
-      console.log('Task updated successfully:', data);
+      // Assuming the response data includes the updated task, use it to update the UI optimistically
+      if (updateTaskInList && data && data.length > 0) {
+        updateTaskInList(data[0]); // Update the parent component's state with the updated task
+      }
 
-      // Navigate back after successful update
-      navigation.goBack();
+      navigation.goBack(); // Navigate back after successful update
     } catch (error) {
       console.error('Error updating task:', error.message);
-      // Handle error (e.g., show an error message to the user)
-    }}
+      // Optionally, show an error message to the user
+      Alert.alert('Error', 'Failed to update task. Please try again.');
+    }
+  };
+
 
   return (
     <View style={[styles.container, {backgroundColor: colorScheme.background}]}>
