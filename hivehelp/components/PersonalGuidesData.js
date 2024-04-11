@@ -1,6 +1,7 @@
 export const personalData = [
     {
         "title":"Meditation",
+        "id": 1,
         "sections":[
             {
                 "heading":"Why Meditate?",
@@ -42,6 +43,7 @@ export const personalData = [
     },
     {
         "title":"Nail Care",
+        "id": 2,
         "sections":[
             {
                 "heading":"Cleanliness:",
@@ -76,6 +78,7 @@ export const personalData = [
     },
     {
         "title":"Skin Care",
+        "id": 3,
         "sections":[
             {
                 "heading": "Identifying Your Skin Type:",
@@ -117,6 +120,7 @@ export const personalData = [
     },
     {
         "title":"Nutrition",
+        "id": 4,
         "sections":[
             {
                 "heading":"Understanding Nutrition:",
@@ -154,6 +158,7 @@ export const personalData = [
     },
     {
         "title":"Exercise",
+        "id": 5,
         "sections":[
             {
                 "heading":"Importance of Exercise:",
@@ -195,6 +200,7 @@ export const personalData = [
     },
     {
         "title":"Rest",
+        "id": 6,
         "sections":[
             {
                 "heading":"Rest is Important:",
@@ -232,6 +238,7 @@ export const personalData = [
     },
     {
         "title":"Mental Health",
+        "id": 7,
         "sections":[
             {
                 "heading":"Mental Health is Important:",

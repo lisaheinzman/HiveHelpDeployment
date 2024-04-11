@@ -1,5 +1,6 @@
 export const schoolData = [
            {"title": "Study Tips",
+           "id": 8,
             "overview": "Welcome to your ultimate guide on how to master the art of studying in college. We know that balancing classes, assignments, and a bustling social life can be a challenge, but fear not! With the right strategies, you can not only succeed but also enjoy the journey.Let's dive in!",
              "sections": [
                 {
@@ -19,6 +20,7 @@ export const schoolData = [
             },
             {
                 "title": "Paper Formatting",
+                "id": 9,
                 "overview": "Embarking on your college journey involves mastering various paper formatting styles. Each style has its unique set of rules, and understanding them is key to presenting your ideas accurately and professionally. Let's explore some of the most common formatting styles you might encounter in your academic endeavors.",
                 "sections":[
                     {
@@ -66,6 +68,7 @@ export const schoolData = [
             },
             {
                 "title":"Financial Aid",
+                "id": 10,
                 "overview":"Navigating the world of financial aid can be overwhelming, but fear not! The Free Application for Federal Student Aid (FAFSA) is your key to unlocking various financial assistance opportunities for college. This step-by-step guide will walk you through the FAFSA application process, ensuring you access the support you need for your education.",
                 "sections":[
                     {
@@ -112,6 +115,7 @@ export const schoolData = [
             },
             {
                 "title":"Internships",
+                "id": 11,
                 "overview":"Embarking on an internship is a crucial step towards gaining practical experience in your field of study. This guide will equip you with the tools and strategies to navigate the competitive landscape and secure valuable internship opportunities. Let's dive into the world of internships and explore effective methods for finding and applying to the right positions.",
                 "sections":[
                     {
@@ -158,6 +162,7 @@ export const schoolData = [
             },
             {
                 "title":"Networking",
+                "id": 12,
                 "sections":[
                     {
                         "heading":"Define Your Networking Goals",
@@ -203,6 +208,7 @@ export const schoolData = [
             },
             {
                 "title":"Clubs",
+                "id": 13,
                 "sections":[
                     {
                         "heading":"Clubs and Organizations ",
@@ -253,6 +259,7 @@ export const schoolData = [
             },
             {
                 "title":"Greek Life",
+                "id": 14,
                 "sections":[
                     {
                         "heading":"Greek Life",

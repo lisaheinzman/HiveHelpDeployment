@@ -1,6 +1,7 @@
 export const workData = [
     {
         "title":"Interview Questions",
+        "id": 15,
         "sections":[
             {
                 "heading": "Nailing The Interview",
@@ -47,6 +48,7 @@ export const workData = [
     },
     {
         "title":"Interview Attire",
+        "id": 16,
         "sections":[
             {
                 "heading":"Research Company Culture",
@@ -89,6 +91,7 @@ export const workData = [
     },
     {
         "title":"First Day",
+        "id": 17,
         "sections":[
             {
                 "heading":"Tackling your First Day at Work",
@@ -130,6 +133,7 @@ export const workData = [
     },
     {
         "title":"Quitting",
+        "id": 18,
         "sections":[
             {
                 "heading":"So you Want to Quit? ",
@@ -172,6 +176,7 @@ export const workData = [
     },
     {
         "title":"PTO",
+        "id": 19,
         "sections":[
             {
                 "heading":"Paid Time Off",
@@ -209,6 +214,7 @@ export const workData = [
     },
     {
         "title":"401K",
+        "id": 20,
         "sections":[
             {
                 "heading":"Understanding 401(k)s",
@@ -242,6 +248,7 @@ export const workData = [
     },
     {
         "title":"Insurance",
+        "id": 21,
         "sections":[
             {
                 "heading":"Know Your Options:",

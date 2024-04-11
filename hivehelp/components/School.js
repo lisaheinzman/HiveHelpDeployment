@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'; // Import useNavigatio
 import { schoolData } from './SchoolGuideData';
 import { Theme } from './Theme';
 import { useTheme } from './ThemeProvider';
+import { supabase } from '../supabase';
 
 const SchoolGuides = () => {
     const { colorScheme } = useTheme();
@@ -17,14 +18,34 @@ const SchoolGuides = () => {
         setExpandedGuide(index === expandedGuide ? null : index);
     };
 
-    const handleFavorite = (title) => {
-        navigation.navigate('FavoriteGuidesScreen', { title: title })
-    }
+    const user = supabase.auth.getUser();
+
+    const handleFavorite = async (userId, guideId, guideName) => {
+        try {
+            const { data, error } = await supabase
+                .from('favorite guides')
+                .insert({
+                    profile_id: userId,
+                    guide_id: guideId,
+                    guide_name: guideName,
+                });
+    
+            if (error) {
+                throw new Error('Error favoriting guide:', error.message);
+            }
+    
+            console.log('Guide favorited successfully:', data);
+            // Handle UI update or navigation as needed
+        } catch (error) {
+            console.error('Error favoriting guide:', error.message);
+        }
+    };
+    
 
     const renderSections = (sections) => {
         return sections.map((section, index) => (
             <View key={index}>
-                <Text style={[styles.sectionHeading, { color: colorScheme.secondary}]}>
+                <Text style={[styles.sectionHeading, { color: colorScheme.secondary }]}>
                     {section.heading}
                 </Text>
                 <Text style={[styles.sectionContent, { color: colorScheme.text }]}>
@@ -40,21 +61,21 @@ const SchoolGuides = () => {
         return (
             <TouchableOpacity onPress={() => handlePress(index)}>
 
-                
+
                 <View style={styles.itemContainer}>
-                <Text style={[styles.title,{color: colorScheme.secondaryRich}]}>
+                    <Text style={[styles.title, { color: colorScheme.secondaryRich }]}>
                         {item.title}
                     </Text>
                     {isExpanded && (
                         <View style={styles.expandedContent}>
                             {renderSections(item.sections)}
-                            <TouchableOpacity onPress={() => handleFavorite(item.title)} style={styles.backButton}>
-                               <Text style={styles.backButtonText}>Would you like to favorite this guide?</Text> 
-                                </TouchableOpacity>
+                            <TouchableOpacity onPress={() => handleFavorite(user.id, item.id, item.title)} style={styles.backButton}>
+                                <Text style={styles.backButtonText}>Would you like to favorite this guide?</Text>
+                            </TouchableOpacity>
                         </View>
                     )}
                 </View>
-                
+
             </TouchableOpacity>
         );
     };
@@ -62,7 +83,7 @@ const SchoolGuides = () => {
 
 
     return (
-        <View style={[styles.container, {backgroundColor: colorScheme.background}]}>
+        <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
             <Text style={[styles.heading, { color: colorScheme.text }]}>
                 School Guides
             </Text>
@@ -72,8 +93,8 @@ const SchoolGuides = () => {
                 keyExtractor={(item, index) => index.toString()}
 
             />
-            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backButton, {backgroundColor: colorScheme.tertiary}]}>
-                <Text style={[styles.backButtonText, {color: colorScheme.text}]}>Back</Text>
+            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backButton, { backgroundColor: colorScheme.tertiary }]}>
+                <Text style={[styles.backButtonText, { color: colorScheme.text }]}>Back</Text>
             </TouchableOpacity>
         </View>
     );

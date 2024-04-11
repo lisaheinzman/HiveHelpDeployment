@@ -2,21 +2,50 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-
-// Assume you have a data structure representing favorited guides
-const favoritedGuidesData = [
-];
+import { supabase } from '../supabase';
 
 const FavoriteGuidesScreen = ({ route }) => {
   const navigation = useNavigation();
-  const [favoritedGuides, setFavoritedGuides] = useState(favoritedGuidesData);
+
+  const [favoritedGuides, setFavoritedGuides] = useState([]);
 
   useEffect(() => {
-    if (route.params && route.params.title) {
-      const { title } = route.params
-      setFavoritedGuides([...favoritedGuidesData, title])
-    }
-  }, [route.params])
+    const fetchFavoritedGuides = async () => {
+      const { data } = await supabase.auth.getUser();
+      const user = data.user;
+      try {
+        const { data: favoritedData, error: guidesError } = await supabase
+          .from('favorite guides')
+          .select('guide_id')
+          .eq('user_id', user.id);
+    
+        if (guidesError) {
+          throw guidesError;
+        }
+    
+        const favoritedGuideIds = favoritedData.map((fav) => fav.guide_id);
+    
+        // Fetch the guide titles based on the favorited guide ids
+        const { data: guidesData, error: guidesFetchError } = await supabase
+          .from('guides')
+          .select('title')
+          .in('id', favoritedGuideIds);
+    
+        if (guidesFetchError) {
+          throw guidesFetchError;
+        }
+    
+        // Set the fetched guide titles
+        setFavoritedGuides(guidesData.map((guide) => guide.title));
+      } catch (error) {
+        console.error('Error fetching favorited guides:', error.message);
+      }
+    };
+    
+
+    fetchFavoritedGuides();
+  }, []);
+
 
   return (
     <View style={styles.container}>
@@ -34,14 +63,14 @@ const FavoriteGuidesScreen = ({ route }) => {
       ) : (
         <FlatList
           data={favoritedGuides}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.guideItem}>
-              <Text style={styles.guideName}>{item.title}</Text>
-              {/* Add more guide details or actions as needed */}
+              <Text style={styles.guideName}>{item}</Text>
             </View>
           )}
         />
+
       )}
     </View>
   );
@@ -75,7 +104,7 @@ const styles = StyleSheet.create({
   },
   guideItem: {
     flexDirection: 'row',
-    justifyContent: 'flex-start', // Align guide names to the left
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 12,
     borderBottomWidth: 1,
@@ -83,7 +112,7 @@ const styles = StyleSheet.create({
   },
   guideName: {
     fontSize: 16,
-    marginLeft: 8, // Add margin for better spacing
+    flex: 1,
   },
 });
 

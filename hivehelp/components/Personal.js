@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'; // Import useNavigatio
 import { personalData } from './PersonalGuidesData';
 import { Theme } from './Theme';
 import { useTheme } from './ThemeProvider';
+import { supabase } from '../supabase';
 
 const Personal = () => {
     const { colorScheme } = useTheme();
@@ -17,9 +18,28 @@ const Personal = () => {
         setExpandedGuide(index === expandedGuide ? null : index);
     };
 
-    const handleFavorite = (title) => {
-        navigation.navigate('FavoriteGuidesScreen', { title: title })
-    }
+    const user = supabase.auth.getUser();
+
+    const handleFavorite = async (userId, guideId, guideName) => {
+        try {
+            const { data, error } = await supabase
+                .from('favorite guides')
+                .insert({
+                    profile_id: userId,
+                    guide_id: guideId,
+                    guide_name: guideName,
+                });
+    
+            if (error) {
+                throw new Error('Error favoriting guide:', error.message);
+            }
+    
+            console.log('Guide favorited successfully:', data);
+            // Handle UI update or navigation as needed
+        } catch (error) {
+            console.error('Error favoriting guide:', error.message);
+        }
+    };
 
     const renderSections = (sections) => {
         return sections.map((section, index) => (
@@ -46,7 +66,7 @@ const Personal = () => {
                     {isExpanded && (
                         <View style={styles.expandedContent}>
                             {renderSections(item.sections)}
-                            <TouchableOpacity onPress={() => handleFavorite(item.title)} style={styles.backButton}>
+                            <TouchableOpacity onPress={() => handleFavorite(user.id, item.id, item.title)} style={styles.backButton}>
                                <Text style={styles.backButtonText}>Would you like to favorite this guide?</Text> 
                                 </TouchableOpacity>
                         </View>
