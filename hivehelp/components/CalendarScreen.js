@@ -12,13 +12,11 @@ import { supabase } from '../supabase';
 import { AntDesign } from "@expo/vector-icons";
 import { useTheme } from "./ThemeProvider.js";
 
-
   const CalendarScreen = ({ user_id }) => { // Accept user_id as a prop
     const { colorScheme } = useTheme();
 
-    
   // Get the current date in the format 'YYYY-MM-DD'
-  const currentDate = new Date().toISOString().split("T")[0];
+  const currentDate = '2024-04-11'
 
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -32,6 +30,7 @@ import { useTheme } from "./ThemeProvider.js";
   const [newEventDotColor, setNewEventDotColor] = useState(
     colorScheme.primaryRich,
   );
+  const [markedDates, setMarkedDates] = useState({});
 
   const colorOptions = [ '#FFD6A5',
   '#C9E4DE', 
@@ -41,107 +40,128 @@ import { useTheme } from "./ThemeProvider.js";
   '#FFADAD'];
 
   // Event details for different dates
-  const eventDetailsJSON = {
-    [currentDate]: {
+  const eventDetailsJSON = [
+    {
       title: "Today",
       dateString: [currentDate],
       description: "Have a wonderful day!!",
-      time: '12:00 AM',
+      time: "12:00 AM",
     },
-    "2024-02-04": {
+    {
       title: "Special Event",
-      dateString: "2024-02-04",
+      dateString: "2024-05-04",
       description: "This is a special event on February 4th.",
       time: "11:00 AM",
     },
-    "2024-02-06": {
+    {
       title: "Sister's Birthday",
       dateString: "2024-02-06",
       description: "Bring cake and flowers",
       time: "4:00 PM",
     },
-  };
+  ];
+
+  const [user, setUser] = useState(null);
+
+  // gets user info
+  useEffect(() => {
+    const fetchUser = async () => {
+
+      const { data: { user } } = await supabase.auth.getUser()
+
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('name')
+        .eq('id', user.id)
+        .single();
+
+      if (profileError) {
+        console.error('Error fetching user profile:', profileError.message);
+        return;
+      }
+
+      setUser(profile);
+    };
+    
+    fetchUser();
+  })
 
   useEffect(() => {
-    setEvents(eventDetailsJSON);
-  }, [currentDate]);
+    fetchEvents();
+  }, []);
 
-  // Marked dates with event details
-  const [markedDates, setMarkedDates] = useState({
-    [currentDate]: {
-      selected: true,
-      marked: true,
-      details: eventDetailsJSON[currentDate],
-    },
-    "2024-02-04": {
-      marked: true,
-      dotColor: colorScheme.primaryRich,
-      details: eventDetailsJSON["2024-02-04"],
-    },
-    "2024-02-06": {
-      marked: true,
-      dotColor: colorScheme.secondaryRich,
-      details: eventDetailsJSON["2024-02-06"],
-    },
-  });
+  const fetchEvents = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      const currentID = user.id
+      const { data, error } = await supabase.from('events').select('*').eq('user_id', currentID);
+      if (error) {
+        throw error;
+      }
+      setEvents(data);
+    } catch (error) {
+      console.error('Error fetching tasks:', error.message);
+    }
+  };
+
+
   
+    // Marked dates with event details
+    
+      const setMarkedDatesAndEvents = async () => {
+        const markedDatesObj = {};
+        events.forEach(event => {
+          markedDatesObj[event.dateString] = {
+            marked: true,
+            dotColor: colorScheme.primaryRich,
+            details: event,
+          };
+        });
+        setMarkedDates(markedDatesObj);
+        setEvents(events);
+      };
+      useEffect(() => {
+      if (events.length > 0) {
+        setMarkedDatesAndEvents();
+      }
+    }, [events]);
+
   const addEventToDatabase = async (event) => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      const user_id = user.id; // Fetch the user ID
       const { data, error } = await supabase
         .from('events')
         .insert([{ 
-          title: event.title,
-          description: event.description,
-          date: event.date,
-          time: event.time,
-          dotColor: event.dotColor,
-          user_id: user_id, // Link event to the user's UUID
+          title: newEventTitle,
+          description: newEventDescription,
+          dateString: newEventDate,
+          time: newEventTime,
+          dotColor: newEventDotColor,
+        // Link event to the user's UUID
         }]);
       
       if (error) {
         throw error;
       }
-      console.log('Event added to Supabase:', data);
+      fetchEvents();
+      const newEvent = data[0];
+      console.log(newEvent)
+      setEvents(...events, newEvent);
+      // Update marked dates immediately after adding the event
+    setMarkedDatesAndEvents();
+    setNewEventTitle("");
+    setNewEventDescription("");
+    setNewEventDate("");
+    setNewEventTime("");
+    setShowAddEvent(false);
+    
+      console.log('Event added to Supabase:', events);
       // Optionally, update the local state or perform any other action after adding the event
     } catch (error) {
       console.error('Error adding event to Supabase:', error.message);
     }
   };
   
-  
-  const addEvent = () => {
-  if (newEventTitle.trim() !== "" && newEventDate.trim() !== "" && newEventTime.trim() !== "") {
-    const newEvent = {
-      title: newEventTitle,
-      description: newEventDescription,
-      date: formatDate(newEventDate), // Updated format
-      time: formatTime(newEventTime),
-      dotColor: newEventDotColor,
-    };
 
-    // Call function to add event to Supabase
-    addEventToDatabase(newEvent);
-
-    // Update markedDates to include the newly created event
-    const updatedMarkedDates = {
-      ...markedDates,
-      [newEvent.date]: {
-        marked: true,
-        dotColor: newEventDotColor,
-        details: newEvent,
-      },
-    };
-
-    setMarkedDates(updatedMarkedDates);
-    setNewEventTitle("");
-    setNewEventDescription("");
-    setNewEventDate("");
-    setNewEventTime("");
-    setShowAddEvent(false);
-  }
-};
 
 
 // Helper function to format date as MM/DD/YYYY
@@ -206,15 +226,14 @@ const formatTime = (timeString) => {
   markedDates={markedDates}
   style={styles.Calendar}
   onDayPress={(day) => {
-    const selectedDateDetails = markedDates[day.dateString]?.details;
-    if (selectedDateDetails) {
-      console.log("Selected date details:", selectedDateDetails);
+    const selectedDateDetails = markedDates[day.dateString];
+    if (selectedDateDetails && selectedDateDetails.details) {
+      console.log("Selected date details:", events);
       setSelectedDate(day.dateString); // Set the selected date
       setShowModal(true);
     }
   }}
 />
-
 
       {/* Add event */}
       {showAddEvent && (
@@ -256,7 +275,7 @@ const formatTime = (timeString) => {
             <Text>Date</Text>
             <TextInput
               style={styles.textInput}
-              placeholder="YYYY/MM/DD"
+              placeholder="YYYY-MM-DD"
               value={newEventDate}
               onChangeText={(text) => setNewEventDate(text)}
             />
@@ -299,7 +318,7 @@ const formatTime = (timeString) => {
                 <Text>Back</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={addEvent}
+                onPress={addEventToDatabase}
                 style={[
                   styles.addButton,
                   { backgroundColor: colorScheme.tertiary },
