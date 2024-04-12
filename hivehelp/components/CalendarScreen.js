@@ -39,7 +39,7 @@ import { useTheme } from "./ThemeProvider.js";
   '#F2C6DE', 
   '#FFADAD'];
 
-  // Event details for different dates
+  // Event details for different fixed dates
   const eventDetailsJSON = [
     {
       title: "Today",
