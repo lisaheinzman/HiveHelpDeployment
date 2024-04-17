@@ -522,4 +522,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export const CalendarScreenWithEvents = { CalendarScreen, events };
+export default CalendarScreen;
