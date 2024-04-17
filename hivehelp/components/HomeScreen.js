@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, FlatList, StyleSheet } from 'react-native
 import { useNavigation } from '@react-navigation/native';
 import TaskList from './TaskList.json';
 import { useTheme } from './ThemeProvider';
-import { eventDetailsJSON } from './eventDetailsJSON'
+import { eventDetailsJSON } from './eventDetailsJSON';
 import { TasksScreen } from './TasksScreen';
 
 import { supabase } from '../supabase';
@@ -98,6 +98,7 @@ const HomeScreen = () => {
   const currentDate = new Date().toISOString().split('T')[0];
   const todayEvent = eventDetailsJSON[currentDate];
 
+
   // Set default display text
   const [displayText, setDisplayText] = useState('Remember to always do what you love!');
 
@@ -182,7 +183,7 @@ const HomeScreen = () => {
       {/* Calendar */}
       <View style={styles.container}>
         <TouchableOpacity style={[styles.box, { backgroundColor: colorScheme.tertiaryLite }, { borderColor: colorScheme.tertiaryRich }, { height: '60%' }]} onPress={goToCalendar}>
-          <View style={[styles.boxHeader, { backgroundColor: colorScheme.tertiary }, { borderBottomEndRadius: 0 }, { height: '25%' }]}>
+          <View style={[styles.boxHeader, { backgroundColor: colorScheme.tertiary }, { borderBottomEndRadius: 0 }, { height: '30%' }]}>
             <Text style={[styles.buttonText, { color: colorScheme.text }, { alignSelf: 'center' }]}>Today</Text>
             <View style={[{ paddingLeft: 10 }, { paddingTop: 20 }]}>
               <Text style={[{ color: colorScheme.text }]}>Date: {todayEvent.dateString}</Text>
@@ -295,7 +296,7 @@ const styles = StyleSheet.create({
     left: 20
   },
   buttonText: {
-    fontSize: 30,
+    fontSize: 25,
     paddingLeft: 12,
     paddingTop: 10
 

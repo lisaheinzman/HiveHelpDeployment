@@ -49,7 +49,7 @@ const SignInScreen = () => {
           <Text>Sign In</Text>
           <TextInput style={styles.input} placeholderTextColor='grey' autoCapitalize={'none'} placeholder="Enter Email" onChangeText={setEmail} value={email}/>
           <TextInput style={styles.input} placeholderTextColor='grey' secureTextEntry={true} autoCapitalize={'none'} placeholder="Password" onChangeText={setPassword} value={password}/>
-          <View style={[styles.textContainer, {paddingTop: 15}]}>
+          <View style={[styles.textContainer, {paddingTop: 8}]}>
               <View style={[styles.column]}>
               <TouchableOpacity onPress={goToForgotPassword}>
                     <Text>Forgot</Text>
