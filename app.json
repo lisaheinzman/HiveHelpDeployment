@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "af46aec2-ca7d-414e-9d36-99db4bc2eef3"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.saraschwartz.hivehelp"
+    }
+  }
+}
