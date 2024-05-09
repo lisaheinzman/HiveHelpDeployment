@@ -223,6 +223,7 @@ const formatTime = (timeString) => {
         </TouchableOpacity>
       </View>
       {/* Calendar component with marked dates and onDayPress handler */}
+      <View></View>
       <Calendar
   markedDates={markedDates}
   style={styles.Calendar}
@@ -459,10 +460,12 @@ const styles = StyleSheet.create({
   Calendar: {
     borderStyle: "solid",
     borderWidth: 1,
-    borderRadius: 10,
     marginTop: -15,
     width: 370,
-    height: "auto",
+    height: '90%', // 90% of the window width
+    aspectRatio: 1, // To maintain aspect ratio
+    borderRadius: 20, // To round the corners
+    overflow: 'hidden', // Clip the content to the rounded corners
   },
   addEventSection: {
     padding: 200, 

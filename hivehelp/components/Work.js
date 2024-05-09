@@ -86,8 +86,8 @@ const WorkGuides = () => {
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
             />
-            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backButton, {backgroundColor: colorScheme.tertiary}]}>
-                <Text style={[styles.backButtonText, {color: colorScheme.text}]}>Back</Text>
+            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backButton, { backgroundColor: colorScheme.tertiary }]}>
+                <Text style={[styles.backButtonText, { color: colorScheme.text }]}>Back</Text>
             </TouchableOpacity>
         </View>
     );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Modal, Button, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 import { personalData } from './PersonalGuidesData';
 import { Theme } from './Theme';
@@ -9,38 +9,23 @@ import { supabase } from '../supabase';
 const Personal = () => {
     const { colorScheme } = useTheme();
 
-    const [self, setSelf] = useState(personalData);
-    const [expandedGuide, setExpandedGuide] = useState(null);
-    const [favorite, setFavorite] = useState([]);
+    const [data, setSelf] = useState(personalData);
     const navigation = useNavigation(); // Get navigation object using useNavigation hook
-
-    const handlePress = (index) => {
-        setExpandedGuide(index === expandedGuide ? null : index);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+  
+    const handlePress = (item) => {
+      setSelectedItem(item);
+      setModalVisible(true);
     };
-
+  
+    const closeModal = () => {
+      setModalVisible(false);
+      setSelectedItem(null);
+    };
     const user = supabase.auth.getUser();
-
-    const handleFavorite = async (userId, guideId, guideName) => {
-        try {
-            const { data, error } = await supabase
-                .from('favorite guides')
-                .insert({
-                    profile_id: userId,
-                    guide_id: guideId,
-                    guide_name: guideName,
-                });
     
-            if (error) {
-                throw new Error('Error favoriting guide:', error.message);
-            }
-    
-            console.log('Guide favorited successfully:', data);
-            // Handle UI update or navigation as needed
-        } catch (error) {
-            console.error('Error favoriting guide:', error.message);
-        }
-    };
-
+    // returns list content os selected title
     const renderSections = (sections) => {
         return sections.map((section, index) => (
             <View key={index}>
@@ -54,44 +39,53 @@ const Personal = () => {
         ));
     };
 
-    const renderItem = ({ item, index }) => {
-        const isExpanded = index === expandedGuide;
-
-        return (
-            <TouchableOpacity onPress={() => handlePress(index)}>
-                <View style={styles.itemContainer}>
-                    <Text style={[styles.title, { color: colorScheme.text }, {color: colorScheme.secondaryRich}]}>
-                        {item.title}
-                    </Text>
-                    {isExpanded && (
-                        <View style={styles.expandedContent}>
-                            {renderSections(item.sections)}
-                            <TouchableOpacity onPress={() => handleFavorite(user.id, item.id, item.title)} style={styles.backButton}>
-                               <Text style={styles.backButtonText}>Would you like to favorite this guide?</Text> 
-                                </TouchableOpacity>
-                        </View>
-                    )}
-                </View>
-            </TouchableOpacity>
-        );
-    };
-
+    // Returns list of titles
     return (
-        <View style={[styles.container, {backgroundColor: colorScheme.background}]}>
+        <View style={styles.container}>
+             <View style={{ alignSelf: 'flex-start' }}>
+          <Button title="<" onPress={() => navigation.goBack()}></Button>
+          </View>
             <Text style={[styles.heading, { color: colorScheme.text}]}>
                 Personal Guides
             </Text>
-            <FlatList
-                data={self}
-                renderItem={renderItem}
-                keyExtractor={(item, index) => index.toString()}
-            />
-            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backButton, {backgroundColor: colorScheme.tertiary}]}>
-                <Text style={[styles.backButtonText, {color: colorScheme.text}]}>Back</Text>
+          {data.map((item, index) => (
+            <TouchableOpacity key={index} onPress={() => handlePress(item)}>
+              <View style={styles.itemContainer}>
+                <Text style={[styles.title, { color: colorScheme.text }]}>
+                  {item.title}
+                </Text>
+              </View>
             </TouchableOpacity>
+          ))}
+          {/* Modal */}
+          <Modal
+            animationType="slide"
+            visible={modalVisible}
+            onRequestClose={closeModal}
+          >
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                {selectedItem && (
+                  <>
+                  {/* Close Button */}
+                  <View style={{ alignSelf: 'flex-end' }}>
+                    <Button title="X" onPress={closeModal} />
+                  </View>
+                  <ScrollView style={styles.scrollContainer}>
+                    <Text style={[styles.title, { color: colorScheme.text }]}>
+                      {selectedItem.title}
+                    </Text>
+                    {renderSections(selectedItem.sections)}
+                    </ScrollView>
+                  </>
+                )}
+              </View>
+            </View>
+          </Modal>
         </View>
-    );
-};
+      );
+    };
+    
 
 const styles = StyleSheet.create({
     container: {
@@ -107,6 +101,18 @@ const styles = StyleSheet.create({
         marginTop: 40,
         padding: 10,
     },
+    modalContainer: {
+        flex: 1,
+     //   justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+      },
+      modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        width: '80%',
+      },
     itemContainer: {
         marginBottom: 10,
         marginTop: 15,
@@ -141,6 +147,9 @@ const styles = StyleSheet.create({
     backButtonText: {
         textAlign: 'center'
     },
+    xButton: {
+        alignSelf: 'flex-end'
+    }
 });
 
 export default Personal;
