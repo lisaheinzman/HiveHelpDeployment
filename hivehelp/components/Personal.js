@@ -10,6 +10,7 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
+import Hexagon from "react-hexagon";
 import { useNavigation } from "@react-navigation/native"; // Import useNavigation hook
 import { personalData } from "./PersonalGuidesData";
 import { Theme } from "./Theme";
@@ -43,6 +44,7 @@ const Personal = () => {
   const renderSections = (sections) => {
     return (
       <View style={styles.sectionContainer}>
+        <Hexagon style={{ stroke: "#42873f" }} />
         {sections.map((section, index) => (
           <View key={index} style={styles.section}>
             <Text style={[styles.sectionHeading, { color: colorScheme.text }]}>
