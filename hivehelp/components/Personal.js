@@ -44,7 +44,6 @@ const Personal = () => {
   const renderSections = (sections) => {
     return (
       <View style={styles.sectionContainer}>
-        <Hexagon style={{ stroke: "#42873f" }} />
         {sections.map((section, index) => (
           <View key={index} style={styles.section}>
             <Text style={[styles.sectionHeading, { color: colorScheme.text }]}>
@@ -67,7 +66,11 @@ const Personal = () => {
   return (
     <View>
       <View style={{ alignSelf: "flex-start" }}>
-        <Button title="<" onPress={() => navigation.goBack()}></Button>
+        <Button
+          color={colorScheme.text}
+          title="<"
+          onPress={() => navigation.goBack()}
+        ></Button>
       </View>
       <Text style={[styles.heading, { color: colorScheme.text }]}>
         Personal Guides
@@ -121,7 +124,11 @@ const Personal = () => {
               <>
                 {/* Close Button */}
                 <View style={{ alignSelf: "flex-end" }}>
-                  <Button title="X" onPress={closeModal} />
+                  <Button
+                    color={colorScheme.text}
+                    title="X"
+                    onPress={closeModal}
+                  />
                 </View>
                 <ScrollView style={styles.scrollContainer}>
                   <Text style={[styles.title, { color: colorScheme.text }]}>
